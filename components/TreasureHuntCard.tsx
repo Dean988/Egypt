@@ -62,7 +62,7 @@ export default function TreasureHuntCard({
       <View style={styles.imageContainer}>
         <Image source={{ uri: treasureHunt.imageUrl }} style={styles.image} />
         <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.7)']}
+          colors={['transparent', 'rgba(0,0,0,0.8)']}
           style={styles.imageGradient}
         />
         
@@ -90,8 +90,8 @@ export default function TreasureHuntCard({
           </View>
         </View>
         
-        {(treasureHunt.name?.toLowerCase().includes('hieroglyph') || 
-          treasureHunt.title?.toLowerCase().includes('hieroglyph')) && (
+        {(treasureHunt.name?.toLowerCase().includes('geroglifici') || 
+          treasureHunt.title?.toLowerCase().includes('geroglifici')) && (
           <View style={styles.catBadge}>
             <Cat size={20} color={Colors.gold} />
           </View>
@@ -99,7 +99,7 @@ export default function TreasureHuntCard({
       </View>
       
       <View style={styles.content}>
-        <Text style={Typography.bodySmall} numberOfLines={2}>{treasureHunt.description}</Text>
+        <Text style={styles.descriptionText} numberOfLines={2}>{treasureHunt.description}</Text>
         
         {isStarted && !isCompleted && progress > 0 && (
           <View style={styles.progressContainer}>
@@ -111,7 +111,7 @@ export default function TreasureHuntCard({
                 ]} 
               />
             </View>
-            <Text style={Typography.caption}>
+            <Text style={styles.progressText}>
               {Math.round(progress)}% completato
             </Text>
           </View>
@@ -128,15 +128,15 @@ export default function TreasureHuntCard({
         
         <View style={styles.footer}>
           <View style={styles.infoItem}>
-            <Clock size={16} color={Colors.lightText} />
-            <Text style={[Typography.caption, styles.infoText]}>
+            <Clock size={16} color={Colors.gold} />
+            <Text style={styles.infoText}>
               {treasureHunt.estimatedTime || treasureHunt.duration || "30 min"}
             </Text>
           </View>
           
           <View style={styles.infoItem}>
             <Text style={[
-              Typography.caption, 
+              styles.infoText, 
               { color: getDifficultyColor(treasureHunt.difficulty) }
             ]}>
               {treasureHunt.difficulty ? 
@@ -146,32 +146,32 @@ export default function TreasureHuntCard({
           </View>
           
           <View style={styles.infoItem}>
-            <Text style={Typography.caption}>
+            <Text style={styles.infoText}>
               Età: {treasureHunt.ageRecommendation || treasureHunt.ageRange || "6+"}
             </Text>
           </View>
         </View>
       </View>
-      <EgyptianPattern style={styles.egyptianBorder} />
+      <EgyptianPattern style={styles.egyptianBorder} color={Colors.gold} />
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 16,
     elevation: 3,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
     shadowRadius: 5,
     marginHorizontal: 0,
-    borderWidth: 1,
-    borderColor: Colors.desertSand,
-    height: 320, // Increased height to fit all content
+    borderWidth: 2,
+    borderColor: Colors.gold,
+    height: 320,
   },
   containerPressed: {
     opacity: 0.95,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: '70%',
+    height: '100%',
   },
   imageContent: {
     position: 'absolute',
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: Colors.card,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
     marginBottom: 4,
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   locationText: {
     fontSize: 12,
     color: Colors.card,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
     textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 2,
   },
@@ -225,6 +225,19 @@ const styles = StyleSheet.create({
     padding: 16,
     flex: 1,
     justifyContent: 'space-between',
+  },
+  descriptionText: {
+    fontSize: 14,
+    color: '#ffffff',
+    lineHeight: 20,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
+  },
+  progressText: {
+    fontSize: 12,
+    color: '#cccccc',
+    marginTop: 4,
   },
   rewardsContainer: {
     flexDirection: 'row',
@@ -235,15 +248,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    backgroundColor: 'rgba(212, 175, 55, 0.2)',
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 4,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   rewardText: {
     fontSize: 12,
-    color: Colors.text,
+    color: Colors.gold,
     fontWeight: '500',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   footer: {
     flexDirection: 'row',
@@ -256,20 +274,24 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   infoText: {
-    color: Colors.lightText,
+    fontSize: 12,
+    color: '#ffffff',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   completedBadge: {
     position: 'absolute',
     top: 12,
     right: 12,
-    backgroundColor: Colors.success,
+    backgroundColor: Colors.gold,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
     gap: 4,
-    zIndex: 5,
+    zIndex: 10,
   },
   progressBadge: {
     position: 'absolute',
@@ -277,28 +299,27 @@ const styles = StyleSheet.create({
     right: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
     gap: 4,
-    zIndex: 5,
+    zIndex: 10,
   },
   inProgressBadge: {
-    backgroundColor: Colors.gold,
+    backgroundColor: Colors.warning,
   },
   badgeText: {
-    color: Colors.card,
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: 'bold',
+    color: Colors.card,
   },
   progressContainer: {
     marginTop: 12,
   },
   progressBar: {
     height: 6,
-    backgroundColor: Colors.border,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: 3,
-    marginBottom: 4,
     overflow: 'hidden',
   },
   progressFill: {
@@ -306,24 +327,25 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gold,
     borderRadius: 3,
   },
-  egyptianBorder: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
   catBadge: {
     position: 'absolute',
     top: 12,
     left: 12,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    borderRadius: 16,
-    width: 32,
-    height: 32,
+    borderRadius: 20,
+    width: 40,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.gold,
-    zIndex: 5,
+    zIndex: 10,
+  },
+  egyptianBorder: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 8,
   },
 });

@@ -3,10 +3,10 @@ import { TreasureHunt } from '@/types';
 const treasureHunts: TreasureHunt[] = [
   {
     id: 'hunt1',
-    name: "Pharaoh's Secret",
-    description: "Uncover the hidden message left by an ancient pharaoh by solving riddles related to royal artifacts throughout the museum.",
+    name: "Il Segreto del Faraone",
+    description: "Scopri il messaggio nascosto lasciato da un antico faraone risolvendo enigmi relativi agli artefatti reali esposti nel museo.",
     imageUrl: "https://mammarum.com/wp-content/uploads/2020/08/museo-egizio-torino-con-i-bambini19-1024x768.jpg",
-    difficulty: "Medium",
+    difficulty: "Medio",
     duration: 45,
     locations: 3,
     ageRange: "8+",
@@ -14,26 +14,26 @@ const treasureHunts: TreasureHunt[] = [
     clues: [
       {
         id: 'clue1-1',
-        question: "I stand tall with crown and beard, my name means 'Ra has fashioned him'. Find me and count the symbols on my belt.",
-        hint: "Look for the largest statue in the Main Hall.",
+        question: "Mi ergo alto con corona e barba, il mio nome significa 'Ra l'ha forgiato'. Trovami e conta i simboli sulla mia cintura.",
+        hint: "Cerca la statua più grande nella Sala Principale.",
         exhibitId: 'ex1',
         answer: "5",
         imageUrl: "https://www.museiditorino.it/wp-content/uploads/2023/12/statua-museo-egizio-torino.jpg"
       },
       {
         id: 'clue1-2',
-        question: "My face is gold, my eyes are watching. What animal is depicted on my forehead?",
-        hint: "This famous mask belonged to a boy king.",
+        question: "Il mio volto è d'oro, i miei occhi osservano. Quale animale è raffigurato sulla mia fronte?",
+        hint: "Questa famosa maschera apparteneva a un giovane re.",
         exhibitId: 'ex2',
         answer: "cobra",
         imageUrl: "https://www.torinotoday.it/~media/horizontal-hi/12733984865485/museo-egizio_2.jpg"
       },
       {
         id: 'clue1-3',
-        question: "I have the body of a lion but whose face do I wear?",
-        hint: "Look for a mythical creature in the Sculpture Garden.",
+        question: "Ho il corpo di un leone ma di chi è il volto che indosso?",
+        hint: "Cerca una creatura mitica nel Giardino delle Sculture.",
         exhibitId: 'ex8',
-        answer: "pharaoh",
+        answer: "faraone",
         imageUrl: "https://www.museiditorino.it/wp-content/uploads/2023/12/statua-museo-egizio-torino.jpg"
       }
     ],
@@ -42,10 +42,10 @@ const treasureHunts: TreasureHunt[] = [
   },
   {
     id: 'hunt2',
-    name: "Journey to the Afterlife",
-    description: "Help a fictional ancient Egyptian navigate the challenges of the afterlife by finding objects and spells they would need.",
+    name: "Viaggio nell'Aldilà",
+    description: "Aiuta un antico egizio immaginario ad affrontare le sfide dell'aldilà trovando oggetti e incantesimi necessari per il suo viaggio.",
     imageUrl: "https://image.jimcdn.com/app/cms/image/transf/none/path/sf63059cf0e80ccf2/image/i277695e35fd5be56/version/1614080422/image.jpg",
-    difficulty: "Hard",
+    difficulty: "Difficile",
     duration: 60,
     locations: 4,
     ageRange: "10+",
@@ -53,26 +53,26 @@ const treasureHunts: TreasureHunt[] = [
     clues: [
       {
         id: 'clue2-1',
-        question: "To preserve my organs for the afterlife, I need four special containers. What are they called?",
-        hint: "Look in the Funerary Practices Hall for jars with animal heads.",
+        question: "Per preservare i miei organi per l'aldilà, ho bisogno di quattro contenitori speciali. Come si chiamano?",
+        hint: "Cerca nella Sala delle Pratiche Funerarie i vasi con teste di animali.",
         exhibitId: 'ex7',
-        answer: "canopic jars",
+        answer: "vasi canopi",
         imageUrl: "https://www.crisalideviaggi.com/uploads/image/museo-egizio(1).jpg"
       },
       {
         id: 'clue2-2',
-        question: "I need a guide for my journey. Find the papyrus with spells and write down the name of the scale-wielding god who judges souls.",
-        hint: "Look for a long papyrus scroll in the Papyrus Gallery.",
+        question: "Ho bisogno di una guida per il mio viaggio. Trova il papiro con gli incantesimi e scrivi il nome del dio con la bilancia che giudica le anime.",
+        hint: "Cerca un lungo rotolo di papiro nella Galleria dei Papiri.",
         exhibitId: 'ex3',
-        answer: "anubis",
+        answer: "anubi",
         imageUrl: "https://www.crisalideviaggi.com/uploads/image/museo-egizio(1).jpg"
       },
       {
         id: 'clue2-3',
-        question: "To complete my journey, I must find a well-preserved traveler who has already made the journey. What was his profession?",
-        hint: "Look for a mummy in Room B1.",
+        question: "Per completare il mio viaggio, devo trovare un viaggiatore ben conservato che ha già fatto questo percorso. Qual era la sua professione?",
+        hint: "Cerca una mummia nella Sala B1.",
         exhibitId: 'ex5',
-        answer: "architect",
+        answer: "architetto",
         imageUrl: "https://image.jimcdn.com/app/cms/image/transf/none/path/sf63059cf0e80ccf2/image/i277695e35fd5be56/version/1614080422/image.jpg"
       }
     ],
@@ -81,10 +81,10 @@ const treasureHunts: TreasureHunt[] = [
   },
   {
     id: 'hunt3',
-    name: "Hieroglyph Detective",
-    description: "Decode ancient messages by finding and translating hieroglyphs throughout the museum.",
+    name: "Detective dei Geroglifici",
+    description: "Decodifica antichi messaggi trovando e traducendo geroglifici in tutto il museo.",
     imageUrl: "https://www.guidatorino.com/wp-content/uploads/2017/01/museo-egizio-torino_6.jpg",
-    difficulty: "Easy",
+    difficulty: "Facile",
     duration: 40,
     locations: 3,
     ageRange: "6+",
@@ -92,26 +92,26 @@ const treasureHunts: TreasureHunt[] = [
     clues: [
       {
         id: 'clue3-1',
-        question: "Find the stone that helped scholars decode hieroglyphs. How many languages appear on it?",
-        hint: "Look for a dark stone tablet in the Language Hall.",
+        question: "Trova la pietra che aiutò gli studiosi a decifrare i geroglifici. Quante lingue appaiono su di essa?",
+        hint: "Cerca una tavoletta di pietra scura nella Sala delle Lingue.",
         exhibitId: 'ex4',
         answer: "3",
         imageUrl: "https://www.guidatorino.com/wp-content/uploads/2017/01/museo-egizio-torino_6.jpg"
       },
       {
         id: 'clue3-2',
-        question: "On the Book of the Dead papyrus, find the symbol that represents life. What is it called?",
-        hint: "Look for a cross-like symbol with a loop at the top.",
+        question: "Sul papiro del Libro dei Morti, trova il simbolo che rappresenta la vita. Come si chiama?",
+        hint: "Cerca un simbolo simile a una croce con un anello in cima.",
         exhibitId: 'ex3',
         answer: "ankh",
         imageUrl: "https://www.crisalideviaggi.com/uploads/image/museo-egizio(1).jpg"
       },
       {
         id: 'clue3-3',
-        question: "Find the queen with the tall crown. What animal symbol appears most frequently in her cartouche?",
-        hint: "Look for a beautiful bust of a queen in the Royal Gallery.",
+        question: "Trova la regina con la corona alta. Quale simbolo animale appare più frequentemente nel suo cartiglio?",
+        hint: "Cerca un bellissimo busto di una regina nella Galleria Reale.",
         exhibitId: 'ex6',
-        answer: "bird",
+        answer: "uccello",
         imageUrl: "https://www.apollo-magazine.com/wp-content/uploads/2024/11/LEAD-26-The-Gallery-of-the-Kings-by-Marco-Cappelletti.jpg?resize=900%2C600"
       }
     ],
