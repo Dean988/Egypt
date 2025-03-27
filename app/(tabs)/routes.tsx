@@ -155,22 +155,22 @@ export default function RoutesScreen() {
 
   const renderHeader = () => (
     <View style={styles.header}>
-      <View style={styles.iconContainer}>
-        <RouteIcon size={24} color={Colors.gold} />
-      </View>
-      <Text style={Typography.h1}>Guided Routes</Text>
-      <Text style={[Typography.body, styles.subtitle]}>
-        Explore the museum with our carefully curated thematic routes
-      </Text>
+      {/* Immagine di sfondo principale */}
+      <Image 
+        source={{ uri: 'https://i.imgur.com/PgFbi2Q.png' }}
+        style={styles.headerBackground}
+        resizeMode="cover"
+      />
       
-      {/* Egyptian decorative element - Updated with new image */}
-      <View style={styles.decorativeElement}>
-        <Image 
-          source={{ uri: 'https://i.imgur.com/KzLa64W.png' }}
-          style={styles.decorativeImage}
-          resizeMode="cover"
-        />
-        <View style={styles.decorativeOverlay} />
+      {/* Overlay scuro per migliorare la leggibilità del testo */}
+      <View style={styles.headerOverlay}>
+        <View style={styles.headerContent}>
+          <Text style={styles.headerTitle}>PERCORSI GUIDATI</Text>
+          <View style={styles.titleBar} />
+          <Text style={styles.headerSubtitle}>
+            Attraversa i millenni dell'antico Egitto con i nostri percorsi tematici
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -450,42 +450,63 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   header: {
-    alignItems: 'center',
-    marginBottom: 24,
-    paddingTop: 16,
-  },
-  iconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: Colors.gold,
-  },
-  subtitle: {
-    textAlign: 'center',
-    marginTop: 8,
-    marginBottom: 16,
-    paddingHorizontal: 32,
-    color: Colors.lightText,
-  },
-  decorativeElement: {
-    width: '100%',
-    height: 200, // Increased height for the new image
-    overflow: 'hidden',
-    marginBottom: 16,
+    height: 320,
     position: 'relative',
+    marginBottom: 24,
   },
-  decorativeImage: {
+  headerBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     width: '100%',
     height: '100%',
   },
-  decorativeOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)', // Slight overlay for better text visibility if needed
+  headerOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerContent: {
+    width: '90%',
+    padding: 24,
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderWidth: 1,
+    borderColor: Colors.gold,
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: Colors.gold,
+    letterSpacing: 3,
+    marginBottom: 12,
+    textTransform: 'uppercase',
+    textShadowColor: 'rgba(0, 0, 0, 0.9)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
+  },
+  titleBar: {
+    width: 100,
+    height: 4,
+    backgroundColor: Colors.gold,
+    marginBottom: 16,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.6,
+    shadowRadius: 6,
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: '#ffffff',
+    textAlign: 'center',
+    lineHeight: 24,
   },
   // Khufu Banner - New addition
   khufuBanner: {
