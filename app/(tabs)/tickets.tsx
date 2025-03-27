@@ -2,40 +2,63 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, ScrollView, Image, Pressable, Alert, Modal, TouchableOpacity, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack } from 'expo-router';
-import { Ticket, Calendar, Clock, Users, Info, X, Headphones, Zap } from 'lucide-react-native';
+import { Ticket, Calendar, Clock, Users, Info, X, Headphones, Zap, Check } from 'lucide-react-native';
 import Colors from '@/constants/colors';
 import Button from '@/components/Button';
 import EgyptianPattern from '@/components/EgyptianPattern';
 // Import the custom date picker component instead
 import CustomDatePicker from '@/components/CustomDatePicker';
 
+// Define ticket interface
+interface TicketType {
+  id: number;
+  name: string;
+  price: string;
+  description: string;
+}
+
+// Define date interface
+interface DateType {
+  id: number | string;
+  day: string;
+  date: string;
+  month: string;
+  fullDate?: Date;
+}
+
+// Define time interface
+interface TimeType {
+  id: number;
+  time: string;
+}
+
 export default function TicketsScreen() {
-  const [selectedTicket, setSelectedTicket] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedTicket, setSelectedTicket] = useState<TicketType | null>(null);
+  const [selectedDate, setSelectedDate] = useState<DateType | null>(null);
+  const [selectedTime, setSelectedTime] = useState<TimeType | null>(null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [tempDate, setTempDate] = useState(new Date());
   const [showSpeedyModal, setShowSpeedyModal] = useState(false);
   
-  const tickets = [
-    { id: 1, name: "Adult", price: "€15", description: "Ages 18+" },
-    { id: 2, name: "Child", price: "€8", description: "Ages 6-17" },
-    { id: 3, name: "Senior", price: "€12", description: "Ages 65+" },
-    { id: 4, name: "Family", price: "€35", description: "2 Adults + 2 Children" },
-    { id: 5, name: "Student", price: "€10", description: "With valid ID" },
+  const tickets: TicketType[] = [
+    { id: 1, name: "Adulto", price: "€15", description: "Dai 18 anni" },
+    { id: 2, name: "Bambino", price: "€8", description: "6-17 anni" },
+    { id: 3, name: "Senior", price: "€12", description: "Dai 65 anni" },
+    { id: 4, name: "Famiglia", price: "€35", description: "2 Adulti + 2 Bambini" },
+    { id: 5, name: "Studente", price: "€10", description: "Con tessera valida" },
   ];
   
-  const dates = [
-    { id: 1, day: "Mon", date: "15", month: "Jul" },
-    { id: 2, day: "Tue", date: "16", month: "Jul" },
-    { id: 3, day: "Wed", date: "17", month: "Jul" },
-    { id: 4, day: "Thu", date: "18", month: "Jul" },
-    { id: 5, day: "Fri", date: "19", month: "Jul" },
-    { id: 6, day: "Sat", date: "20", month: "Jul" },
-    { id: 7, day: "Sun", date: "21", month: "Jul" },
+  const dates: DateType[] = [
+    { id: 1, day: "Lun", date: "15", month: "Lug" },
+    { id: 2, day: "Mar", date: "16", month: "Lug" },
+    { id: 3, day: "Mer", date: "17", month: "Lug" },
+    { id: 4, day: "Gio", date: "18", month: "Lug" },
+    { id: 5, day: "Ven", date: "19", month: "Lug" },
+    { id: 6, day: "Sab", date: "20", month: "Lug" },
+    { id: 7, day: "Dom", date: "21", month: "Lug" },
   ];
   
-  const times = [
+  const times: TimeType[] = [
     { id: 1, time: "09:00" },
     { id: 2, time: "10:00" },
     { id: 3, time: "11:00" },
@@ -46,22 +69,22 @@ export default function TicketsScreen() {
     { id: 8, time: "16:00" },
   ];
   
-  const handleTicketSelect = (ticket) => {
+  const handleTicketSelect = (ticket: TicketType) => {
     setSelectedTicket(ticket);
   };
   
-  const handleDateSelect = (date) => {
+  const handleDateSelect = (date: DateType) => {
     setSelectedDate(date);
   };
   
-  const handleTimeSelect = (time) => {
+  const handleTimeSelect = (time: TimeType) => {
     setSelectedTime(time);
   };
   
   const handlePurchase = () => {
     Alert.alert(
-      "Coming Soon...",
-      "Ticket purchasing will be available in a future update.",
+      "Prossimamente...",
+      "L'acquisto dei biglietti sarà disponibile in un prossimo aggiornamento.",
       [{ text: "OK", onPress: () => console.log("OK Pressed") }]
     );
   };
@@ -78,15 +101,15 @@ export default function TicketsScreen() {
     setShowCalendar(true);
   };
 
-  const handleCalendarChange = (date) => {
+  const handleCalendarChange = (date: Date) => {
     setTempDate(date);
   };
 
-  const confirmCalendarDate = (date) => {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const confirmCalendarDate = (date: Date) => {
+    const days = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+    const months = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
     
-    const customDate = {
+    const customDate: DateType = {
       id: 'custom',
       day: days[date.getDay()],
       date: date.getDate().toString(),
@@ -118,9 +141,23 @@ export default function TicketsScreen() {
             style={styles.heroImage}
           />
           <View style={styles.heroOverlay}>
-            <Text style={styles.heroTitle}>Museum Tickets</Text>
-            <Text style={styles.heroSubtitle}>Experience the wonders of ancient Egypt</Text>
+            <View style={styles.heroTitleContainer}>
+              <Text style={styles.heroTitle}>BIGLIETTI MUSEO</Text>
+              <View style={styles.titleUnderline} />
+            </View>
+            <Text style={styles.heroSubtitle}>Scopri le meraviglie dell'antico Egitto</Text>
           </View>
+        </View>
+        
+        {/* Introduction Section */}
+        <View style={styles.introSection}>
+          <View style={styles.iconContainer}>
+            <Ticket size={28} color={Colors.gold} />
+          </View>
+          <Text style={styles.introTitle}>Pianifica la tua visita</Text>
+          <Text style={styles.introSubtitle}>
+            Acquista i biglietti in anticipo per una visita senza attese
+          </Text>
         </View>
         
         {/* Audio Guide Promo */}
@@ -131,13 +168,13 @@ export default function TicketsScreen() {
             resizeMode="cover"
           />
           <View style={styles.audioGuideContent}>
-            <Text style={styles.audioGuideTitle}>Audio Guide Included</Text>
+            <Text style={styles.audioGuideTitle}>Audio Guida Inclusa</Text>
             <Text style={styles.audioGuideDescription}>
-              Scan QR codes throughout the museum for a multimedia experience
+              Scansiona i codici QR nel museo per un'esperienza multimediale
             </Text>
             <View style={styles.audioGuideFeature}>
               <Headphones size={14} color={Colors.gold} />
-              <Text style={styles.audioGuideFeatureText}>FREE with ticket</Text>
+              <Text style={styles.audioGuideFeatureText}>GRATIS con il biglietto</Text>
             </View>
           </View>
         </View>
@@ -148,7 +185,7 @@ export default function TicketsScreen() {
             <View style={styles.speedyTicketHeader}>
               <Text style={styles.speedyTicketTitle}>Biglietto Speedy</Text>
               <View style={styles.comingSoonBadge}>
-                <Text style={styles.comingSoonText}>Coming Soon</Text>
+                <Text style={styles.comingSoonText}>In Arrivo</Text>
               </View>
             </View>
             <Text style={styles.speedyTicketDescription}>
@@ -181,14 +218,14 @@ export default function TicketsScreen() {
         <View style={styles.infoContainer}>
           <View style={styles.infoItem}>
             <Clock size={20} color={Colors.gold} />
-            <Text style={styles.infoText}>Open daily: 9:00 AM - 6:30 PM</Text>
+            <Text style={styles.infoText}>Aperto tutti i giorni: 9:00 - 18:30</Text>
           </View>
         </View>
         
         <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Ticket size={20} color={Colors.gold} />
-            <Text style={styles.sectionTitle}>Select Ticket Type</Text>
+          <View style={styles.sectionTitleContainer}>
+            <Text style={styles.sectionTitle}>SCEGLI IL BIGLIETTO</Text>
+            <View style={styles.sectionTitleUnderline} />
           </View>
           
           <ScrollView 
@@ -208,17 +245,22 @@ export default function TicketsScreen() {
                 <Text style={styles.ticketName}>{ticket.name}</Text>
                 <Text style={styles.ticketPrice}>{ticket.price}</Text>
                 <Text style={styles.ticketDescription}>{ticket.description}</Text>
+                {selectedTicket?.id === ticket.id && (
+                  <View style={styles.selectedTicketIndicator}>
+                    <Check size={16} color={Colors.card} />
+                  </View>
+                )}
               </Pressable>
             ))}
           </ScrollView>
         </View>
         
-        <EgyptianPattern style={styles.divider} />
+        <EgyptianPattern style={styles.divider} color={Colors.gold} />
         
         <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Calendar size={20} color={Colors.gold} />
-            <Text style={styles.sectionTitle}>Select Date</Text>
+          <View style={styles.sectionTitleContainer}>
+            <Text style={styles.sectionTitle}>SCEGLI LA DATA</Text>
+            <View style={styles.sectionTitleUnderline} />
           </View>
           
           <View style={styles.dateSelectionContainer}>
@@ -267,7 +309,7 @@ export default function TicketsScreen() {
               ]}>
                 {selectedDate?.id === 'custom' 
                   ? `${selectedDate.day}, ${selectedDate.date} ${selectedDate.month}` 
-                  : "Select from Calendar"}
+                  : "Seleziona dal Calendario"}
               </Text>
             </TouchableOpacity>
           </View>
@@ -283,9 +325,9 @@ export default function TicketsScreen() {
               <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
                   <View style={styles.modalHeader}>
-                    <Text style={styles.modalTitle}>Select a Date</Text>
+                    <Text style={styles.modalTitle}>Seleziona una Data</Text>
                     <TouchableOpacity onPress={cancelCalendarSelection}>
-                      <X size={24} color={Colors.text} />
+                      <X size={24} color={Colors.gold} />
                     </TouchableOpacity>
                   </View>
                   
@@ -297,12 +339,12 @@ export default function TicketsScreen() {
                   
                   <View style={styles.modalActions}>
                     <Button 
-                      title="Cancel" 
+                      title="Annulla" 
                       onPress={cancelCalendarSelection} 
                       style={styles.cancelButton}
                     />
                     <Button 
-                      title="Confirm" 
+                      title="Conferma" 
                       onPress={() => confirmCalendarDate(tempDate)} 
                     />
                   </View>
@@ -338,58 +380,67 @@ export default function TicketsScreen() {
         </View>
         
         <View style={styles.summaryContainer}>
-          <Text style={styles.summaryTitle}>Order Summary</Text>
+          <Text style={styles.summaryTitle}>Riepilogo Ordine</Text>
           
           {selectedTicket ? (
             <View style={styles.summaryItem}>
-              <Text style={styles.summaryLabel}>{selectedTicket.name} Ticket</Text>
+              <Text style={styles.summaryLabel}>Biglietto {selectedTicket.name}</Text>
               <Text style={styles.summaryValue}>{selectedTicket.price}</Text>
             </View>
           ) : (
-            <Text style={styles.summaryPlaceholder}>Select a ticket type</Text>
+            <Text style={styles.summaryPlaceholder}>Seleziona un tipo di biglietto</Text>
           )}
           
           {selectedDate ? (
             <View style={styles.summaryItem}>
-              <Text style={styles.summaryLabel}>Date</Text>
+              <Text style={styles.summaryLabel}>Data</Text>
               <Text style={styles.summaryValue}>
                 {selectedDate.day}, {selectedDate.date} {selectedDate.month}
               </Text>
             </View>
           ) : (
-            <Text style={styles.summaryPlaceholder}>Select a date</Text>
+            <Text style={styles.summaryPlaceholder}>Seleziona una data</Text>
           )}
           
           {selectedTime ? (
             <View style={styles.summaryItem}>
-              <Text style={styles.summaryLabel}>Time</Text>
+              <Text style={styles.summaryLabel}>Orario</Text>
               <Text style={styles.summaryValue}>{selectedTime.time}</Text>
             </View>
           ) : (
-            <Text style={styles.summaryPlaceholder}>Select a time</Text>
+            <Text style={styles.summaryPlaceholder}>Seleziona un orario</Text>
           )}
           
           {isFormComplete && (
             <View style={styles.summaryTotal}>
-              <Text style={styles.summaryTotalLabel}>Total</Text>
+              <Text style={styles.summaryTotalLabel}>Totale</Text>
               <Text style={styles.summaryTotalValue}>{selectedTicket.price}</Text>
             </View>
           )}
         </View>
         
         <Button 
-          title="Tickets" 
+          title="Acquista" 
           onPress={handlePurchase}
           disabled={!isFormComplete}
           style={styles.purchaseButton}
         />
         
         <View style={styles.notesContainer}>
-          <Text style={styles.notesTitle}>Important Information</Text>
-          <Text style={styles.notesText}>• Tickets are non-refundable</Text>
-          <Text style={styles.notesText}>• Children under 6 enter free</Text>
-          <Text style={styles.notesText}>• Please arrive 15 minutes before your scheduled time</Text>
-          <Text style={styles.notesText}>• Audio guides are available for an additional fee</Text>
+          <Text style={styles.notesTitle}>Informazioni Importanti</Text>
+          <Text style={styles.notesText}>• I biglietti non sono rimborsabili</Text>
+          <Text style={styles.notesText}>• Bambini sotto i 6 anni entrano gratis</Text>
+          <Text style={styles.notesText}>• Si prega di arrivare 15 minuti prima dell'orario prenotato</Text>
+          <Text style={styles.notesText}>• Le audioguide sono disponibili a un costo aggiuntivo</Text>
+        </View>
+        
+        {/* Papyrus Footer Image */}
+        <View style={styles.papyrusFooterContainer}>
+          <Image 
+            source={{ uri: "https://i.imgur.com/RxDBtux.png" }}
+            style={styles.papyrusFooterImage}
+            resizeMode="cover"
+          />
         </View>
       </ScrollView>
 
@@ -405,7 +456,7 @@ export default function TicketsScreen() {
             <View style={styles.speedyModalHeader}>
               <Text style={styles.speedyModalTitle}>Biglietto Speedy</Text>
               <TouchableOpacity onPress={closeSpeedyModal} style={styles.closeButton}>
-                <X size={24} color={Colors.text} />
+                <X size={24} color={Colors.gold} />
               </TouchableOpacity>
             </View>
             
@@ -417,7 +468,7 @@ export default function TicketsScreen() {
             
             <View style={styles.speedyModalContent}>
               <View style={styles.comingSoonBadgeLarge}>
-                <Text style={styles.comingSoonTextLarge}>Coming Soon</Text>
+                <Text style={styles.comingSoonTextLarge}>In Arrivo</Text>
               </View>
               
               <Text style={styles.speedyModalDescription}>
@@ -451,107 +502,188 @@ export default function TicketsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.papyrus,
+    backgroundColor: '#231f20',
   },
   scrollView: {
-    flex: 1,
+    backgroundColor: '#231f20',
   },
   heroContainer: {
+    height: 240,
     width: '100%',
-    height: 200,
     position: 'relative',
+    borderBottomWidth: 3,
+    borderBottomColor: Colors.gold,
   },
   heroImage: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
+    position: 'absolute',
   },
   heroOverlay: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    padding: 16,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  heroTitleContainer: {
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: 'rgba(212, 175, 55, 0.8)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+    position: 'relative',
+    marginHorizontal: 20,
   },
   heroTitle: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
-    color: 'white',
+    color: Colors.gold,
+    letterSpacing: 4,
+    marginBottom: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.9)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+    textTransform: 'uppercase',
+  },
+  titleUnderline: {
+    height: 4,
+    width: 120,
+    backgroundColor: Colors.gold,
+    marginBottom: 16,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    borderRadius: 2,
   },
   heroSubtitle: {
-    fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: 18,
+    color: '#ffffff',
+    textAlign: 'center',
+    letterSpacing: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
-  // Audio Guide Promo
-  audioGuidePromo: {
-    margin: 16,
-    backgroundColor: Colors.card,
-    borderRadius: 12,
-    overflow: 'hidden',
-    borderWidth: 1,
+  introSection: {
+    alignItems: 'center',
+    marginTop: 24,
+    marginBottom: 24,
+    paddingHorizontal: 16,
+  },
+  iconContainer: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
+    borderWidth: 2,
     borderColor: Colors.gold,
-    flexDirection: 'row',
-    height: 120,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 4,
+  },
+  introTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: Colors.gold,
+    letterSpacing: 2,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+    marginBottom: 8,
+  },
+  introSubtitle: {
+    fontSize: 16,
+    color: '#e0e0e0',
+    textAlign: 'center',
+    fontWeight: 'normal',
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
+  },
+  audioGuidePromo: {
+    flexDirection: 'row',
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
+    borderRadius: 12,
+    marginHorizontal: 16,
+    marginVertical: 16,
+    overflow: 'hidden',
+    borderWidth: 2,
+    borderColor: Colors.gold,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
   audioGuideImage: {
-    width: '40%',
-    height: '100%',
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    backgroundColor: '#000',
   },
   audioGuideContent: {
     flex: 1,
-    padding: 12,
-    justifyContent: 'space-between',
+    padding: 16,
+    justifyContent: 'center',
   },
   audioGuideTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: Colors.text,
-    marginBottom: 4,
+    color: Colors.gold,
+    marginBottom: 6,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   audioGuideDescription: {
-    fontSize: 12,
-    color: Colors.lightText,
-    lineHeight: 16,
+    fontSize: 14,
+    color: '#ffffff',
+    marginBottom: 8,
+    lineHeight: 18,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   audioGuideFeature: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(245, 197, 24, 0.1)',
-    paddingHorizontal: 8,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 4,
+    borderRadius: 12,
     alignSelf: 'flex-start',
-    gap: 4,
     borderWidth: 1,
-    borderColor: Colors.gold,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   audioGuideFeatureText: {
-    color: Colors.gold,
     fontSize: 12,
+    color: Colors.gold,
+    marginLeft: 6,
     fontWeight: 'bold',
   },
-  // Speedy Ticket Promo
   speedyTicketPromo: {
-    margin: 16,
-    marginTop: 0,
-    backgroundColor: Colors.card,
-    borderRadius: 12,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: Colors.gold,
     flexDirection: 'row',
-    height: 250, // Increased from 220 to 250
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
+    borderRadius: 12,
+    marginHorizontal: 16,
+    marginVertical: 16,
+    overflow: 'hidden',
+    borderWidth: 2,
+    borderColor: Colors.gold,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
   speedyTicketContent: {
     flex: 1,
@@ -561,119 +693,193 @@ const styles = StyleSheet.create({
   speedyTicketHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     marginBottom: 8,
   },
   speedyTicketTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.gold,
+    marginRight: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   comingSoonBadge: {
-    backgroundColor: Colors.nileBlue,
+    backgroundColor: 'rgba(212, 175, 55, 0.3)',
     paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
+    paddingVertical: 2,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: Colors.gold,
   },
   comingSoonText: {
-    color: Colors.card,
     fontSize: 10,
+    color: Colors.gold,
     fontWeight: 'bold',
   },
   speedyTicketDescription: {
-    fontSize: 12,
-    color: Colors.lightText,
-    lineHeight: 16,
-    marginBottom: 16, // Increased from 12 to 16
+    fontSize: 14,
+    color: '#ffffff',
+    marginBottom: 12,
+    lineHeight: 18,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   speedyTicketFeatures: {
-    marginBottom: 20, // Increased from 16 to 20
+    flexDirection: 'row',
+    marginBottom: 12,
+    gap: 8,
   },
   speedyTicketFeature: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10, // Increased from 8 to 10
-    gap: 8,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   speedyTicketFeatureText: {
     fontSize: 12,
-    color: Colors.text,
+    color: '#ffffff',
+    marginLeft: 6,
+    fontWeight: 'bold',
   },
   speedyTicketButton: {
-    paddingVertical: 12, // Increased from 10 to 12
-    paddingHorizontal: 16,
     backgroundColor: Colors.gold,
-    marginTop: 10, // Increased from 8 to 10
+    borderRadius: 8,
   },
   speedyTicketImage: {
-    width: '40%',
+    width: 100,
     height: '100%',
+    backgroundColor: '#000',
   },
   infoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    marginHorizontal: 16,
+    borderRadius: 12,
     padding: 16,
-    backgroundColor: Colors.card,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    marginBottom: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   infoItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
   },
   infoText: {
-    color: Colors.text,
-    fontSize: 14,
+    fontSize: 16,
+    color: '#ffffff',
+    marginLeft: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   section: {
-    padding: 16,
+    marginBottom: 24,
+    paddingHorizontal: 16,
   },
-  sectionHeader: {
-    flexDirection: 'row',
+  sectionTitleContainer: {
     alignItems: 'center',
     marginBottom: 16,
-    gap: 8,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.gold,
+    letterSpacing: 1.5,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+    marginBottom: 6,
+    textTransform: 'uppercase',
+  },
+  sectionTitleUnderline: {
+    height: 3,
+    width: 80,
+    backgroundColor: Colors.gold,
+    borderRadius: 1.5,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
   },
   ticketsContainer: {
-    paddingBottom: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    gap: 16,
   },
   ticketCard: {
-    width: 140,
-    padding: 16,
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
     borderRadius: 12,
-    marginRight: 12,
+    padding: 16,
+    width: 150,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: 'rgba(212, 175, 55, 0.3)',
+    position: 'relative',
   },
   ticketCardSelected: {
+    borderWidth: 2,
     borderColor: Colors.gold,
-    backgroundColor: 'rgba(245, 197, 24, 0.1)',
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    elevation: 6,
   },
   ticketName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.text,
-    marginBottom: 4,
-  },
-  ticketPrice: {
-    fontSize: 20,
-    fontWeight: 'bold',
     color: Colors.gold,
     marginBottom: 8,
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  ticketPrice: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginBottom: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   ticketDescription: {
     fontSize: 12,
-    color: Colors.lightText,
+    color: '#e0e0e0',
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
+  },
+  selectedTicketIndicator: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: Colors.gold,
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
   },
   divider: {
-    marginVertical: 8,
+    marginVertical: 24,
   },
   dateSelectionContainer: {
     gap: 16,
@@ -716,11 +922,11 @@ const styles = StyleSheet.create({
   calendarButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
     gap: 12,
     zIndex: 1,
   },
@@ -730,8 +936,11 @@ const styles = StyleSheet.create({
   },
   calendarButtonText: {
     fontSize: 16,
-    color: Colors.text,
+    color: '#ffffff',
     fontWeight: '500',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   calendarButtonTextSelected: {
     color: Colors.card,
@@ -740,32 +949,40 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   modalContent: {
     width: '90%',
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
     borderRadius: 16,
     padding: 20,
-    shadowColor: '#000',
+    shadowColor: Colors.gold,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 4,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
     elevation: 5,
+    borderWidth: 2,
+    borderColor: Colors.gold,
   },
   modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(212, 175, 55, 0.4)',
+    paddingBottom: 12,
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.gold,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   datePicker: {
     width: '100%',
@@ -790,37 +1007,61 @@ const styles = StyleSheet.create({
   timeCard: {
     width: '22%',
     padding: 12,
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
     borderRadius: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   timeCardSelected: {
+    borderWidth: 2,
     borderColor: Colors.gold,
     backgroundColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    elevation: 6,
   },
   timeText: {
     fontSize: 14,
     fontWeight: '500',
-    color: Colors.text,
+    color: '#ffffff',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   timeTextSelected: {
-    color: Colors.card,
+    color: '#231f20',
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   summaryContainer: {
     margin: 16,
     padding: 16,
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    borderWidth: 2,
+    borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
   },
   summaryTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.gold,
     marginBottom: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   summaryItem: {
     flexDirection: 'row',
@@ -828,17 +1069,23 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   summaryLabel: {
-    fontSize: 14,
-    color: Colors.text,
+    fontSize: 15,
+    color: '#ffffff',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   summaryValue: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
-    color: Colors.text,
+    color: '#ffffff',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   summaryPlaceholder: {
-    fontSize: 14,
-    color: Colors.lightText,
+    fontSize: 15,
+    color: 'rgba(255, 255, 255, 0.6)',
     fontStyle: 'italic',
     marginBottom: 12,
   },
@@ -848,39 +1095,61 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: Colors.border,
+    borderTopColor: 'rgba(212, 175, 55, 0.4)',
   },
   summaryTotalLabel: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: '#ffffff',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   summaryTotalValue: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: Colors.gold,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   purchaseButton: {
     marginHorizontal: 16,
     marginBottom: 24,
+    backgroundColor: Colors.gold,
+    borderRadius: 8,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 4,
   },
   notesContainer: {
     margin: 16,
     marginTop: 0,
     padding: 16,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
     borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   notesTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.gold,
     marginBottom: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   notesText: {
     fontSize: 14,
-    color: Colors.text,
+    color: '#ffffff',
     marginBottom: 8,
+    lineHeight: 20,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   // Speedy Ticket Modal
   speedyModalOverlay: {
@@ -907,7 +1176,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: 'rgba(212, 175, 55, 0.4)',
   },
   speedyModalTitle: {
     fontSize: 20,
@@ -918,9 +1187,11 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   speedyModalImage: {
     width: '100%',
@@ -966,5 +1237,22 @@ const styles = StyleSheet.create({
   },
   speedyModalButton: {
     minWidth: 150,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  // Papyrus Footer
+  papyrusFooterContainer: {
+    width: '100%',
+    height: 120,
+    marginTop: 16,
+    marginBottom: 24,
+    overflow: 'hidden',
+  },
+  papyrusFooterImage: {
+    width: '100%',
+    height: '100%',
   },
 });

@@ -73,7 +73,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-1', 
       number: '1', 
-      name: 'Hall of Kings', 
+      name: 'Sala dei Re', 
       floor: 1, 
       x: 0.8, 
       y: 1.2, 
@@ -84,10 +84,10 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-2', 
       number: '2', 
-      name: 'Papyrus Gallery', 
+      name: 'Galleria dei Papiri', 
       floor: 1, 
       x: 2.5, 
-      y: 2.7, // Moved even further down
+      y: 2.7,
       sectionId: 's2',
       icon: <Scroll size={14} color={Colors.egyptianRed} />,
       crowdLevel: 'medium'
@@ -95,7 +95,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-3', 
       number: '3', 
-      name: 'Mummy Chamber', 
+      name: 'Camera delle Mummie', 
       floor: 1, 
       x: 3.2, 
       y: 0.8, 
@@ -106,10 +106,10 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-4', 
       number: '4', 
-      name: 'Royal Jewelry', 
+      name: 'Gioielli Reali', 
       floor: 1, 
-      x: 3.3, // Moved slightly more to the left
-      y: 1.6, // Moved slightly up
+      x: 3.3,
+      y: 1.6,
       sectionId: 's2',
       icon: <Gem size={14} color={Colors.egyptianRed} />,
       crowdLevel: 'medium'
@@ -117,7 +117,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-5', 
       number: '5', 
-      name: 'Funerary Artifacts', 
+      name: 'Artefatti Funerari', 
       floor: 1, 
       x: 1.5, 
       y: 3.5, 
@@ -128,9 +128,9 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-6', 
       number: '6', 
-      name: 'Sphinx Gallery', 
+      name: 'Galleria della Sfinge', 
       floor: 1, 
-      x: 3.2, // Moved even more to the right
+      x: 3.2,
       y: 3.2, 
       sectionId: 's3',
       icon: <Sparkles size={14} color={Colors.gold} />,
@@ -139,7 +139,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-7', 
       number: '7', 
-      name: 'Daily Life', 
+      name: 'Vita Quotidiana', 
       floor: 1, 
       x: 0.8, 
       y: 3.2, 
@@ -152,7 +152,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'entrance', 
       number: 'E', 
-      name: 'Entrance', 
+      name: 'Ingresso', 
       floor: 1, 
       x: 1.5, 
       y: 1.5, 
@@ -164,7 +164,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'exit', 
       number: 'X', 
-      name: 'Exit', 
+      name: 'Uscita', 
       floor: 1, 
       x: 2.5, 
       y: 2.5, 
@@ -176,7 +176,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'stairs1', 
       number: 'S', 
-      name: 'Stairs', 
+      name: 'Scale', 
       floor: 1, 
       x: 1.2, 
       y: 2.2, 
@@ -190,10 +190,10 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-8', 
       number: '8', 
-      name: 'Weapons Gallery', 
+      name: 'Galleria delle Armi', 
       floor: 2, 
       x: 0.8, 
-      y: 1.8, // Moved slightly up
+      y: 1.8,
       sectionId: 's5',
       icon: <Crown size={14} color={Colors.nileBlue} />,
       crowdLevel: 'medium'
@@ -201,7 +201,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-9', 
       number: '9', 
-      name: 'Royal Furniture', 
+      name: 'Arredi Reali', 
       floor: 2, 
       x: 2.5, 
       y: 1.5, 
@@ -212,7 +212,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-10', 
       number: '10', 
-      name: 'Cosmetics', 
+      name: 'Cosmetici', 
       floor: 2, 
       x: 3.2, 
       y: 1.5, 
@@ -223,7 +223,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-11', 
       number: '11', 
-      name: 'Amulets', 
+      name: 'Amuleti', 
       floor: 2, 
       x: 2.5, 
       y: 3.2, 
@@ -234,7 +234,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-12', 
       number: '12', 
-      name: 'Pottery', 
+      name: 'Ceramiche', 
       floor: 2, 
       x: 0.8, 
       y: 3.2, 
@@ -245,7 +245,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-13', 
       number: '13', 
-      name: 'Temple Reliefs', 
+      name: 'Rilievi Templari', 
       floor: 2, 
       x: 3.2, 
       y: 2.8, 
@@ -270,7 +270,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'stairs2', 
       number: 'S', 
-      name: 'Stairs', 
+      name: 'Scale', 
       floor: 2, 
       x: 1.2, 
       y: 2.2, 
@@ -284,7 +284,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-14', 
       number: '14', 
-      name: 'Astronomy', 
+      name: 'Astronomia', 
       floor: 3, 
       x: 0.8, 
       y: 2.0, 
@@ -295,7 +295,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-15', 
       number: '15', 
-      name: 'Medicine', 
+      name: 'Medicina', 
       floor: 3, 
       x: 2.5, 
       y: 1.5, 
@@ -306,7 +306,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-16', 
       number: '16', 
-      name: 'Music', 
+      name: 'Musica', 
       floor: 3, 
       x: 3.2, 
       y: 1.5, 
@@ -317,7 +317,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'room-17', 
       number: '17', 
-      name: 'Children Toys', 
+      name: 'Giocattoli per Bambini', 
       floor: 3, 
       x: 0.8, 
       y: 2.8, 
@@ -330,7 +330,7 @@ const generateRooms = (): Room[] => {
     { 
       id: 'stairs3', 
       number: 'S', 
-      name: 'Stairs', 
+      name: 'Scale', 
       floor: 3, 
       x: 1.5, 
       y: 1.8, 
@@ -349,7 +349,7 @@ const sections: Section[] = [
   // Floor 1
   { 
     id: 's1', 
-    name: 'North Wing', 
+    name: 'Ala Nord', 
     color: Colors.nileBlue, 
     icon: <Landmark size={24} color={Colors.nileBlue} />,
     x: 0,
@@ -360,7 +360,7 @@ const sections: Section[] = [
   },
   { 
     id: 's2', 
-    name: 'East Wing', 
+    name: 'Ala Est', 
     color: Colors.egyptianRed, 
     icon: <Skull size={24} color={Colors.egyptianRed} />,
     x: 2,
@@ -371,7 +371,7 @@ const sections: Section[] = [
   },
   { 
     id: 's3', 
-    name: 'South Wing', 
+    name: 'Ala Sud', 
     color: Colors.gold, 
     icon: <Box size={24} color={Colors.gold} />,
     x: 2,
@@ -382,7 +382,7 @@ const sections: Section[] = [
   },
   { 
     id: 's4', 
-    name: 'West Wing', 
+    name: 'Ala Ovest', 
     color: Colors.success, 
     icon: <Pyramid size={24} color={Colors.success} />,
     x: 0,
@@ -395,7 +395,7 @@ const sections: Section[] = [
   // Floor 2
   { 
     id: 's5', 
-    name: 'North Wing', 
+    name: 'Ala Nord', 
     color: Colors.nileBlue, 
     icon: <Landmark size={24} color={Colors.nileBlue} />,
     x: 0,
@@ -406,7 +406,7 @@ const sections: Section[] = [
   },
   { 
     id: 's6', 
-    name: 'East Wing', 
+    name: 'Ala Est', 
     color: Colors.egyptianRed, 
     icon: <Skull size={24} color={Colors.egyptianRed} />,
     x: 2,
@@ -417,7 +417,7 @@ const sections: Section[] = [
   },
   { 
     id: 's7', 
-    name: 'South Wing', 
+    name: 'Ala Sud', 
     color: Colors.gold, 
     icon: <Box size={24} color={Colors.gold} />,
     x: 2,
@@ -428,7 +428,7 @@ const sections: Section[] = [
   },
   { 
     id: 's8', 
-    name: 'West Wing', 
+    name: 'Ala Ovest', 
     color: Colors.success, 
     icon: <Pyramid size={24} color={Colors.success} />,
     x: 0,
@@ -441,7 +441,7 @@ const sections: Section[] = [
   // Floor 3
   { 
     id: 's9', 
-    name: 'North Wing', 
+    name: 'Ala Nord', 
     color: Colors.nileBlue, 
     icon: <Landmark size={24} color={Colors.nileBlue} />,
     x: 0,
@@ -452,7 +452,7 @@ const sections: Section[] = [
   },
   { 
     id: 's10', 
-    name: 'East Wing', 
+    name: 'Ala Est', 
     color: Colors.egyptianRed, 
     icon: <Skull size={24} color={Colors.egyptianRed} />,
     x: 2,
@@ -645,11 +645,6 @@ export default function MapScreen() {
   const renderSectionsView = () => {
     return (
       <View style={styles.mapContainer}>
-        <View style={styles.mapHeader}>
-          <Text style={styles.mapTitle}>Museum Sections - Floor {selectedFloor}</Text>
-          <Text style={styles.mapSubtitle}>Tap on a section or room number</Text>
-        </View>
-        
         <View style={styles.sectionsGrid}>
           {currentFloorSections.map((section) => {
             return (
@@ -818,7 +813,7 @@ export default function MapScreen() {
         
         {/* Floor selector */}
         <View style={styles.floorSelector}>
-          <Text style={styles.floorSelectorLabel}>Floor:</Text>
+          <Text style={styles.floorSelectorLabel}>Piano:</Text>
           {[1, 2, 3].map(floor => (
             <Pressable
               key={floor}
@@ -842,45 +837,45 @@ export default function MapScreen() {
         
         {/* Map legend */}
         <View style={styles.legendContainer}>
-          <Text style={styles.legendTitle}>Legend:</Text>
+          <Text style={styles.legendTitle}>Legenda:</Text>
           <View style={styles.legendItems}>
             <View style={styles.legendItem}>
               <View style={[styles.legendDot, { backgroundColor: Colors.nileBlue }]} />
-              <Text style={styles.legendText}>Your location</Text>
+              <Text style={styles.legendText}>La tua posizione</Text>
             </View>
             <View style={styles.legendItem}>
               <View style={[styles.legendDot, { backgroundColor: Colors.purple }]} />
-              <Text style={styles.legendText}>Destination</Text>
+              <Text style={styles.legendText}>Destinazione</Text>
             </View>
             <View style={styles.legendItem}>
               <View style={[styles.legendDot, { backgroundColor: Colors.nileBlue }]} />
-              <Text style={styles.legendText}>Path</Text>
+              <Text style={styles.legendText}>Percorso</Text>
             </View>
           </View>
           
           {/* Crowd level legend */}
-          <Text style={[styles.legendTitle, { marginTop: 8 }]}>Crowd Levels:</Text>
+          <Text style={[styles.legendTitle, { marginTop: 8 }]}>Livelli di affollamento:</Text>
           <View style={styles.legendItems}>
             <View style={styles.legendItem}>
               <View style={styles.legendCrowdContainer}>
                 <View style={[styles.legendCircle, { borderColor: Colors.success }]} />
                 <Users size={12} color={Colors.success} />
               </View>
-              <Text style={styles.legendText}>Low</Text>
+              <Text style={styles.legendText}>Basso</Text>
             </View>
             <View style={styles.legendItem}>
               <View style={styles.legendCrowdContainer}>
                 <View style={[styles.legendCircle, { borderColor: Colors.warning }]} />
                 <Users size={12} color={Colors.warning} />
               </View>
-              <Text style={styles.legendText}>Medium</Text>
+              <Text style={styles.legendText}>Medio</Text>
             </View>
             <View style={styles.legendItem}>
               <View style={styles.legendCrowdContainer}>
                 <View style={[styles.legendCircle, { borderColor: Colors.error }]} />
                 <Users size={12} color={Colors.error} />
               </View>
-              <Text style={styles.legendText}>High</Text>
+              <Text style={styles.legendText}>Alto</Text>
             </View>
           </View>
         </View>
@@ -901,17 +896,17 @@ export default function MapScreen() {
             onPress={handleBackToSections}
           >
             <ArrowLeft size={20} color={Colors.text} />
-            <Text style={styles.backButtonText}>Back to Sections</Text>
+            <Text style={styles.backButtonText}>Torna alle Sezioni</Text>
           </Pressable>
           <Text style={[styles.mapTitle, { color: section.color }]}>
-            {section.name} - Floor {selectedFloor}
+            {section.name} - Piano {selectedFloor}
           </Text>
         </View>
         
         <View style={[styles.roomsGrid, { borderColor: section.color }]}>
           {sectionRooms.length === 0 ? (
             <Text style={styles.noRoomsText}>
-              No rooms on this floor in {section.name}
+              Nessuna stanza in questo piano in {section.name}
             </Text>
           ) : (
             sectionRooms.map(room => (
@@ -963,7 +958,7 @@ export default function MapScreen() {
         
         {/* Floor selector */}
         <View style={styles.floorSelector}>
-          <Text style={styles.floorSelectorLabel}>Floor:</Text>
+          <Text style={styles.floorSelectorLabel}>Piano:</Text>
           {[1, 2, 3].map(floor => (
             <Pressable
               key={floor}
@@ -999,125 +994,148 @@ export default function MapScreen() {
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.header}>
-            <View style={styles.headerIcon}>
-              <MapPin size={24} color={Colors.gold} />
-            </View>
-            <Text style={styles.headerTitle}>Museum Map</Text>
-          </View>
-          
-          {/* Decorative Map Image */}
-          <View style={styles.decorativeMapContainer}>
-            <Image 
-              source={{ uri: 'https://i.imgur.com/xAOPS3m.png' }}
-              style={styles.decorativeMapImage}
-              resizeMode="cover"
-            />
-            <View style={styles.decorativeMapOverlay} />
-          </View>
-          
-          {/* Help button */}
-          <Pressable 
-            style={styles.helpButton}
-            onPress={toggleHelp}
-          >
-            <HelpCircle size={16} color={Colors.gold} />
-            <Text style={styles.helpButtonText}>
-              {helpVisible ? "Hide Help" : "Need Help?"}
-            </Text>
-            {helpVisible ? (
-              <ChevronUp size={16} color={Colors.gold} />
-            ) : (
-              <ChevronDown size={16} color={Colors.gold} />
-            )}
-          </Pressable>
-          
-          {/* Collapsible help section */}
-          {helpVisible && (
-            <View style={styles.helpContent}>
-              <Text style={styles.helpTitle}>How to use the map:</Text>
-              <Text style={styles.helpText}>
-                1. Enter your current room number above, then tap "Set"
-              </Text>
-              <Text style={styles.helpText}>
-                2. Tap on any section or directly on a room number on the map
-              </Text>
-              <Text style={styles.helpText}>
-                3. Follow the path shown on the map - from blue marker (your location) to purple marker (destination)
-              </Text>
-              <Text style={styles.helpText}>
-                4. The blue arrows show you which direction to walk
-              </Text>
-              <Text style={styles.helpText}>
-                5. Use the floor selector to navigate between different levels of the museum
-              </Text>
-              <Text style={styles.helpText}>
-                6. Special locations like stairs, entrances, and the café are marked with special icons
-              </Text>
-              <Text style={styles.helpText}>
-                7. Room borders indicate crowd levels: green (low), yellow (medium), red (high)
-              </Text>
-            </View>
-          )}
-          
-          <View style={styles.locationContainer}>
-            <View style={styles.locationInputWrapper}>
-              <Text style={styles.inputLabel}>Your Current Room:</Text>
-              <View style={styles.inputWithButtonContainer}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter room number"
-                  value={currentRoomInput}
-                  onChangeText={setCurrentRoomInput}
-                  keyboardType="default"
-                  returnKeyType="done"
-                  onSubmitEditing={handleRoomInputSubmit}
-                />
-                <Button 
-                  title="Set" 
-                  onPress={handleRoomInputSubmit} 
-                  size="small"
-                  style={styles.setButton}
-                />
-              </View>
-            </View>
-            
-            {error ? (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
-              </View>
-            ) : null}
-            
-            {currentRoom && (
-              <View style={[styles.currentLocationDisplay, { backgroundColor: 'rgba(26, 75, 132, 0.1)', borderColor: Colors.nileBlue }]}>
-                <Text style={[styles.currentLocationLabel, { color: Colors.nileBlue }]}>Current Location:</Text>
-                <Text style={styles.currentLocationText}>
-                  Room {currentRoom.number}: {currentRoom.name}
-                </Text>
-              </View>
-            )}
-            
-            {destinationRoom && (
-              <View style={[styles.destinationDisplay, { backgroundColor: 'rgba(138, 43, 226, 0.1)', borderColor: Colors.purple }]}>
-                <Text style={[styles.destinationLabel, { color: Colors.purple }]}>Destination:</Text>
-                <Text style={styles.destinationText}>
-                  Room {destinationRoom.number}: {destinationRoom.name}
-                </Text>
-              </View>
-            )}
-            
-            {(currentRoom || destinationRoom || pathVisible) && (
-              <Button 
-                title="Reset" 
-                onPress={handleReset} 
-                variant="outline"
-                icon={<RotateCw size={16} color={Colors.gold} />}
-                style={styles.resetButton}
+          <View style={styles.scrollContentInner}>
+            {/* Banner all'inizio dello scroll */}
+            <View style={styles.bannerContainer}>
+              <Image 
+                source={{ uri: 'https://i.imgur.com/YM8q5S6.png' }}
+                style={styles.bannerImage}
+                resizeMode="cover"
               />
+              <View style={styles.bannerOverlay}>
+                <View style={styles.bannerTitleContainer}>
+                  <Text style={styles.bannerTitle}>MAPPA DEL MUSEO</Text>
+                  <View style={styles.bannerUnderline} />
+                </View>
+                <Text style={styles.bannerSubtitle}>Sei perso? Ecco a te la mappa!</Text>
+              </View>
+            </View>
+
+            {/* Header con nuova icona */}
+            <View style={styles.header}>
+              <View style={styles.headerIcon}>
+                <Image 
+                  source={{ uri: 'https://i.imgur.com/aOVkk9Y.png' }}
+                  style={styles.mapIconImage}
+                  resizeMode="cover"
+                />
+              </View>
+              <Text style={styles.headerTitle}>Mappa</Text>
+            </View>
+            
+            {/* Help button tradotto */}
+            <Pressable 
+              style={styles.helpButton}
+              onPress={toggleHelp}
+            >
+              <HelpCircle size={16} color={Colors.gold} />
+              <Text style={styles.helpButtonText}>
+                {helpVisible ? "Nascondi Aiuto" : "Hai bisogno di aiuto?"}
+              </Text>
+              {helpVisible ? (
+                <ChevronUp size={16} color={Colors.gold} />
+              ) : (
+                <ChevronDown size={16} color={Colors.gold} />
+              )}
+            </Pressable>
+            
+            {/* Collapsible help section */}
+            {helpVisible && (
+              <View style={styles.helpContent}>
+                <Text style={styles.helpTitle}>Come usare la mappa:</Text>
+                <Text style={styles.helpText}>
+                  1. Inserisci il numero della tua stanza attuale sopra, poi premi "Imposta"
+                </Text>
+                <Text style={styles.helpText}>
+                  2. Tocca una sezione o direttamente il numero di una stanza sulla mappa
+                </Text>
+                <Text style={styles.helpText}>
+                  3. Segui il percorso mostrato sulla mappa - dal punto blu (la tua posizione) al punto viola (destinazione)
+                </Text>
+                <Text style={styles.helpText}>
+                  4. Le frecce blu indicano la direzione in cui camminare
+                </Text>
+                <Text style={styles.helpText}>
+                  5. Usa il selettore dei piani per navigare tra i diversi livelli del museo
+                </Text>
+                <Text style={styles.helpText}>
+                  6. Luoghi speciali come scale, ingressi e ristorazione sono indicati con icone speciali
+                </Text>
+                <Text style={styles.helpText}>
+                  7. I bordi delle stanze indicano il livello di affollamento: verde (basso), giallo (medio), rosso (alto)
+                </Text>
+              </View>
             )}
+            
+            {/* Sistemazione del contrasto nel location container */}
+            <View style={styles.locationContainer}>
+              <View style={styles.locationInputWrapper}>
+                <Text style={styles.inputLabel}>La tua posizione attuale:</Text>
+                <View style={styles.inputWithButtonContainer}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Inserisci numero stanza"
+                    placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                    value={currentRoomInput}
+                    onChangeText={setCurrentRoomInput}
+                    keyboardType="default"
+                    returnKeyType="done"
+                    onSubmitEditing={handleRoomInputSubmit}
+                  />
+                  <Button 
+                    title="Imposta" 
+                    onPress={handleRoomInputSubmit} 
+                    size="small"
+                    style={styles.setButton}
+                  />
+                </View>
+              </View>
+              
+              {error ? (
+                <View style={styles.errorContainer}>
+                  <Text style={styles.errorText}>
+                    {error === "Please enter your current room number" ? 
+                      "Inserisci il numero della tua stanza attuale" : 
+                      error.includes("Room") ? 
+                      error.replace("Room", "Stanza").replace("not found. Please enter a valid room number.", "non trovata. Inserisci un numero di stanza valido.") : 
+                      error === "Please enter your current room number first" ?
+                      "Inserisci prima il numero della tua stanza attuale" :
+                      error}
+                  </Text>
+                </View>
+              ) : null}
+              
+              {currentRoom && (
+                <View style={[styles.currentLocationDisplay, { backgroundColor: 'rgba(26, 75, 132, 0.1)', borderColor: Colors.nileBlue }]}>
+                  <Text style={[styles.currentLocationLabel, { color: Colors.nileBlue }]}>Posizione attuale:</Text>
+                  <Text style={styles.currentLocationText}>
+                    Stanza {currentRoom.number}: {currentRoom.name}
+                  </Text>
+                </View>
+              )}
+              
+              {destinationRoom && (
+                <View style={[styles.destinationDisplay, { backgroundColor: 'rgba(138, 43, 226, 0.1)', borderColor: Colors.purple }]}>
+                  <Text style={[styles.destinationLabel, { color: Colors.purple }]}>Destinazione:</Text>
+                  <Text style={styles.destinationText}>
+                    Stanza {destinationRoom.number}: {destinationRoom.name}
+                  </Text>
+                </View>
+              )}
+              
+              {(currentRoom || destinationRoom || pathVisible) && (
+                <Button 
+                  title="Azzera" 
+                  onPress={handleReset} 
+                  variant="outline"
+                  icon={<RotateCw size={16} color={Colors.gold} />}
+                  style={styles.resetButton}
+                />
+              )}
+            </View>
+            
+            {viewMode === 'sections' ? renderSectionsView() : renderRoomsView()}
           </View>
-          
-          {viewMode === 'sections' ? renderSectionsView() : renderRoomsView()}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -1127,7 +1145,7 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.papyrus,
+    backgroundColor: '#231f20',
   },
   keyboardAvoidingContainer: {
     flex: 1,
@@ -1135,100 +1153,163 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 32,
   },
-  header: {
-    alignItems: 'center',
-    marginVertical: 16,
+  scrollContentInner: {
+    backgroundColor: '#231f20',
   },
-  headerIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: 'rgba(245, 197, 24, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 8,
-    borderWidth: 1,
-    borderColor: Colors.gold,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.text,
-  },
-  // New decorative map image container
-  decorativeMapContainer: {
-    width: '92%',
-    height: 180,
-    alignSelf: 'center',
-    borderRadius: 12,
-    overflow: 'hidden',
-    marginBottom: 16,
+  // Nuovo banner che scorre con la pagina
+  bannerContainer: {
+    height: 230,
+    width: '100%',
     position: 'relative',
-    borderWidth: 1,
-    borderColor: Colors.gold,
+    marginBottom: 24,
+    borderBottomWidth: 3,
+    borderBottomColor: Colors.gold,
   },
-  decorativeMapImage: {
+  bannerImage: {
     width: '100%',
     height: '100%',
+    position: 'absolute',
   },
-  decorativeMapOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  bannerOverlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.65)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bannerTitleContainer: {
+    alignItems: 'center',
+    borderWidth: 1.5,
+    borderColor: 'rgba(212, 175, 55, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+    position: 'relative',
+    marginHorizontal: 20,
+  },
+  bannerTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: Colors.gold,
+    letterSpacing: 4,
+    marginBottom: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.9)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+    textTransform: 'uppercase',
+  },
+  bannerUnderline: {
+    height: 4,
+    width: 120,
+    backgroundColor: Colors.gold,
+    marginBottom: 16,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    borderRadius: 2,
+  },
+  bannerSubtitle: {
+    fontSize: 18,
+    color: '#ffffff',
+    textAlign: 'center',
+    letterSpacing: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  header: {
+    alignItems: 'center',
+    marginVertical: 24,
+  },
+  headerIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: 'rgba(212, 175, 55, 0.3)', // Aumentato il contrasto per l'icona
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
+    borderWidth: 2,
+    borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  headerTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: Colors.gold,
+    letterSpacing: 2,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   helpButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(245, 197, 24, 0.1)',
+    backgroundColor: 'rgba(212, 175, 55, 0.15)',
     marginHorizontal: 16,
-    paddingVertical: 10,
+    paddingVertical: 12,
     borderRadius: 8,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: Colors.gold,
     gap: 8,
   },
   helpButtonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
     color: Colors.gold,
+    letterSpacing: 0.5,
   },
   helpContent: {
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
     margin: 16,
     marginTop: 8,
     padding: 16,
     borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: Colors.gold,
   },
   helpTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: Colors.text,
-    marginBottom: 8,
+    color: Colors.gold,
+    marginBottom: 12,
+    letterSpacing: 1,
   },
   helpText: {
-    fontSize: 14,
-    color: Colors.text,
-    marginBottom: 6,
-    lineHeight: 20,
+    fontSize: 15,
+    color: '#ffffff',
+    marginBottom: 10,
+    lineHeight: 22,
   },
   locationContainer: {
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
     margin: 16,
-    padding: 16,
+    padding: 18,
     borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 6,
   },
   locationInputWrapper: {
-    marginBottom: 16,
+    marginBottom: 18,
   },
   inputLabel: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
-    color: Colors.text,
-    marginBottom: 8,
+    color: Colors.gold,
+    marginBottom: 10,
+    letterSpacing: 0.5,
   },
   inputWithButtonContainer: {
     flexDirection: 'row',
@@ -1236,94 +1317,131 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   input: {
-    height: 48,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    height: 50,
+    borderWidth: 1.5,
+    borderColor: 'rgba(212, 175, 55, 0.6)',
     borderRadius: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
     fontSize: 16,
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
     width: '100%',
     paddingRight: 70, // Make room for the button
+    color: '#ffffff',
   },
   setButton: {
     position: 'absolute',
     right: 4,
-    top: 4,
+    top: 5,
     height: 40,
     paddingHorizontal: 12,
   },
   errorContainer: {
-    backgroundColor: 'rgba(244, 67, 54, 0.1)',
-    padding: 12,
+    backgroundColor: 'rgba(244, 67, 54, 0.15)',
+    padding: 14,
     borderRadius: 8,
-    marginBottom: 16,
-    borderWidth: 1,
+    marginBottom: 18,
+    borderWidth: 1.5,
     borderColor: Colors.error,
   },
   errorText: {
     color: Colors.error,
-    fontSize: 14,
+    fontSize: 15,
   },
   currentLocationDisplay: {
-    padding: 12,
+    padding: 14,
     borderRadius: 8,
-    marginBottom: 16,
-    borderWidth: 1,
+    marginBottom: 18,
+    borderWidth: 1.5,
   },
   currentLocationLabel: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: 6,
+    letterSpacing: 0.5,
   },
   currentLocationText: {
-    fontSize: 16,
-    color: Colors.text,
+    fontSize: 17,
+    color: '#ffffff',
   },
   destinationDisplay: {
-    padding: 12,
+    padding: 14,
     borderRadius: 8,
-    marginBottom: 16,
-    borderWidth: 1,
+    marginBottom: 18,
+    borderWidth: 1.5,
   },
   destinationLabel: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: 6,
+    letterSpacing: 0.5,
   },
   destinationText: {
-    fontSize: 16,
-    color: Colors.text,
+    fontSize: 17,
+    color: '#ffffff',
   },
   resetButton: {
     alignSelf: 'center',
-    marginTop: 8,
+    marginTop: 10,
   },
   mapContainer: {
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
     margin: 16,
-    padding: 16,
+    padding: 18,
     borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: Colors.gold,
     alignItems: 'center',
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 6,
   },
   mapHeader: {
-    alignItems: 'center',
-    marginBottom: 16,
+    height: 200,
     width: '100%',
+    position: 'relative',
+    marginBottom: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.gold,
+    overflow: 'hidden',
+  },
+  mapHeaderImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  mapHeaderOverlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mapTitleContainer: {
+    alignItems: 'center',
   },
   mapTitle: {
-    fontSize: 18,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: Colors.text,
-    textAlign: 'center',
+    color: Colors.gold,
+    letterSpacing: 2,
+    marginBottom: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  mapTitleUnderline: {
+    height: 3,
+    width: 80,
+    backgroundColor: Colors.gold,
+    marginBottom: 12,
   },
   mapSubtitle: {
-    fontSize: 14,
-    color: Colors.lightText,
+    fontSize: 16,
+    color: '#ffffff',
     textAlign: 'center',
-    marginTop: 4,
   },
   backButton: {
     flexDirection: 'row',
@@ -1333,7 +1451,7 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     fontSize: 14,
-    color: Colors.text,
+    color: Colors.gold, // Migliorata visibilità
     marginLeft: 4,
   },
   sectionsGrid: {
@@ -1469,7 +1587,7 @@ const styles = StyleSheet.create({
   },
   floorSelectorLabel: {
     fontSize: 14,
-    color: Colors.text,
+    color: '#ffffff', // Migliorata visibilità
     marginRight: 8,
   },
   floorButton: {
@@ -1490,10 +1608,10 @@ const styles = StyleSheet.create({
   floorButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: Colors.text,
+    color: '#ffffff', // Bianco per visibilità su sfondo scuro
   },
   floorButtonTextActive: {
-    color: Colors.card,
+    color: '#231f20', // Scuro quando il pulsante è attivo (sfondo dorato)
   },
   roomsGrid: {
     width: '100%',
@@ -1508,7 +1626,7 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: 'center',
     padding: 16,
-    color: Colors.lightText,
+    color: '#ffffff', // Migliorata visibilità
     fontStyle: 'italic',
   },
   roomButton: {
@@ -1559,7 +1677,7 @@ const styles = StyleSheet.create({
   },
   roomName: {
     fontSize: 14,
-    color: Colors.text,
+    color: '#ffffff', // Migliorata visibilità
     flex: 1,
   },
   crowdIndicator: {
@@ -1572,14 +1690,17 @@ const styles = StyleSheet.create({
   legendContainer: {
     marginTop: 16,
     width: '100%',
-    padding: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    padding: 12, // Aumentato padding
+    backgroundColor: 'rgba(35, 31, 32, 0.8)', // Sfondo più scuro per contrasto
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   legendTitle: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 8,
+    color: Colors.gold, // Testo in oro per visibilità
   },
   legendItems: {
     flexDirection: 'row',
@@ -1612,6 +1733,11 @@ const styles = StyleSheet.create({
   },
   legendText: {
     fontSize: 12,
-    color: Colors.text,
+    color: '#ffffff', // Testo bianco per visibilità
+  },
+  mapIconImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 32,
   },
 });
