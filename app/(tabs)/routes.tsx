@@ -399,7 +399,7 @@ const GuidedRoutesScreen = () => {
       <View style={styles.khufuBannerContent}>
         <View style={styles.khufuIconContainer}>
           <Image 
-            source={{ uri: 'https://i.imgur.com/HF3MtaX.png' }}
+            source={{ uri: 'https://i.imgur.com/hbtQkDa.png' }}
             style={styles.khufuIcon}
             resizeMode="contain"
           />
@@ -788,7 +788,6 @@ const styles = StyleSheet.create({
   khufuIcon: {
     width: 50,
     height: 50,
-    tintColor: Colors.gold,
   },
   khufuBannerTextContainer: {
     flex: 1,
