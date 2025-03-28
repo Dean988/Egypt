@@ -1,0 +1,43 @@
+warning: in the working copy of 'app/(tabs)/tickets.tsx', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/app/(tabs)/tickets.tsx b/app/(tabs)/tickets.tsx[m
+[1mindex 62dc725..436d6e3 100644[m
+[1m--- a/app/(tabs)/tickets.tsx[m
+[1m+++ b/app/(tabs)/tickets.tsx[m
+[36m@@ -447,7 +447,7 @@[m [mexport default function TicketsScreen() {[m
+           <Image [m
+             source={{ uri: "https://i.imgur.com/RxDBtux.png" }}[m
+             style={styles.papyrusFooterImage}[m
+[31m-            resizeMode="contain"[m
+[32m+[m[32m            resizeMode="cover"[m
+           />[m
+         </View>[m
+       </ScrollView>[m
+[36m@@ -1255,14 +1255,24 @@[m [mconst styles = StyleSheet.create({[m
+   // Papyrus Footer[m
+   papyrusFooterContainer: {[m
+     width: '100%',[m
+[31m-    height: 200,[m
+[31m-    marginTop: 16,[m
+[31m-    marginBottom: 24,[m
+[31m-    overflow: 'visible',[m
+[32m+[m[32m    height: 180,[m
+[32m+[m[32m    marginTop: 24,[m
+[32m+[m[32m    marginBottom: 30,[m
+[32m+[m[32m    overflow: 'hidden',[m
+[32m+[m[32m    borderWidth: 2,[m
+[32m+[m[32m    borderColor: Colors.gold,[m
+[32m+[m[32m    borderRadius: 12,[m
+[32m+[m[32m    backgroundColor: 'rgba(35, 31, 32, 0.8)',[m
+[32m+[m[32m    shadowColor: Colors.gold,[m
+[32m+[m[32m    shadowOffset: { width: 0, height: 0 },[m
+[32m+[m[32m    shadowOpacity: 0.5,[m
+[32m+[m[32m    shadowRadius: 8,[m
+[32m+[m[32m    elevation: 6,[m
+   },[m
+   papyrusFooterImage: {[m
+     width: '100%',[m
+     height: '100%',[m
+[32m+[m[32m    borderRadius: 10,[m
+   },[m
+   headerSeparator: {[m
+     height: 1,[m

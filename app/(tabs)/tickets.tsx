@@ -447,7 +447,7 @@ export default function TicketsScreen() {
           <Image 
             source={{ uri: "https://i.imgur.com/RxDBtux.png" }}
             style={styles.papyrusFooterImage}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         </View>
       </ScrollView>
@@ -1255,14 +1255,24 @@ const styles = StyleSheet.create({
   // Papyrus Footer
   papyrusFooterContainer: {
     width: '100%',
-    height: 200,
-    marginTop: 16,
-    marginBottom: 24,
-    overflow: 'visible',
+    height: 180,
+    marginTop: 24,
+    marginBottom: 30,
+    overflow: 'hidden',
+    borderWidth: 2,
+    borderColor: Colors.gold,
+    borderRadius: 12,
+    backgroundColor: 'rgba(35, 31, 32, 0.8)',
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    elevation: 6,
   },
   papyrusFooterImage: {
     width: '100%',
     height: '100%',
+    borderRadius: 10,
   },
   headerSeparator: {
     height: 1,
