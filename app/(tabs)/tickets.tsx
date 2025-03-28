@@ -130,9 +130,19 @@ export default function TicketsScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['right', 'left']}>
       <Stack.Screen options={{ 
-        title: "Tickets",
+        title: "Biglietti",
         headerShown: true,
+        headerStyle: {
+          backgroundColor: '#231f20',
+        },
+        headerTintColor: Colors.gold,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
       }} />
+      
+      {/* Gold header separator - thinner line */}
+      <View style={styles.headerSeparator} />
       
       <ScrollView style={styles.scrollView}>
         <View style={styles.heroContainer}>
@@ -437,7 +447,7 @@ export default function TicketsScreen() {
           <Image 
             source={{ uri: "https://i.imgur.com/RxDBtux.png" }}
             style={styles.papyrusFooterImage}
-            resizeMode="cover"
+            resizeMode="contain"
           />
         </View>
       </ScrollView>
@@ -506,7 +516,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#231f20',
   },
   heroContainer: {
-    height: 240,
+    height: 220,
     width: '100%',
     position: 'relative',
     borderBottomWidth: 3,
@@ -1245,13 +1255,19 @@ const styles = StyleSheet.create({
   // Papyrus Footer
   papyrusFooterContainer: {
     width: '100%',
-    height: 120,
+    height: 200,
     marginTop: 16,
     marginBottom: 24,
-    overflow: 'hidden',
+    overflow: 'visible',
   },
   papyrusFooterImage: {
     width: '100%',
     height: '100%',
+  },
+  headerSeparator: {
+    height: 1,
+    backgroundColor: Colors.gold,
+    width: '100%',
+    marginTop: 56,
   },
 });

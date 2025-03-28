@@ -93,6 +93,9 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={styles.container}>
+      {/* Gold header separator - thinner line */}
+      <View style={styles.headerSeparator} />
+      
       {/* Background Pattern */}
       <ImageBackground 
         source={{ uri: 'https://www.transparenttextures.com/patterns/papyrus.png' }}
@@ -204,33 +207,34 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#231f20', // Dark background color for Egyptian feel
+    backgroundColor: '#231f20',
   },
   backgroundPattern: {
-    width: '100%',
     flex: 1,
+    backgroundColor: '#231f20',
   },
   headerLogoSection: {
     width: '100%',
-    height: 150,
+    height: 100,
     backgroundColor: '#231f20',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 20,
+    paddingVertical: 10,
     borderBottomWidth: 2,
     borderBottomColor: '#d4af37', // Gold border
+    marginBottom: 0,
   },
   headerLogo: {
-    width: 250,
-    height: 100,
+    width: 220,
+    height: 80,
   },
   section: {
     width: '100%',
-    height: 265, // Slightly reduced height
+    height: 250,
     position: 'relative',
-    marginBottom: 4, // Slightly larger gap between sections
-    overflow: 'hidden', // To ensure the border radius works
-    borderRadius: 4, // Subtle rounded corners
+    marginBottom: 3,
+    overflow: 'hidden',
+    borderRadius: 4,
   },
   sectionImage: {
     width: '100%',
@@ -241,23 +245,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Slightly darker overlay
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   titleContainer: {
     alignItems: 'center',
-    borderWidth: 2, // Thicker border
-    borderColor: '#d4af37', // Gold border
+    borderWidth: 2,
+    borderColor: '#d4af37',
     borderStyle: 'solid',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Darker background
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     paddingHorizontal: 24,
-    paddingVertical: 14, // More vertical padding
+    paddingVertical: 14,
     minWidth: '80%',
-    // Egyptian-style border decoration
     borderLeftWidth: 5,
     borderRightWidth: 5,
-    // Shadow effect
     shadowColor: '#d4af37',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.3,
@@ -267,24 +269,29 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#d4af37', // Egyptian gold color
+    color: '#d4af37',
     textAlign: 'center',
-    letterSpacing: 2.5, // More letter spacing
+    letterSpacing: 2.5,
     textTransform: 'uppercase',
     fontFamily: 'System',
     textShadowColor: 'rgba(0, 0, 0, 0.8)',
     textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3, // More pronounced shadow
+    textShadowRadius: 3,
   },
   titleUnderline: {
-    height: 3, // Thicker underline
+    height: 3,
     width: '100%',
-    backgroundColor: '#d4af37', // Gold underline
+    backgroundColor: '#d4af37',
     marginTop: 10,
-    // Decorative effect
     shadowColor: '#d4af37',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
+  },
+  headerSeparator: {
+    height: 1,
+    backgroundColor: Colors.gold,
+    width: '100%',
+    marginTop: 56,
   },
 });

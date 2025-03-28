@@ -36,6 +36,7 @@ import {
   ChevronUp,
   Users
 } from 'lucide-react-native';
+import { Stack } from 'expo-router';
 import Colors from '@/constants/colors';
 import Button from '@/components/Button';
 
@@ -985,11 +986,31 @@ export default function MapScreen() {
   
   return (
     <SafeAreaView style={styles.container} edges={['right', 'left']}>
+      <Stack.Screen 
+        options={{
+          title: "Mappa",
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#231f20',
+          },
+          headerTintColor: Colors.gold,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }} 
+      />
+      
+      {/* Gold header separator - thinner line */}
+      <View style={styles.headerSeparator} />
+      
       <KeyboardAvoidingView 
-        style={styles.keyboardAvoidingContainer}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
       >
+        {/* Main content starts immediately below header */}
+        
+        {/* Rest of content */}
+        
         <ScrollView 
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
@@ -1739,5 +1760,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 32,
+  },
+  headerSeparator: {
+    height: 1, // Reduced from 2 to 1
+    backgroundColor: Colors.gold,
+    width: '100%',
+    marginTop: 56, // Add top margin to position below fixed header
   },
 });

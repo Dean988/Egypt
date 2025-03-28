@@ -16,20 +16,17 @@ export default function TabLayout() {
         },
         tabBarShowLabel: false, // Hide labels
         headerStyle: {
-          backgroundColor: Colors.card,
+          backgroundColor: '#231f20',
         },
         headerTitleStyle: {
-          color: Colors.text,
+          color: Colors.gold,
           fontWeight: 'bold',
         },
-        headerTintColor: Colors.primary,
+        headerTintColor: Colors.gold,
         headerShadowVisible: false,
         // Hide the header title to remove the "(tabs)" text
         headerTitle: '',
-        // This will hide the "(tabs)" text in the back button
-        headerBackTitle: '',
         // Remove top padding/margin
-        headerStatusBarHeight: 0,
         // Increase icon size
         tabBarIconStyle: {
           width: 28,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, ScrollView, Image, Pressable, ImageBackground } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, Stack } from 'expo-router';
 import { Trophy, Clock, MapPin, ChevronRight, Sparkles, Award, Search, Filter, Users } from 'lucide-react-native';
 import Colors from '@/constants/colors';
 import TreasureHuntCard from '@/components/TreasureHuntCard';
@@ -45,8 +45,25 @@ export default function TreasureHuntScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['right', 'left']}>
+      <Stack.Screen 
+        options={{
+          title: "Caccia al Tesoro",
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#231f20',
+          },
+          headerTintColor: Colors.gold,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }} 
+      />
+      
+      {/* Gold header separator - thinner line */}
+      <View style={styles.headerSeparator} />
+      
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Banner Header */}
+        {/* Banner Header - starts immediately below header */}
         <View style={styles.bannerContainer}>
           <Image 
             source={{ uri: 'https://www.animazione-bomba.it/wp-content/uploads/2019/03/caccia-al-tesoro.jpeg' }} 
@@ -215,11 +232,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#231f20',
   },
   scrollContent: {
-    paddingBottom: 32,
+    paddingBottom: 16,
   },
   // Banner styling
   bannerContainer: {
-    height: 240,
+    height: 220,
     width: '100%',
     position: 'relative',
     borderBottomWidth: 3,
@@ -504,5 +521,11 @@ const styles = StyleSheet.create({
   },
   spacer: {
     height: 100,
+  },
+  headerSeparator: {
+    height: 1,
+    backgroundColor: Colors.gold,
+    width: '100%',
+    marginTop: 56,
   },
 });

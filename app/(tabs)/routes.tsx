@@ -486,12 +486,30 @@ const GuidedRoutesScreen = () => {
   
   return (
     <SafeAreaView style={styles.container} edges={['right', 'left']}>
+      <Stack.Screen 
+        options={{
+          title: "Percorsi Guidati",
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#231f20',
+          },
+          headerTintColor: Colors.gold,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }} 
+      />
+      
+      {/* Gold header separator - thinner line */}
+      <View style={styles.headerSeparator} />
+      
       <View style={styles.backgroundContainer}>
         {!customizeMode ? (
           <ScrollView 
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.scrollContent}
           >
+            {/* Content starts immediately without extra margins */}
             {renderHeader()}
             
             {/* Khufu Banner */}
@@ -548,7 +566,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#231f20',
   },
   scrollContent: {
-    paddingBottom: 32,
+    paddingBottom: 16,
   },
   // New banner styling
   bannerContainer: {
@@ -892,21 +910,31 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   customizeHeader: {
-    alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: 16,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   customizeTitle: {
     fontSize: 24,
-    fontWeight: 'bold' as const,
-    color: '#333333',
+    fontWeight: 'bold',
+    color: Colors.gold,
     marginBottom: 8,
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.9)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
+    letterSpacing: 1,
   },
   customizeSubtitle: {
     fontSize: 16,
-    color: '#333333',
-    lineHeight: 24,
+    color: '#ffffff',
     textAlign: 'center',
-    paddingHorizontal: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   optionsContainer: {
     flexDirection: 'row',
@@ -1255,6 +1283,12 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
+  },
+  headerSeparator: {
+    height: 1,
+    backgroundColor: Colors.gold,
+    width: '100%',
+    marginTop: 56,
   },
 });
 
