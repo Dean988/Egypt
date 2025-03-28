@@ -42,17 +42,13 @@ export default function FloatingServicesButton() {
   };
 
   const selectSection = (section: 'shop' | 'restaurant') => {
-    setActiveSection(section);
-  };
-
-  const navigateToShop = () => {
-    closeMenu();
-    router.push('/shop');
-  };
-
-  const navigateToRestaurant = () => {
-    closeMenu();
-    router.push('/cafe'); // Currently points to cafe since we don't have a dedicated restaurant page
+    if (section === 'shop') {
+      closeMenu();
+      router.push('/shop');
+    } else if (section === 'restaurant') {
+      closeMenu();
+      router.push('/cafe');
+    }
   };
 
   const shopItems = [
@@ -99,52 +95,56 @@ export default function FloatingServicesButton() {
         <Pressable style={styles.modalOverlay} onPress={closeMenu}>
           <View style={styles.menuContainer}>
             <Pressable style={styles.menuContent} onPress={(e) => e.stopPropagation()}>
-              <View style={styles.menuHeader}>
-                <Text style={styles.menuTitle}>Museum Services</Text>
-                <Pressable onPress={closeMenu} style={styles.closeButton}>
-                  <X size={20} color={Colors.text} />
-                </Pressable>
-              </View>
-              
-              <EgyptianPattern color={Colors.gold} />
-              
-              {/* Search Bar - Coming Soon */}
-              <View style={styles.searchContainer}>
-                <View style={styles.searchInputContainer}>
-                  <Search size={20} color={Colors.lightText} />
-                  <Text style={styles.searchPlaceholder}>Coming soon...</Text>
-                </View>
-              </View>
-              
-              <View style={styles.menuTabs}>
-                <Pressable 
-                  style={[
-                    styles.menuTab, 
-                    activeSection === 'shop' && styles.menuTabActive
-                  ]}
-                  onPress={() => selectSection('shop')}
-                >
-                  <ShoppingBag size={18} color={activeSection === 'shop' ? Colors.gold : Colors.text} />
-                  <Text style={[
-                    styles.menuTabText,
-                    activeSection === 'shop' && styles.menuTabTextActive
-                  ]}>Museum Shop</Text>
-                </Pressable>
+              {activeSection ? (
+                <>
+                  <View style={styles.menuHeader}>
+                    <Text style={styles.menuTitle}>Servizi Museo</Text>
+                    <Pressable onPress={closeMenu} style={styles.closeButton}>
+                      <X size={20} color={Colors.gold} />
+                    </Pressable>
+                  </View>
+                  
+                  <EgyptianPattern color={Colors.gold} />
+                  
+                  {/* Search Bar - Coming Soon */}
+                  <View style={styles.searchContainer}>
+                    <View style={styles.searchInputContainer}>
+                      <Search size={20} color={Colors.lightText} />
+                      <Text style={styles.searchPlaceholder}>Coming soon...</Text>
+                    </View>
+                  </View>
+                  
+                  <View style={styles.menuTabs}>
+                    <Pressable 
+                      style={[
+                        styles.menuTab, 
+                        activeSection === 'shop' && styles.menuTabActive
+                      ]}
+                      onPress={() => selectSection('shop')}
+                    >
+                      <ShoppingBag size={18} color={activeSection === 'shop' ? Colors.gold : Colors.text} />
+                      <Text style={[
+                        styles.menuTabText,
+                        activeSection === 'shop' && styles.menuTabTextActive
+                      ]}>Negozio</Text>
+                    </Pressable>
 
-                <Pressable 
-                  style={[
-                    styles.menuTab, 
-                    activeSection === 'restaurant' && styles.menuTabActive
-                  ]}
-                  onPress={() => selectSection('restaurant')}
-                >
-                  <UtensilsCrossed size={18} color={activeSection === 'restaurant' ? Colors.gold : Colors.text} />
-                  <Text style={[
-                    styles.menuTabText,
-                    activeSection === 'restaurant' && styles.menuTabTextActive
-                  ]}>Ristorazione</Text>
-                </Pressable>
-              </View>
+                    <Pressable 
+                      style={[
+                        styles.menuTab, 
+                        activeSection === 'restaurant' && styles.menuTabActive
+                      ]}
+                      onPress={() => selectSection('restaurant')}
+                    >
+                      <UtensilsCrossed size={18} color={activeSection === 'restaurant' ? Colors.gold : Colors.text} />
+                      <Text style={[
+                        styles.menuTabText,
+                        activeSection === 'restaurant' && styles.menuTabTextActive
+                      ]}>Ristorazione</Text>
+                    </Pressable>
+                  </View>
+                </>
+              ) : null}
               
               {activeSection === 'shop' && (
                 <View style={styles.sectionContent}>
@@ -155,8 +155,8 @@ export default function FloatingServicesButton() {
                       resizeMode="cover"
                     />
                     <View style={styles.sectionOverlay}>
-                      <Text style={styles.sectionTitle}>Museum Shop</Text>
-                      <Text style={styles.sectionSubtitle}>Take home a piece of ancient Egypt</Text>
+                      <Text style={styles.sectionTitle}>Negozio</Text>
+                      <Text style={styles.sectionSubtitle}>Porta a casa un pezzo dell'antico Egitto</Text>
                     </View>
                   </View>
                   
@@ -174,8 +174,8 @@ export default function FloatingServicesButton() {
                     ))}
                   </ScrollView>
                   
-                  <Pressable style={styles.viewAllButton} onPress={navigateToShop}>
-                    <Text style={styles.viewAllText}>View All Products</Text>
+                  <Pressable style={styles.viewAllButton} onPress={() => selectSection('shop')}>
+                    <Text style={styles.viewAllText}>Vedi tutti i prodotti</Text>
                   </Pressable>
                 </View>
               )}
@@ -190,7 +190,7 @@ export default function FloatingServicesButton() {
                     />
                     <View style={styles.sectionOverlay}>
                       <Text style={styles.sectionTitle}>Ristorazione</Text>
-                      <Text style={styles.sectionSubtitle}>Authentic Mediterranean cuisine</Text>
+                      <Text style={styles.sectionSubtitle}>Autentica cucina mediterranea</Text>
                     </View>
                   </View>
                   
@@ -208,15 +208,40 @@ export default function FloatingServicesButton() {
                     ))}
                   </ScrollView>
                   
-                  <Pressable style={styles.viewAllButton} onPress={navigateToRestaurant}>
-                    <Text style={styles.viewAllText}>View Full Menu</Text>
+                  <Pressable style={styles.viewAllButton} onPress={() => selectSection('restaurant')}>
+                    <Text style={styles.viewAllText}>Vedi menu completo</Text>
                   </Pressable>
                 </View>
               )}
               
               {!activeSection && (
                 <View style={styles.emptyState}>
-                  <Text style={styles.emptyStateText}>Select a service to explore</Text>
+                  <View style={styles.emptyStateIconContainer}>
+                    <Image 
+                      source={{ uri: 'https://i.imgur.com/KKezak7.png' }}
+                      style={{ width: 70, height: 70 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <Text style={styles.emptyStateTitle}>Benvenuto</Text>
+                  <Text style={styles.emptyStateText}>Scopri i nostri servizi esclusivi</Text>
+                  <View style={styles.divider}></View>
+                  <View style={styles.serviceIconsContainer}>
+                    <Pressable 
+                      style={styles.serviceIconButton}
+                      onPress={() => selectSection('shop')}
+                    >
+                      <ShoppingBag size={24} color={Colors.gold} />
+                      <Text style={styles.serviceIconText}>Negozio</Text>
+                    </Pressable>
+                    <Pressable 
+                      style={styles.serviceIconButton}
+                      onPress={() => selectSection('restaurant')}
+                    >
+                      <UtensilsCrossed size={24} color={Colors.gold} />
+                      <Text style={styles.serviceIconText}>Ristorante</Text>
+                    </Pressable>
+                  </View>
                 </View>
               )}
             </Pressable>
@@ -250,23 +275,21 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   menuContainer: {
     width: '90%',
     maxWidth: 360,
-    backgroundColor: Colors.card,
+    backgroundColor: 'transparent',
     borderRadius: 12,
     overflow: 'hidden',
-    shadowColor: '#000',
+    shadowColor: Colors.gold,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.4,
     shadowRadius: 8,
     elevation: 5,
-    borderWidth: 1,
-    borderColor: Colors.gold,
   },
   menuContent: {
     width: '100%',
@@ -286,9 +309,15 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
   },
   searchContainer: {
     paddingHorizontal: 16,
@@ -313,28 +342,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gold,
     justifyContent: 'space-around', // Distribute tabs evenly
   },
   menuTab: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
     borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
   menuTabActive: {
-    backgroundColor: 'rgba(245, 197, 24, 0.1)',
+    backgroundColor: 'rgba(245, 197, 24, 0.15)',
     borderWidth: 1,
     borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
   },
   menuTabText: {
     marginLeft: 8,
-    fontWeight: '500',
+    fontWeight: '600',
     color: Colors.text,
+    letterSpacing: 0.5,
   },
   menuTabTextActive: {
     color: Colors.gold,
+    fontWeight: 'bold',
   },
   sectionContent: {
     padding: 16,
@@ -400,23 +439,105 @@ const styles = StyleSheet.create({
   },
   viewAllButton: {
     backgroundColor: Colors.gold,
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 16,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
   },
   viewAllText: {
     color: Colors.card,
-    fontWeight: '600',
+    fontWeight: '700',
+    fontSize: 14,
+    letterSpacing: 0.5,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 1,
   },
   emptyState: {
-    padding: 32,
+    padding: 28,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
+    borderRadius: 12,
+    margin: 16,
+    borderWidth: 1,
+    borderColor: Colors.gold,
+  },
+  emptyStateIconContainer: {
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    backgroundColor: 'rgba(212, 175, 55, 0.12)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.6,
+    shadowRadius: 5,
+  },
+  emptyStateTitle: {
+    color: Colors.gold,
+    fontSize: 22,
+    fontWeight: 'bold',
+    letterSpacing: 1.5,
+    textAlign: 'center',
+    marginBottom: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   emptyStateText: {
-    color: Colors.lightText,
+    color: 'rgba(255, 255, 255, 0.9)',
     fontSize: 16,
+    fontWeight: '500',
+    letterSpacing: 0.5,
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  divider: {
+    width: '80%',
+    height: 1,
+    backgroundColor: 'rgba(212, 175, 55, 0.3)',
+    marginBottom: 20,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+  },
+  serviceIconsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+  serviceIconButton: {
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    backgroundColor: 'rgba(35, 31, 32, 0.7)',
+    borderWidth: 1,
+    borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+  },
+  serviceIconText: {
+    color: Colors.gold,
+    marginTop: 8,
+    fontWeight: '600',
+    fontSize: 14,
+    letterSpacing: 0.5,
   },
 });

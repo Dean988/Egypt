@@ -49,14 +49,14 @@ export default function TreasureHuntStepScreen() {
           options={{
             title: "Caccia al Tesoro",
             headerLeft: () => (
-              <Pressable onPress={() => router.push("/treasure-hunt")} style={styles.headerButton}>
+              <Pressable onPress={() => router.back()} style={styles.headerButton}>
                 <ArrowLeft size={24} color={Colors.text} />
               </Pressable>
             ),
           }} 
         />
         <Text style={styles.errorText}>Indizio non trovato</Text>
-        <Button title="Torna indietro" onPress={() => router.push("/treasure-hunt")} />
+        <Button title="Torna indietro" onPress={() => router.back()} />
       </View>
     );
   }
@@ -118,7 +118,7 @@ export default function TreasureHuntStepScreen() {
         options={{
           title: `Tappa ${stepIndex}`,
           headerLeft: () => (
-            <Pressable onPress={() => router.push("/treasure-hunt")} style={styles.headerButton}>
+            <Pressable onPress={() => router.back()} style={styles.headerButton}>
               <ArrowLeft size={24} color={Colors.text} />
             </Pressable>
           ),

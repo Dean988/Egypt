@@ -145,7 +145,7 @@ export default function TicketsScreen() {
               <Text style={styles.heroTitle}>BIGLIETTI MUSEO</Text>
               <View style={styles.titleUnderline} />
             </View>
-            <Text style={styles.heroSubtitle}>Scopri le meraviglie dell'antico Egitto</Text>
+            <Text style={styles.heroSubtitle}>Vieni a vivere un'esperienza unica!</Text>
           </View>
         </View>
         
@@ -354,13 +354,12 @@ export default function TicketsScreen() {
           )}
         </View>
         
-        <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Clock size={20} color={Colors.gold} />
-            <Text style={styles.sectionTitle}>Select Time</Text>
+        <View style={styles.selectTimeContainer}>
+          <View style={styles.sectionTitleContainer}>
+            <Text style={styles.sectionTitle}>DECIDI L'ORARIO</Text>
+            <View style={styles.sectionTitleUnderline} />
           </View>
-          
-          <View style={styles.timesContainer}>
+          <View style={styles.timeSlotContainer}>
             {times.map(time => (
               <Pressable 
                 key={time.id} 
@@ -431,7 +430,6 @@ export default function TicketsScreen() {
           <Text style={styles.notesText}>• I biglietti non sono rimborsabili</Text>
           <Text style={styles.notesText}>• Bambini sotto i 6 anni entrano gratis</Text>
           <Text style={styles.notesText}>• Si prega di arrivare 15 minuti prima dell'orario prenotato</Text>
-          <Text style={styles.notesText}>• Le audioguide sono disponibili a un costo aggiuntivo</Text>
         </View>
         
         {/* Papyrus Footer Image */}
@@ -999,7 +997,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.border,
   },
-  timesContainer: {
+  selectTimeContainer: {
+    marginBottom: 24,
+  },
+  timeSlotContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 12,
@@ -1238,10 +1239,8 @@ const styles = StyleSheet.create({
   speedyModalButton: {
     minWidth: 150,
   },
-  sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
+  centeredText: {
+    textAlign: 'center',
   },
   // Papyrus Footer
   papyrusFooterContainer: {

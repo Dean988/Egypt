@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, View, Text, TextInput, ScrollView, Pressable, Modal, Animated, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ScrollView, Pressable, Modal, Animated, Keyboard, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import { X, Send, Bot, MapPin, Ticket, Award, Calendar, Info, Clock, Coffee, ShoppingBag, Compass, Sparkles, Search, Book, Camera, Star, Users, HelpCircle, Lightbulb, Palette, Bookmark } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import Colors from '@/constants/colors';
@@ -210,30 +210,32 @@ export default function ChatbotModal({ isVisible, onClose }: ChatbotModalProps) 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const router = useRouter();
   
-  // Initial greeting message
+  // Welcome message
   useEffect(() => {
     if (isVisible && messages.length === 0) {
-      const initialMessages = [
+      setInputText('');
+      
+      const initialMessages: Message[] = [
         {
-          id: '1',
-          text: "Ciao! Sono Khufu, la tua guida virtuale del Museo Egizio. Come posso aiutarti oggi?",
-          sender: 'bot',
+          id: Date.now().toString(),
+          text: "Ciao! Sono Khufu, la tua guida virtuale del Museo Egizio. Posso aiutarti con informazioni sulle mostre, biglietti, orari o curiosità sull'antico Egitto. Cosa ti piacerebbe sapere?",
+          sender: 'bot' as const,
           timestamp: new Date(),
           actions: [
-            { 
-              label: "Esplora il museo", 
-              route: "/", 
-              icon: <Compass size={16} color={Colors.card} />
+            {
+              label: "Mostra la mappa",
+              route: "/map",
+              icon: <MapPin size={16} color={Colors.card} />
             },
-            { 
-              label: "Acquista biglietti", 
-              route: "/tickets", 
+            {
+              label: "Acquista biglietti",
+              route: "/tickets",
               icon: <Ticket size={16} color={Colors.card} />
             },
-            { 
-              label: "Caccia al tesoro", 
-              route: "/treasure-hunt", 
-              icon: <Award size={16} color={Colors.card} />
+            {
+              label: "Informazioni pratiche",
+              route: "/info",
+              icon: <Info size={16} color={Colors.card} />
             }
           ]
         }
@@ -288,7 +290,10 @@ export default function ChatbotModal({ isVisible, onClose }: ChatbotModalProps) 
     setTimeout(() => {
       const botResponse = generateBotResponse(inputText, updatedContext);
       
-      setMessages(prevMessages => [...prevMessages, botResponse]);
+      setMessages(prevMessages => [...prevMessages, {
+        ...botResponse,
+        sender: 'bot' // Assicuro che sender sia sempre 'bot'
+      }]);
       
       // Update context after response
       setConversationContext(prevContext => ({
@@ -302,7 +307,7 @@ export default function ChatbotModal({ isVisible, onClose }: ChatbotModalProps) 
   const navigateTo = (route: string) => {
     onClose();
     setTimeout(() => {
-      router.push(route);
+      router.push(route as any);
     }, 300);
   };
 
@@ -1307,6 +1312,22 @@ export default function ChatbotModal({ isVisible, onClose }: ChatbotModalProps) 
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
+  const renderBotIcon = () => {
+    return (
+      <View style={styles.botIconOuterContainer}>
+        <View style={styles.botIconInnerContainer}>
+          <Image 
+            source={{ uri: 'https://i.imgur.com/HBpKzfe.png' }} 
+            style={styles.botIconImage}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.botIconRing} />
+        <View style={styles.botIconGlowEffect} />
+      </View>
+    );
+  };
+
   return (
     <Modal
       visible={isVisible}
@@ -1323,16 +1344,14 @@ export default function ChatbotModal({ isVisible, onClose }: ChatbotModalProps) 
             {/* Chat Header */}
             <View style={styles.chatHeader}>
               <View style={styles.botInfoContainer}>
-                <View style={styles.botIconContainer}>
-                  <Bot size={24} color={Colors.gold} />
-                </View>
+                {renderBotIcon()}
                 <View>
                   <Text style={styles.botName}>Khufu</Text>
                   <Text style={styles.botDescription}>La tua guida del Museo Egizio</Text>
                 </View>
               </View>
               <Pressable style={styles.closeButton} onPress={onClose}>
-                <X size={24} color={Colors.text} />
+                <X size={24} color={Colors.gold} />
               </Pressable>
             </View>
             
@@ -1420,7 +1439,7 @@ export default function ChatbotModal({ isVisible, onClose }: ChatbotModalProps) 
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -1431,48 +1450,101 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   chatContainer: {
-    backgroundColor: Colors.card,
+    backgroundColor: '#231f20',
     borderRadius: 16,
     overflow: 'hidden',
     width: '100%',
     height: '100%',
     maxHeight: 600,
-    shadowColor: '#000',
+    shadowColor: Colors.gold,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 8,
+    borderWidth: 2,
+    borderColor: Colors.gold,
   },
   chatHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.gold,
   },
   botInfoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  botIconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'rgba(245, 197, 24, 0.1)',
+  botIconOuterContainer: {
+    width: 62,
+    height: 62,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
-    borderWidth: 1,
+    marginRight: 14,
+    position: 'relative',
+  },
+  botIconInnerContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
     borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+    elevation: 8,
+    position: 'relative',
+    zIndex: 3,
+    overflow: 'hidden',
+  },
+  botIconImage: {
+    width: 42,
+    height: 42,
+    position: 'relative',
+    zIndex: 4,
+  },
+  botIconRing: {
+    position: 'absolute',
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+    borderWidth: 2,
+    borderColor: Colors.gold,
+    backgroundColor: 'transparent',
+    opacity: 0.8,
+    zIndex: 2,
+  },
+  botIconGlowEffect: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
+    zIndex: 1,
   },
   botName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.gold,
+    letterSpacing: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   botDescription: {
     fontSize: 12,
-    color: Colors.lightText,
+    color: 'rgba(255, 255, 255, 0.7)',
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 1,
   },
   closeButton: {
     width: 40,
@@ -1480,10 +1552,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(35, 31, 32, 0.8)',
+    borderWidth: 1,
+    borderColor: Colors.gold,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.7,
+    shadowRadius: 3,
   },
   messagesContainer: {
     flex: 1,
+    backgroundColor: 'rgba(35, 31, 32, 0.9)',
   },
   messagesContent: {
     padding: 16,
@@ -1505,26 +1584,42 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   userMessageBubble: {
-    backgroundColor: Colors.gold,
+    backgroundColor: 'rgba(212, 175, 55, 0.8)',
     borderBottomRightRadius: 4,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
   },
   botMessageBubble: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderBottomLeftRadius: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.3)',
   },
   messageText: {
     fontSize: 14,
     lineHeight: 20,
   },
   userMessageText: {
-    color: Colors.card,
+    color: '#231f20',
+    fontWeight: '500',
   },
   botMessageText: {
-    color: Colors.text,
+    color: 'white',
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 1,
   },
   messageTime: {
     fontSize: 10,
-    color: Colors.lightText,
+    color: 'rgba(255, 255, 255, 0.5)',
     alignSelf: 'flex-end',
   },
   // Action buttons styling
@@ -1543,31 +1638,39 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 4,
     maxWidth: '100%',
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
   },
   actionButtonText: {
-    color: Colors.card,
+    color: '#231f20',
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: '600',
     marginLeft: 6,
     flexShrink: 1,
   },
   inputContainer: {
     flexDirection: 'row',
     padding: 12,
-    borderTopWidth: 1,
-    borderTopColor: Colors.border,
-    backgroundColor: Colors.card,
+    borderTopWidth: 2,
+    borderTopColor: Colors.gold,
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
   },
   input: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.03)',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 10,
     marginRight: 8,
     fontSize: 14,
     maxHeight: 100,
-    color: Colors.text,
+    color: 'white',
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.4)',
   },
   sendButton: {
     width: 40,
@@ -1576,8 +1679,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gold,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
   },
   sendButtonDisabled: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(212, 175, 55, 0.3)',
   },
 });

@@ -150,7 +150,7 @@ export default function TreasureHuntDetailScreen() {
         options={{
           title: treasureHunt.name,
           headerLeft: () => (
-            <Pressable onPress={() => router.push("/treasure-hunt")} style={styles.backButton}>
+            <Pressable onPress={() => router.back()} style={styles.backButton}>
               <ArrowLeft size={24} color={Colors.text} />
             </Pressable>
           ),

@@ -132,7 +132,7 @@ export default function TreasureHuntScreen() {
           <ImageBackground 
             source={{ uri: 'https://i.imgur.com/Wb48y2z.jpeg' }} 
             style={styles.featuredImage}
-            imageStyle={{ borderRadius: 12 }}
+            imageStyle={{ borderRadius: 10 }}
           >
             <LinearGradient
               colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,0.8)']}
@@ -186,15 +186,20 @@ export default function TreasureHuntScreen() {
           </View>
           
           <View style={styles.treasureHuntsContainer}>
-            {treasureHunts.map(treasureHunt => (
-              <TreasureHuntCard 
-                key={treasureHunt.id} 
-                treasureHunt={treasureHunt}
-                progress={getProgressPercentage(treasureHunt.id)}
-                status={getStatusText(treasureHunt.id)}
-                onPress={() => navigateToTreasureHunt(treasureHunt.id)}
-              />
-            ))}
+            {treasureHunts.map(treasureHunt => {
+              const isFaraoneChallenge = false;
+              
+              return (
+                <TreasureHuntCard 
+                  key={treasureHunt.id} 
+                  treasureHunt={treasureHunt}
+                  progress={getProgressPercentage(treasureHunt.id)}
+                  status={getStatusText(treasureHunt.id)}
+                  onPress={() => navigateToTreasureHunt(treasureHunt.id)}
+                  isSpecialChallenge={isFaraoneChallenge}
+                />
+              );
+            })}
           </View>
         </View>
 
@@ -402,7 +407,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gold,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 4,
+    borderRadius: 6,
     alignSelf: 'flex-start',
     marginBottom: 10,
     gap: 4,
@@ -448,21 +453,26 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 18,
     borderRadius: 8,
-    alignSelf: 'flex-start',
+    gap: 8,
+    shadowColor: Colors.gold,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 4,
   },
   featuredButtonPressed: {
     opacity: 0.9,
     transform: [{ scale: 0.98 }],
   },
   featuredButtonText: {
-    fontSize: 15,
+    color: Colors.card,
+    fontSize: 16,
     fontWeight: 'bold',
-    color: '#231f20',
-    marginRight: 6,
   },
   // Section styling
   section: {
     paddingHorizontal: 16,
+    marginBottom: 32,
   },
   sectionTitleContainer: {
     alignItems: 'center',

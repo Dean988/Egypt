@@ -13,13 +13,15 @@ interface TreasureHuntCardProps {
   progress?: number;
   status?: string;
   onPress?: () => void;
+  isSpecialChallenge?: boolean;
 }
 
 export default function TreasureHuntCard({ 
   treasureHunt, 
   progress = 0, 
   status = "Non iniziato", 
-  onPress 
+  onPress,
+  isSpecialChallenge = false
 }: TreasureHuntCardProps) {
   const router = useRouter();
   
@@ -55,6 +57,7 @@ export default function TreasureHuntCard({
     <Pressable 
       style={({ pressed }) => [
         styles.container,
+        styles.regularContainer,
         pressed && styles.containerPressed
       ]} 
       onPress={handlePress}
@@ -99,7 +102,9 @@ export default function TreasureHuntCard({
       </View>
       
       <View style={styles.content}>
-        <Text style={styles.descriptionText} numberOfLines={2}>{treasureHunt.description}</Text>
+        <Text style={styles.descriptionText} numberOfLines={2}>
+          {treasureHunt.description}
+        </Text>
         
         {isStarted && !isCompleted && progress > 0 && (
           <View style={styles.progressContainer}>
@@ -137,7 +142,10 @@ export default function TreasureHuntCard({
           <View style={styles.infoItem}>
             <Text style={[
               styles.infoText, 
-              { color: getDifficultyColor(treasureHunt.difficulty) }
+              { 
+                color: getDifficultyColor(treasureHunt.difficulty),
+                fontWeight: '600'  
+              }
             ]}>
               {treasureHunt.difficulty ? 
                 treasureHunt.difficulty.charAt(0).toUpperCase() + treasureHunt.difficulty.slice(1) : 
@@ -159,7 +167,6 @@ export default function TreasureHuntCard({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(35, 31, 32, 0.95)',
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 16,
@@ -172,6 +179,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.gold,
     height: 320,
+  },
+  specialContainer: {
+    backgroundColor: 'rgba(35, 31, 32, 0.95)',
+  },
+  regularContainer: {
+    backgroundColor: '#ffffff',
   },
   containerPressed: {
     opacity: 0.95,
@@ -224,102 +237,22 @@ const styles = StyleSheet.create({
   content: {
     padding: 16,
     flex: 1,
-    justifyContent: 'space-between',
   },
   descriptionText: {
     fontSize: 14,
-    color: '#ffffff',
-    lineHeight: 20,
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 1,
-  },
-  progressText: {
-    fontSize: 12,
-    color: '#cccccc',
-    marginTop: 4,
-  },
-  rewardsContainer: {
-    flexDirection: 'row',
-    marginTop: 12,
-    gap: 16,
-  },
-  rewardItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    backgroundColor: 'rgba(212, 175, 55, 0.2)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.4)',
-  },
-  rewardText: {
-    fontSize: 12,
-    color: Colors.gold,
+    color: '#231f20',
     fontWeight: '500',
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 1,
-  },
-  footer: {
-    flexDirection: 'row',
-    marginTop: 12,
-    justifyContent: 'space-between',
-  },
-  infoItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  infoText: {
-    fontSize: 12,
-    color: '#ffffff',
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 1,
-  },
-  completedBadge: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-    backgroundColor: Colors.gold,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    gap: 4,
-    zIndex: 10,
-  },
-  progressBadge: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    gap: 4,
-    zIndex: 10,
-  },
-  inProgressBadge: {
-    backgroundColor: Colors.warning,
-  },
-  badgeText: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: Colors.card,
+    marginBottom: 12,
+    lineHeight: 20,
   },
   progressContainer: {
-    marginTop: 12,
+    marginBottom: 12,
   },
   progressBar: {
     height: 6,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(212, 175, 55, 0.2)',
     borderRadius: 3,
+    marginBottom: 4,
     overflow: 'hidden',
   },
   progressFill: {
@@ -327,25 +260,92 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gold,
     borderRadius: 3,
   },
+  progressText: {
+    fontSize: 12,
+    color: '#231f20',
+    fontWeight: '500',
+  },
+  rewardsContainer: {
+    marginBottom: 12,
+  },
+  rewardItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  rewardText: {
+    fontSize: 14,
+    color: '#231f20',
+    fontWeight: '500',
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 'auto',
+  },
+  infoItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  infoText: {
+    fontSize: 13,
+    color: '#231f20',
+    fontWeight: '500',
+  },
+  completedBadge: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    backgroundColor: Colors.gold,
+    borderRadius: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    zIndex: 10,
+  },
+  progressBadge: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    borderRadius: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    zIndex: 10,
+  },
+  inProgressBadge: {
+    backgroundColor: Colors.gold,
+  },
+  badgeText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: Colors.card,
+  },
   catBadge: {
     position: 'absolute',
     top: 12,
     left: 12,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: '#231f20',
     borderRadius: 20,
     width: 40,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: Colors.gold,
     zIndex: 10,
   },
   egyptianBorder: {
     position: 'absolute',
-    bottom: 0,
+    top: 0,
     left: 0,
     right: 0,
-    height: 8,
-  },
+    bottom: 0,
+    opacity: 0.1,
+  }
 });

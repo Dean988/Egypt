@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, Pressable, ScrollView, Modal, TouchableOpacity, ImageBackground, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Route as RouteIcon, Plus, Check, Calendar, Clock, Users, MapPin, MessageSquare, Headphones, X, Search, Filter } from 'lucide-react-native';
-import { router } from 'expo-router';
+import { Route as RouteIcon, Plus, Check, Calendar, Clock, Users, MapPin, MessageSquare, Headphones, X, Search, Filter, Star, Sparkles, ChevronRight, AlignLeft, ShieldCheck } from 'lucide-react-native';
+import { router, Stack } from 'expo-router';
 import Colors from '@/constants/colors';
 import Typography from '@/constants/typography';
 import RouteCard from '@/components/RouteCard';
@@ -51,7 +51,7 @@ interface Route {
   [key: string]: any;
 }
 
-export default function RoutesScreen() {
+const GuidedRoutesScreen = () => {
   const [customizeMode, setCustomizeMode] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [routeCreated, setRouteCreated] = useState(false);
@@ -172,7 +172,7 @@ export default function RoutesScreen() {
       {/* Main banner with new image */}
       <View style={styles.bannerContainer}>
         <Image 
-          source={{ uri: 'https://i.imgur.com/cTccwr4.png' }}
+          source={{ uri: 'https://i.imgur.com/cTccwr4.png' }} 
           style={styles.bannerImage}
           resizeMode="cover"
         />
@@ -183,21 +183,6 @@ export default function RoutesScreen() {
           </View>
           <Text style={styles.bannerSubtitle}>Esplora le meraviglie dell'antico Egitto</Text>
         </View>
-      </View>
-
-      {/* Egyptian-themed header section */}
-      <View style={styles.headerContent}>
-        <View style={styles.iconContainer}>
-          <Image 
-            source={{ uri: 'https://i.imgur.com/48eXmiV.png' }}
-            style={styles.routeIcon}
-            resizeMode="contain"
-          />
-        </View>
-        <Text style={styles.headerTitle}>Percorsi Guidati</Text>
-        <Text style={styles.headerSubtitle}>
-          Scopri itinerari tematici curati dai nostri egittologi
-        </Text>
       </View>
 
       {/* Filter section */}
@@ -1272,3 +1257,5 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
 });
+
+export default GuidedRoutesScreen;

@@ -102,7 +102,7 @@ export default function SpecialChallengeScreen() {
               </Text>
               <Button 
                 title="Torna alla caccia al tesoro" 
-                onPress={() => router.push(`/treasure-hunt/${id}`)}
+                onPress={() => router.back()}
                 style={styles.lockedButton}
               />
             </View>
@@ -135,7 +135,7 @@ export default function SpecialChallengeScreen() {
   };
   
   const handleFinish = () => {
-    router.push(`/treasure-hunt/${id}`);
+    router.back();
   };
   
   return (
