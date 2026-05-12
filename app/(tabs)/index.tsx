@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Image,
   ImageBackground,
+  Linking,
   Platform,
   Pressable,
   ScrollView,
@@ -17,6 +18,7 @@ import {
   Clock,
   Compass,
   Map,
+  ExternalLink,
   Sparkles,
   Ticket,
   Trophy,
@@ -30,6 +32,7 @@ const HERO_IMAGE =
   'https://www.giovanigenitori.it/wp-content/uploads/2023/06/Sala-14b-Galleria-dei-Re-1-scaled.jpg';
 const LOGO_IMAGE =
   'https://clubsilencio.it/wp-content/uploads/bfi_thumb/logo_museo_egizio-31m7cn4e1fwnkt54zirhymgen6a1crmngd3alc7h9uhqn5cy8.png';
+const OFFICIAL_SITE_URL = 'https://museoegizio.it/';
 
 const primaryActions = [
   {
@@ -86,6 +89,9 @@ export default function HomeScreen() {
   const isWide = width >= 900;
   const featuredExhibit = exhibits[0];
   const featuredRoute = routes[0];
+  const openOfficialSite = () => {
+    Linking.openURL(OFFICIAL_SITE_URL);
+  };
 
   return (
     <ScrollView
@@ -169,6 +175,31 @@ export default function HomeScreen() {
               </Pressable>
             );
           })}
+        </View>
+
+        <View style={styles.section}>
+          <Pressable
+            style={({ pressed }) => [
+              styles.officialPortal,
+              !isWide && styles.officialPortalCompact,
+              pressed && styles.tilePressed,
+            ]}
+            onPress={openOfficialSite}
+            accessibilityRole="link"
+            accessibilityLabel="Apri il portale ufficiale del Museo Egizio"
+          >
+            <View style={styles.portalCopy}>
+              <Text style={styles.kicker}>Portale ufficiale</Text>
+              <Text style={styles.portalTitle}>Museo Egizio</Text>
+              <Text style={styles.portalText}>
+                News, mostre, collezione online, informazioni istituzionali e servizi aggiornati.
+              </Text>
+            </View>
+            <View style={[styles.portalAction, !isWide && styles.portalActionCompact]}>
+              <ExternalLink size={18} color="#FFFFFF" />
+              <Text style={styles.portalActionText}>Apri sito</Text>
+            </View>
+          </Pressable>
         </View>
 
         <View style={[styles.section, isWide && styles.splitSection]}>
@@ -436,6 +467,54 @@ const styles = StyleSheet.create({
   },
   actionsGridWide: {
     flexDirection: 'row',
+  },
+  officialPortal: {
+    minHeight: 132,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 18,
+    backgroundColor: Colors.surface,
+    borderRadius: 8,
+    padding: 18,
+  },
+  officialPortalCompact: {
+    alignItems: 'stretch',
+    flexDirection: 'column',
+  },
+  portalCopy: {
+    flex: 1,
+  },
+  portalTitle: {
+    color: Colors.inverseText,
+    fontSize: 26,
+    lineHeight: 32,
+    fontWeight: '900',
+  },
+  portalText: {
+    color: '#E7DCCB',
+    fontSize: 15,
+    lineHeight: 22,
+    marginTop: 6,
+    maxWidth: 640,
+  },
+  portalAction: {
+    minHeight: 46,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    borderRadius: 7,
+    backgroundColor: Colors.deepGold,
+    paddingHorizontal: 16,
+  },
+  portalActionCompact: {
+    width: '100%',
+  },
+  portalActionText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '800',
   },
   actionTile: {
     minHeight: 76,

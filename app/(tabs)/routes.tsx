@@ -76,7 +76,7 @@ export default function GuidedRoutesScreen() {
               placeholderTextColor={Colors.lightText}
             />
           </View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterRow}>
+          <View style={[styles.filterRow, !isWide && { width: Math.max(width - 36, 0) }]}>
             {filters.map((item) => (
               <Pressable
                 key={item}
@@ -88,7 +88,7 @@ export default function GuidedRoutesScreen() {
                 <Text style={[styles.filterText, filter === item && styles.filterTextActive]}>{item}</Text>
               </Pressable>
             ))}
-          </ScrollView>
+          </View>
         </View>
 
         <View style={[styles.grid, isWide && styles.gridWide]}>
@@ -234,6 +234,8 @@ const styles = StyleSheet.create({
     outlineStyle: 'none' as any,
   },
   filterRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 10,
   },
   filterChip: {

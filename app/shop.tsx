@@ -133,7 +133,7 @@ export default function ShopScreen() {
           </View>
         </View>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categories}>
+        <View style={[styles.categories, !isWide && { width: Math.max(width - 36, 0) }]}>
           {categories.map((item) => (
             <Pressable
               key={item}
@@ -145,7 +145,7 @@ export default function ShopScreen() {
               <Text style={[styles.categoryText, category === item && styles.categoryTextActive]}>{item}</Text>
             </Pressable>
           ))}
-        </ScrollView>
+        </View>
 
         <View style={[styles.grid, isWide && styles.gridWide]}>
           {filteredProducts.map((product) => {
@@ -299,7 +299,10 @@ const styles = StyleSheet.create({
   categories: {
     maxWidth: 1180,
     width: '100%',
+    boxSizing: 'border-box' as any,
     alignSelf: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 10,
     paddingHorizontal: 18,
     paddingTop: 14,

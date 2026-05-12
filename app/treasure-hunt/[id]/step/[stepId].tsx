@@ -48,6 +48,8 @@ export default function TreasureHuntStepScreen() {
         <Stack.Screen 
           options={{
             title: "Caccia al Tesoro",
+            headerStyle: { backgroundColor: Colors.surface },
+            headerTintColor: Colors.gold,
             headerLeft: () => (
               <Pressable onPress={() => router.back()} style={styles.headerButton}>
                 <ArrowLeft size={24} color={Colors.text} />
@@ -117,6 +119,8 @@ export default function TreasureHuntStepScreen() {
       <Stack.Screen 
         options={{
           title: `Tappa ${stepIndex}`,
+          headerStyle: { backgroundColor: Colors.surface },
+          headerTintColor: Colors.gold,
           headerLeft: () => (
             <Pressable onPress={() => router.back()} style={styles.headerButton}>
               <ArrowLeft size={24} color={Colors.text} />
@@ -146,7 +150,7 @@ export default function TreasureHuntStepScreen() {
           
           {clue.exhibitId && (
             <View style={styles.exhibitInfo}>
-              <MapPin size={16} color={Colors.gold} />
+              <MapPin size={16} color={Colors.deepGold} />
               <Text style={styles.exhibitText}>Cerca vicino all'esposizione #{clue.exhibitId}</Text>
             </View>
           )}
@@ -155,7 +159,7 @@ export default function TreasureHuntStepScreen() {
             style={styles.hintButton} 
             onPress={toggleHint}
           >
-            <HelpCircle size={16} color={Colors.gold} />
+            <HelpCircle size={16} color={Colors.deepGold} />
             <Text style={styles.hintButtonText}>
               {showHint ? "Nascondi suggerimento" : "Mostra suggerimento"}
             </Text>
@@ -168,7 +172,7 @@ export default function TreasureHuntStepScreen() {
           )}
         </View>
         
-        <EgyptianPattern color={Colors.gold} style={styles.divider} />
+        <EgyptianPattern color={Colors.deepGold} style={styles.divider} />
         
         {!isCorrect ? (
           <View style={styles.answerContainer}>
@@ -218,7 +222,7 @@ export default function TreasureHuntStepScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.papyrus,
+    backgroundColor: Colors.background,
   },
   headerButton: {
     width: 40,
@@ -238,7 +242,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: Colors.gold,
+    borderColor: Colors.deepGold,
   },
   stepText: {
     fontSize: 14,
@@ -300,7 +304,7 @@ const styles = StyleSheet.create({
   },
   hintButtonText: {
     fontSize: 14,
-    color: Colors.gold,
+    color: Colors.deepGold,
     fontWeight: '500',
   },
   hintContainer: {
@@ -309,7 +313,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 12,
     borderWidth: 1,
-    borderColor: Colors.gold,
+    borderColor: Colors.deepGold,
   },
   hintText: {
     fontSize: 14,
@@ -380,7 +384,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.gold,
+    backgroundColor: Colors.deepGold,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 8,

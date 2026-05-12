@@ -1,226 +1,164 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, ScrollView, Image, Pressable, ImageBackground } from 'react-native';
-import { useRouter, Stack } from 'expo-router';
-import { Trophy, Clock, MapPin, ChevronRight, Sparkles, Award, Search, Filter, Users } from 'lucide-react-native';
+import React, { useMemo, useState } from 'react';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Stack, useRouter } from 'expo-router';
+import { Award, ChevronRight, Clock, MapPin, Search, Trophy, Users } from 'lucide-react-native';
 import Colors from '@/constants/colors';
-import TreasureHuntCard from '@/components/TreasureHuntCard';
 import treasureHunts from '@/mocks/treasure-hunts';
 import { useUserStore } from '@/store/user-store';
-import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
+const filters = ['Tutti', 'Facile', 'Medio', 'Difficile', 'Famiglie'];
+
+const normalize = (value?: string) => (value || '').toLowerCase();
 
 export default function TreasureHuntScreen() {
   const router = useRouter();
+  const { width } = useWindowDimensions();
   const { treasureHuntProgress } = useUserStore();
-  const [activeFilter, setActiveFilter] = useState('all');
-  
-  const navigateToTreasureHunt = (id: string) => {
+  const [activeFilter, setActiveFilter] = useState('Tutti');
+  const isWide = width >= 900;
+
+  const filteredHunts = useMemo(() => {
+    if (activeFilter === 'Tutti') return treasureHunts;
+    if (activeFilter === 'Famiglie') {
+      return treasureHunts.filter((hunt) => Number.parseInt(hunt.ageRange || '8', 10) <= 8);
+    }
+    return treasureHunts.filter((hunt) => normalize(hunt.difficulty).includes(normalize(activeFilter)));
+  }, [activeFilter]);
+
+  const getProgressPercentage = (treasureHuntId: string) => {
+    const huntProgress = treasureHuntProgress?.[treasureHuntId];
+    const treasureHunt = treasureHunts.find((hunt) => hunt.id === treasureHuntId);
+    if (!huntProgress || !treasureHunt) return 0;
+    if (huntProgress.completed) return 100;
+    const totalSteps = treasureHunt.clues?.length || 3;
+    return Math.round((huntProgress.currentStep / totalSteps) * 100);
+  };
+
+  const openHunt = (id: string) => {
     router.push(`/treasure-hunt/${id}`);
   };
 
-  const getProgressPercentage = (treasureHuntId: string) => {
-    if (!treasureHuntProgress) return 0;
-    
-    const huntProgress = treasureHuntProgress[treasureHuntId];
-    if (!huntProgress) return 0;
-    
-    const { currentStep, completed } = huntProgress;
-    const treasureHunt = treasureHunts.find(t => t.id === treasureHuntId);
-    if (!treasureHunt) return 0;
-    
-    const totalSteps = treasureHunt.clues ? treasureHunt.clues.length : 3;
-    if (completed) return 100;
-    return Math.round((currentStep / totalSteps) * 100);
-  };
-
-  const getStatusText = (treasureHuntId: string) => {
-    if (!treasureHuntProgress) return 'Non iniziato';
-    
-    const huntProgress = treasureHuntProgress[treasureHuntId];
-    if (!huntProgress) return 'Non iniziato';
-    if (huntProgress.completed) return 'Completato';
-    if (huntProgress.currentStep > 0) return 'In corso';
-    return 'Non iniziato';
-  };
+  const featured = treasureHunts[0];
 
   return (
-    <SafeAreaView style={styles.container} edges={['right', 'left']}>
-      <Stack.Screen 
+    <SafeAreaView style={styles.container} edges={['left', 'right']}>
+      <Stack.Screen
         options={{
-          title: "Caccia al Tesoro",
+          title: 'Tesori',
           headerShown: true,
-          headerStyle: {
-            backgroundColor: '#231f20',
-          },
+          headerStyle: { backgroundColor: Colors.surface },
           headerTintColor: Colors.gold,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }} 
+          headerTitleStyle: { fontWeight: '800' },
+        }}
       />
-      
-      {/* Gold header separator - thinner line */}
-      <View style={styles.headerSeparator} />
-      
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Banner Header - starts immediately below header */}
-        <View style={styles.bannerContainer}>
-          <Image 
-            source={{ uri: 'https://www.animazione-bomba.it/wp-content/uploads/2019/03/caccia-al-tesoro.jpeg' }} 
-            style={styles.bannerImage}
-            resizeMode="cover"
-          />
-          <View style={styles.bannerOverlay}>
-            <View style={styles.bannerTitleContainer}>
-              <Text style={styles.bannerTitle}>CACCIA AL TESORO</Text>
-              <View style={styles.bannerUnderline} />
-            </View>
-            <Text style={styles.bannerSubtitle}>Diventa un vero esploratore!</Text>
+
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={[styles.hero, isWide && styles.heroWide]}>
+          <View style={styles.heroText}>
+            <Text style={styles.kicker}>Cacce al tesoro</Text>
+            <Text style={[styles.title, !isWide && styles.titleCompact]}>
+              Sfide leggere per esplorare il museo con piu attenzione.
+            </Text>
+            <Text style={[styles.subtitle, !isWide && styles.subtitleCompact]}>
+              Scegli un gioco, segui gli indizi nelle sale e trasforma la visita in una scoperta guidata.
+            </Text>
+          </View>
+          <View style={styles.heroCard}>
+            <Trophy size={28} color={Colors.deepGold} />
+            <Text style={styles.heroCardTitle}>Sfida consigliata</Text>
+            <Text style={styles.heroCardText}>{featured?.name || 'Il Segreto del Faraone'}</Text>
           </View>
         </View>
 
-        {/* Egyptian-themed header section */}
-        <View style={styles.headerContent}>
-          <View style={styles.iconContainer}>
-            <Trophy size={24} color={Colors.gold} />
+        <View style={styles.toolbar}>
+          <View style={styles.searchBox}>
+            <Search size={18} color={Colors.lightText} />
+            <Text style={styles.searchPlaceholder}>Scegli per eta, durata o difficolta</Text>
           </View>
-          <Text style={styles.headerTitle}>Caccia al Tesoro</Text>
-          <Text style={styles.headerSubtitle}>
-            Risolvi enigmi e indovinelli per trovare tesori nascosti nel museo
-          </Text>
         </View>
 
-        {/* Difficulty Filters */}
-        <View style={styles.filterContainer}>
-          <View style={styles.filterHeader}>
-            <Filter size={16} color={Colors.gold} />
-            <Text style={styles.filterTitle}>Difficoltà:</Text>
-          </View>
-          <ScrollView 
-            horizontal 
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.filterButtonsContainer}
-          >
-            <Pressable 
-              style={[styles.filterButton, activeFilter === 'all' && styles.filterButtonActive]}
-              onPress={() => setActiveFilter('all')}
-            >
-              <Text style={[styles.filterButtonText, activeFilter === 'all' && styles.filterButtonTextActive]}>
-                Tutti
-              </Text>
-            </Pressable>
-            <Pressable 
-              style={[styles.filterButton, activeFilter === 'easy' && styles.filterButtonActive]}
-              onPress={() => setActiveFilter('easy')}
-            >
-              <Text style={[styles.filterButtonText, activeFilter === 'easy' && styles.filterButtonTextActive]}>
-                Facile
-              </Text>
-            </Pressable>
-            <Pressable 
-              style={[styles.filterButton, activeFilter === 'medium' && styles.filterButtonActive]}
-              onPress={() => setActiveFilter('medium')}
-            >
-              <Text style={[styles.filterButtonText, activeFilter === 'medium' && styles.filterButtonTextActive]}>
-                Medio
-              </Text>
-            </Pressable>
-            <Pressable 
-              style={[styles.filterButton, activeFilter === 'hard' && styles.filterButtonActive]}
-              onPress={() => setActiveFilter('hard')}
-            >
-              <Text style={[styles.filterButtonText, activeFilter === 'hard' && styles.filterButtonTextActive]}>
-                Difficile
-              </Text>
-            </Pressable>
-            <Pressable 
-              style={[styles.filterButton, activeFilter === 'family' && styles.filterButtonActive]}
-              onPress={() => setActiveFilter('family')}
-            >
-              <Text style={[styles.filterButtonText, activeFilter === 'family' && styles.filterButtonTextActive]}>
-                Per famiglie
-              </Text>
-            </Pressable>
-          </ScrollView>
+        <View style={[styles.filters, !isWide && { width: Math.max(width - 36, 0) }]}>
+          {filters.map((filter) => {
+            const selected = activeFilter === filter;
+            return (
+              <Pressable
+                key={filter}
+                style={[styles.filterButton, selected && styles.filterButtonActive]}
+                onPress={() => setActiveFilter(filter)}
+                accessibilityRole="button"
+                accessibilityState={{ selected }}
+              >
+                <Text style={[styles.filterText, selected && styles.filterTextActive]}>{filter}</Text>
+              </Pressable>
+            );
+          })}
         </View>
 
-        {/* Featured Challenge */}
-        <View style={styles.featuredContainer}>
-          <ImageBackground 
-            source={{ uri: 'https://i.imgur.com/Wb48y2z.jpeg' }} 
-            style={styles.featuredImage}
-            imageStyle={{ borderRadius: 10 }}
-          >
-            <LinearGradient
-              colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,0.8)']}
-              style={styles.featuredGradient}
-            />
-            <View style={styles.featuredOverlay}>
-              <View style={styles.featuredContent}>
-                <View style={styles.featuredBadge}>
-                  <Sparkles size={14} color={Colors.card} />
-                  <Text style={styles.featuredBadgeText}>Sfida Speciale</Text>
-                </View>
-                <Text style={styles.featuredSubtitle}>La Tomba del Faraone</Text>
-                <View style={styles.featuredDetails}>
-                  <View style={styles.featuredDetail}>
-                    <Clock size={16} color={Colors.gold} />
-                    <Text style={styles.featuredDetailText}>60 min</Text>
+        <View style={[styles.grid, isWide && styles.gridWide]}>
+          {filteredHunts.map((hunt) => {
+            const progress = getProgressPercentage(hunt.id);
+            const started = progress > 0;
+            return (
+              <Pressable
+                key={hunt.id}
+                style={({ pressed }) => [styles.card, isWide && styles.cardWide, pressed && styles.pressed]}
+                onPress={() => openHunt(hunt.id)}
+                accessibilityRole="button"
+                accessibilityLabel={`Apri caccia al tesoro ${hunt.name}`}
+              >
+                <Image source={{ uri: hunt.imageUrl }} style={styles.cardImage} />
+                <View style={styles.cardBody}>
+                  <View style={styles.cardHeader}>
+                    <Text style={styles.cardKicker}>{hunt.difficulty}</Text>
+                    <View style={styles.pointsPill}>
+                      <Award size={14} color={Colors.deepGold} />
+                      <Text style={styles.pointsText}>{hunt.points || 100}</Text>
+                    </View>
                   </View>
-                  <View style={styles.featuredDetail}>
-                    <MapPin size={16} color={Colors.gold} />
-                    <Text style={styles.featuredDetailText}>Piano 2</Text>
+                  <Text style={styles.cardTitle}>{hunt.name}</Text>
+                  <Text style={styles.cardText} numberOfLines={3}>
+                    {hunt.description}
+                  </Text>
+
+                  <View style={styles.metaRow}>
+                    <View style={styles.metaItem}>
+                      <Clock size={15} color={Colors.deepGold} />
+                      <Text style={styles.metaText}>{hunt.duration || hunt.estimatedTime} min</Text>
+                    </View>
+                    <View style={styles.metaItem}>
+                      <MapPin size={15} color={Colors.deepGold} />
+                      <Text style={styles.metaText}>{hunt.locations || 3} tappe</Text>
+                    </View>
+                    <View style={styles.metaItem}>
+                      <Users size={15} color={Colors.deepGold} />
+                      <Text style={styles.metaText}>{hunt.ageRange || hunt.ageRecommendation}</Text>
+                    </View>
                   </View>
-                  <View style={styles.featuredDetail}>
-                    <Award size={16} color={Colors.gold} />
-                    <Text style={styles.featuredDetailText}>300 punti</Text>
-                  </View>
-                  <View style={styles.featuredDetail}>
-                    <Users size={16} color={Colors.gold} />
-                    <Text style={styles.featuredDetailText}>2-4 giocatori</Text>
+
+                  {started && (
+                    <View style={styles.progressTrack}>
+                      <View style={[styles.progressFill, { width: `${progress}%` }]} />
+                    </View>
+                  )}
+
+                  <View style={styles.cardAction}>
+                    <Text style={styles.cardActionText}>{started ? 'Continua' : 'Inizia'}</Text>
+                    <ChevronRight size={16} color={Colors.deepGold} />
                   </View>
                 </View>
-                <Pressable 
-                  style={({ pressed }) => [
-                    styles.featuredButton,
-                    pressed && styles.featuredButtonPressed
-                  ]}
-                  onPress={() => navigateToTreasureHunt(treasureHunts[0].id)}
-                >
-                  <Text style={styles.featuredButtonText}>Inizia la sfida</Text>
-                  <ChevronRight size={16} color={Colors.card} />
-                </Pressable>
-              </View>
-            </View>
-          </ImageBackground>
+              </Pressable>
+            );
+          })}
         </View>
-
-        {/* All Challenges */}
-        <View style={styles.section}>
-          <View style={styles.sectionTitleContainer}>
-            <Text style={styles.sectionTitle}>TUTTE LE SFIDE</Text>
-            <View style={styles.sectionTitleUnderline} />
-          </View>
-          
-          <View style={styles.treasureHuntsContainer}>
-            {treasureHunts.map(treasureHunt => {
-              const isFaraoneChallenge = false;
-              
-              return (
-                <TreasureHuntCard 
-                  key={treasureHunt.id} 
-                  treasureHunt={treasureHunt}
-                  progress={getProgressPercentage(treasureHunt.id)}
-                  status={getStatusText(treasureHunt.id)}
-                  onPress={() => navigateToTreasureHunt(treasureHunt.id)}
-                  isSpecialChallenge={isFaraoneChallenge}
-                />
-              );
-            })}
-          </View>
-        </View>
-
-        <View style={styles.spacer} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -229,303 +167,239 @@ export default function TreasureHuntScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#231f20',
+    backgroundColor: Colors.background,
   },
-  scrollContent: {
-    paddingBottom: 16,
+  content: {
+    paddingBottom: 128,
   },
-  // Banner styling
-  bannerContainer: {
-    height: 220,
-    width: '100%',
-    position: 'relative',
-    borderBottomWidth: 3,
-    borderBottomColor: Colors.gold,
+  hero: {
+    backgroundColor: Colors.surface,
+    padding: 22,
+    gap: 18,
   },
-  bannerImage: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-  bannerOverlay: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bannerTitleContainer: {
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: 'rgba(212, 175, 55, 0.8)',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-    position: 'relative',
-    marginHorizontal: 20,
-  },
-  bannerTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: Colors.gold,
-    letterSpacing: 4,
-    marginBottom: 12,
-    textShadowColor: 'rgba(0, 0, 0, 0.9)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
-    textTransform: 'uppercase',
-  },
-  bannerUnderline: {
-    height: 4,
-    width: 120,
-    backgroundColor: Colors.gold,
-    marginBottom: 16,
-    shadowColor: Colors.gold,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 6,
-    borderRadius: 2,
-  },
-  bannerSubtitle: {
-    fontSize: 18,
-    color: '#ffffff',
-    textAlign: 'center',
-    letterSpacing: 1,
-    textShadowColor: 'rgba(0, 0, 0, 0.8)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-  },
-  // Header styling
-  headerContent: {
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 24,
-    paddingHorizontal: 16,
-  },
-  iconContainer: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 12,
-    borderWidth: 2,
-    borderColor: Colors.gold,
-    shadowColor: Colors.gold,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  headerTitle: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: Colors.gold,
-    letterSpacing: 2,
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-    marginBottom: 8,
-  },
-  headerSubtitle: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#ffffff',
-    paddingHorizontal: 32,
-    letterSpacing: 0.5,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-  },
-  // Filter styling
-  filterContainer: {
-    marginHorizontal: 16,
-    marginBottom: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderRadius: 12,
-    padding: 16,
-    borderWidth: 1.5,
-    borderColor: Colors.gold,
-  },
-  filterHeader: {
+  heroWide: {
+    minHeight: 360,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
-    gap: 8,
+    justifyContent: 'space-between',
+    paddingHorizontal: 72,
   },
-  filterTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: Colors.gold,
-    letterSpacing: 0.5,
+  heroText: {
+    flex: 1,
+    maxWidth: 660,
   },
-  filterButtonsContainer: {
-    paddingBottom: 8,
-    gap: 12,
-  },
-  filterButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: 'rgba(35, 31, 32, 0.8)',
-    borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.4)',
-  },
-  filterButtonActive: {
-    backgroundColor: 'rgba(212, 175, 55, 0.3)',
-    borderColor: Colors.gold,
-  },
-  filterButtonText: {
-    fontSize: 14,
-    color: '#ffffff',
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 1,
-  },
-  filterButtonTextActive: {
-    color: Colors.gold,
-    fontWeight: 'bold',
-  },
-  // Featured Challenge styling
-  featuredContainer: {
-    margin: 16,
-    height: 260,
-    borderRadius: 12,
-    overflow: 'hidden',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderWidth: 2,
-    borderColor: Colors.gold,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 4,
-  },
-  featuredImage: {
-    width: '100%',
-    height: '100%',
-  },
-  featuredGradient: {
-    ...StyleSheet.absoluteFillObject,
-    borderRadius: 12,
-  },
-  featuredOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-  },
-  featuredContent: {
-    padding: 16,
-  },
-  featuredBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.gold,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 6,
-    alignSelf: 'flex-start',
+  kicker: {
+    color: Colors.lightGold,
+    fontSize: 13,
+    fontWeight: '800',
     marginBottom: 10,
-    gap: 4,
   },
-  featuredBadgeText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: Colors.card,
+  title: {
+    color: Colors.inverseText,
+    fontSize: 36,
+    lineHeight: 42,
+    fontWeight: '800',
   },
-  featuredSubtitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 12,
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
-    letterSpacing: 1,
+  titleCompact: {
+    fontSize: 30,
+    lineHeight: 36,
+    maxWidth: 345,
   },
-  featuredDetails: {
+  subtitle: {
+    color: '#E7DCCB',
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 12,
+  },
+  subtitleCompact: {
+    fontSize: 15,
+    lineHeight: 23,
+    maxWidth: 345,
+  },
+  heroCard: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: Colors.card,
+    borderRadius: 8,
+    padding: 22,
+  },
+  heroCardTitle: {
+    color: Colors.text,
+    fontSize: 22,
+    lineHeight: 28,
+    fontWeight: '900',
+    marginTop: 16,
+  },
+  heroCardText: {
+    color: Colors.lightText,
+    fontSize: 15,
+    lineHeight: 22,
+    marginTop: 6,
+  },
+  toolbar: {
+    maxWidth: 1180,
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 18,
+    paddingTop: 20,
+  },
+  searchBox: {
+    minHeight: 48,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: Colors.card,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingHorizontal: 14,
+  },
+  searchPlaceholder: {
+    flex: 1,
+    color: Colors.lightText,
+    fontSize: 15,
+  },
+  filters: {
+    maxWidth: 1180,
+    width: '100%',
+    boxSizing: 'border-box' as any,
+    alignSelf: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 16,
-    gap: 16,
-  },
-  featuredDetail: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  featuredDetailText: {
-    fontSize: 14,
-    color: 'white',
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-  },
-  featuredButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.gold,
-    paddingVertical: 12,
+    gap: 10,
     paddingHorizontal: 18,
-    borderRadius: 8,
-    gap: 8,
-    shadowColor: Colors.gold,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 4,
+    paddingTop: 14,
+    paddingBottom: 4,
   },
-  featuredButtonPressed: {
-    opacity: 0.9,
-    transform: [{ scale: 0.98 }],
+  filterButton: {
+    minHeight: 40,
+    justifyContent: 'center',
+    borderRadius: 7,
+    paddingHorizontal: 14,
+    backgroundColor: Colors.card,
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
-  featuredButtonText: {
-    color: Colors.card,
-    fontSize: 16,
-    fontWeight: 'bold',
+  filterButtonActive: {
+    backgroundColor: Colors.deepGold,
+    borderColor: Colors.deepGold,
   },
-  // Section styling
-  section: {
-    paddingHorizontal: 16,
-    marginBottom: 32,
+  filterText: {
+    color: Colors.text,
+    fontSize: 14,
+    fontWeight: '800',
   },
-  sectionTitleContainer: {
-    alignItems: 'center',
-    marginBottom: 16,
+  filterTextActive: {
+    color: '#FFFFFF',
   },
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: Colors.gold,
-    letterSpacing: 1.5,
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-    marginBottom: 6,
-    textTransform: 'uppercase',
-  },
-  sectionTitleUnderline: {
-    height: 3,
-    width: 80,
-    backgroundColor: Colors.gold,
-    borderRadius: 1.5,
-    shadowColor: Colors.gold,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
-  },
-  treasureHuntsContainer: {
-    gap: 16,
-  },
-  spacer: {
-    height: 100,
-  },
-  headerSeparator: {
-    height: 1,
-    backgroundColor: Colors.gold,
+  grid: {
+    maxWidth: 1180,
     width: '100%',
-    marginTop: 56,
+    alignSelf: 'center',
+    paddingHorizontal: 18,
+    paddingTop: 16,
+    gap: 14,
+  },
+  gridWide: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  card: {
+    backgroundColor: Colors.card,
+    borderRadius: 8,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  cardWide: {
+    width: '31.8%',
+  },
+  cardImage: {
+    width: '100%',
+    height: 190,
+  },
+  cardBody: {
+    padding: 16,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+    marginBottom: 8,
+  },
+  cardKicker: {
+    color: Colors.deepGold,
+    fontSize: 12,
+    fontWeight: '900',
+  },
+  pointsPill: {
+    minHeight: 28,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    borderRadius: 7,
+    backgroundColor: Colors.papyrus,
+    paddingHorizontal: 8,
+  },
+  pointsText: {
+    color: Colors.text,
+    fontSize: 12,
+    fontWeight: '900',
+  },
+  cardTitle: {
+    color: Colors.text,
+    fontSize: 20,
+    lineHeight: 25,
+    fontWeight: '900',
+  },
+  cardText: {
+    color: Colors.lightText,
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: 8,
+  },
+  metaRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+    marginTop: 14,
+  },
+  metaItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  metaText: {
+    color: Colors.text,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  progressTrack: {
+    height: 6,
+    backgroundColor: Colors.border,
+    borderRadius: 3,
+    overflow: 'hidden',
+    marginTop: 14,
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: Colors.deepGold,
+  },
+  cardAction: {
+    minHeight: 42,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 12,
+  },
+  cardActionText: {
+    color: Colors.deepGold,
+    fontSize: 15,
+    fontWeight: '900',
+  },
+  pressed: {
+    opacity: 0.94,
+    transform: [{ scale: 0.995 }],
   },
 });

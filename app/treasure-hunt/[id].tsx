@@ -23,6 +23,8 @@ export default function TreasureHuntDetailScreen() {
         <Stack.Screen 
           options={{
             title: "Treasure Hunt",
+            headerStyle: { backgroundColor: Colors.surface },
+            headerTintColor: Colors.gold,
             headerLeft: () => (
               <Pressable onPress={() => router.back()} style={styles.backButton}>
                 <ArrowLeft size={24} color={Colors.text} />
@@ -49,15 +51,15 @@ export default function TreasureHuntDetailScreen() {
       
       <View style={styles.infoContainer}>
         <View style={styles.infoItem}>
-          <Clock size={20} color={Colors.gold} />
+          <Clock size={20} color={Colors.deepGold} />
           <Text style={styles.infoText}>{treasureHunt.duration} minutes</Text>
         </View>
         <View style={styles.infoItem}>
-          <MapPin size={20} color={Colors.gold} />
+          <MapPin size={20} color={Colors.deepGold} />
           <Text style={styles.infoText}>{treasureHunt.locations} locations</Text>
         </View>
         <View style={styles.infoItem}>
-          <Trophy size={20} color={Colors.gold} />
+          <Trophy size={20} color={Colors.deepGold} />
           <Text style={styles.infoText}>{treasureHunt.difficulty} difficulty</Text>
         </View>
       </View>
@@ -149,6 +151,8 @@ export default function TreasureHuntDetailScreen() {
       <Stack.Screen 
         options={{
           title: treasureHunt.name,
+          headerStyle: { backgroundColor: Colors.surface },
+          headerTintColor: Colors.gold,
           headerLeft: () => (
             <Pressable onPress={() => router.back()} style={styles.backButton}>
               <ArrowLeft size={24} color={Colors.text} />
@@ -189,7 +193,7 @@ export default function TreasureHuntDetailScreen() {
             </Pressable>
           </View>
           
-          <EgyptianPattern color={Colors.gold} />
+          <EgyptianPattern color={Colors.deepGold} />
           
           {activeTab === 'overview' ? renderOverviewTab() : renderReviewsTab()}
         </View>
@@ -214,7 +218,7 @@ export default function TreasureHuntDetailScreen() {
               </Pressable>
             </View>
             
-            <EgyptianPattern color={Colors.gold} />
+            <EgyptianPattern color={Colors.deepGold} />
             
             <View style={styles.modalContent}>
               <Image 
@@ -247,7 +251,7 @@ export default function TreasureHuntDetailScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.papyrus,
+    backgroundColor: Colors.background,
   },
   backButton: {
     padding: 8,
@@ -269,7 +273,7 @@ const styles = StyleSheet.create({
     left: 16,
   },
   badgeContainer: {
-    backgroundColor: Colors.gold,
+    backgroundColor: Colors.deepGold,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 4,
@@ -299,7 +303,7 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: Colors.gold,
+    borderBottomColor: Colors.deepGold,
   },
   tabText: {
     fontSize: 16,
@@ -364,7 +368,7 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: Colors.gold,
+    backgroundColor: Colors.deepGold,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
@@ -423,7 +427,7 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
   starFilled: {
-    color: Colors.gold,
+    color: Colors.deepGold,
   },
   reviewComment: {
     fontSize: 14,
@@ -464,7 +468,7 @@ const styles = StyleSheet.create({
     maxWidth: 400,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: Colors.gold,
+    borderColor: Colors.deepGold,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
