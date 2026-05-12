@@ -8,29 +8,40 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.gold,
-        tabBarInactiveTintColor: Colors.lightText,
+        tabBarInactiveTintColor: '#B9AEA2',
         tabBarStyle: {
-          backgroundColor: Colors.card,
+          backgroundColor: Colors.surface,
           borderTopWidth: 1,
-          borderTopColor: Colors.gold,
+          borderTopColor: 'rgba(212, 166, 74, 0.32)',
+          height: 72,
+          paddingTop: 8,
+          paddingBottom: 10,
         },
-        tabBarShowLabel: false, // Hide labels
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {
+          fontSize: 9,
+          fontWeight: '600',
+        },
+        tabBarItemStyle: {
+          minWidth: 0,
+          width: '20%',
+          maxWidth: '20%',
+          flexBasis: 0,
+          paddingHorizontal: 0,
+        },
         headerStyle: {
-          backgroundColor: '#231f20',
+          backgroundColor: Colors.surface,
         },
         headerTitleStyle: {
           color: Colors.gold,
-          fontWeight: 'bold',
+          fontWeight: '700',
         },
         headerTintColor: Colors.gold,
         headerShadowVisible: false,
-        // Hide the header title to remove the "(tabs)" text
         headerTitle: '',
-        // Remove top padding/margin
-        // Increase icon size
         tabBarIconStyle: {
-          width: 28,
-          height: 28,
+          width: 24,
+          height: 24,
         },
       }}
     >
@@ -38,35 +49,36 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => <Home size={28} color={color} />,
+          tabBarIcon: ({ color }) => <Home size={23} color={color} />,
         }}
       />
       <Tabs.Screen
         name="map"
         options={{
-          title: "Map",
-          tabBarIcon: ({ color }) => <Map size={28} color={color} />,
+          title: "Mappa",
+          tabBarIcon: ({ color }) => <Map size={23} color={color} />,
         }}
       />
       <Tabs.Screen
         name="routes"
         options={{
-          title: "Routes",
-          tabBarIcon: ({ color }) => <Compass size={28} color={color} />,
+          title: "Percorsi",
+          tabBarIcon: ({ color }) => <Compass size={23} color={color} />,
         }}
       />
       <Tabs.Screen
         name="treasure-hunt"
         options={{
-          title: "Treasure",
-          tabBarIcon: ({ color }) => <Trophy size={28} color={color} />,
+          title: "Tesori",
+          tabBarIcon: ({ color }) => <Trophy size={23} color={color} />,
         }}
       />
       <Tabs.Screen
         name="tickets"
         options={{
-          title: "Tickets",
-          tabBarIcon: ({ color }) => <Ticket size={28} color={color} />,
+          title: "Biglietti",
+          href: null,
+          tabBarIcon: ({ color }) => <Ticket size={23} color={color} />,
         }}
       />
     </Tabs>

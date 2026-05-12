@@ -1,48 +1,47 @@
 export default {
-  primary: '#F5C518', // Brighter Egyptian gold
-  secondary: '#1A4B84', // Deep blue (Nile)
-  tertiary: '#C73E3A', // Egyptian red
-  background: '#FFF8E1', // Lighter papyrus/sand color
-  card: '#FFFFFF',
-  text: '#333333',
-  lightText: '#666666',
-  border: '#E0E0E0',
-  success: '#4CAF50',
-  warning: '#FFC107',
-  error: '#F44336',
-  icon: '#555555',
+  primary: '#1C1917',
+  secondary: '#365A6D',
+  tertiary: '#8F3A2B',
+  background: '#FAFAF7',
+  surface: '#1C1917',
+  surfaceMuted: '#29231F',
+  card: '#FFFCF4',
+  text: '#1C1917',
+  lightText: '#6F665C',
+  inverseText: '#FFF8EA',
+  border: '#D8D0C3',
+  success: '#3F7B4A',
+  warning: '#A16207',
+  error: '#B42318',
+  icon: '#57504A',
   overlay: 'rgba(0, 0, 0, 0.5)',
-  // Egyptian theme specific colors
-  gold: '#F5C518', // Brighter gold
-  lightGold: '#F8D64E', // Lighter gold for buttons
-  papyrus: '#FFF8E1', // Lighter papyrus
-  nileBlue: '#1A4B84',
-  desertSand: '#E6D2B5',
-  egyptianRed: '#C73E3A',
-  khaki: '#BDB76B',
-  turquoise: '#40E0D0',
-  hieroglyphGold: '#FFD700',
-  ankh: '#B8860B', // Dark golden rod
-  scarab: '#006064', // Dark cyan
-  pharaohGold: '#DAA520', // Golden rod
-  // Additional colors for exhibit types
-  bronze: '#CD7F32',
-  silver: '#C0C0C0',
-  wood: '#855E42',
-  rose: '#FF007F',
-  emerald: '#50C878',
-  clay: '#A52A2A',
-  limestone: '#D3D3D3',
-  sandstone: '#F4A460',
-  cedar: '#8B4513',
-  // Crowd density colors
-  lowCrowd: '#4CAF50', // Green
-  mediumCrowd: '#FFC107', // Yellow
-  highCrowd: '#F44336', // Red
-  // Map path colors
-  purple: '#8A2BE2', // Purple for destination
+  gold: '#D4A64A',
+  deepGold: '#A16207',
+  lightGold: '#E8C873',
+  papyrus: '#F4E8D1',
+  nileBlue: '#365A6D',
+  desertSand: '#D7C4A5',
+  egyptianRed: '#8F3A2B',
+  khaki: '#9D9160',
+  turquoise: '#2E7B78',
+  hieroglyphGold: '#C28F2C',
+  ankh: '#8B5F12',
+  scarab: '#1E5C5A',
+  pharaohGold: '#B57A16',
+  bronze: '#9C6A3A',
+  silver: '#B8B5AE',
+  wood: '#704A2E',
+  rose: '#A7445D',
+  emerald: '#347A56',
+  clay: '#8D4A36',
+  limestone: '#DCD5C8',
+  sandstone: '#C9A678',
+  cedar: '#6E4428',
+  lowCrowd: '#3F7B4A',
+  mediumCrowd: '#A16207',
+  highCrowd: '#B42318',
+  purple: '#6750A4',
   
-  // Texture URLs for Egyptian theme
   papyrusTexture: 'https://www.transparenttextures.com/patterns/papyrus.png',
   sandTexture: 'https://www.transparenttextures.com/patterns/sandpaper.png',
   hieroglyphTexture: 'https://www.transparenttextures.com/patterns/hieroglyphics.png',

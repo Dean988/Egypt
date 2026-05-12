@@ -96,6 +96,8 @@ export default function Button({
       onPress={onPress}
       disabled={disabled || loading}
       android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
+      accessibilityRole="button"
+      accessibilityState={{ disabled: disabled || loading, busy: loading }}
     >
       {loading ? (
         <ActivityIndicator
@@ -125,10 +127,11 @@ export default function Button({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 8,
+    borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    minHeight: 44,
   },
   buttonContent: {
     flexDirection: 'row',
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   primaryButton: {
-    backgroundColor: Colors.gold,
+    backgroundColor: Colors.deepGold,
   },
   secondaryButton: {
     backgroundColor: Colors.nileBlue,
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
   outlineButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: Colors.gold,
+    borderColor: Colors.deepGold,
   },
   textButton: {
     backgroundColor: 'transparent',
@@ -166,16 +169,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   primaryText: {
-    color: Colors.card,
+    color: '#FFFFFF',
   },
   secondaryText: {
     color: Colors.card,
   },
   outlineText: {
-    color: Colors.gold,
+    color: Colors.deepGold,
   },
   textButtonText: {
-    color: Colors.gold,
+    color: Colors.deepGold,
   },
   smallText: {
     fontSize: 14,
@@ -194,7 +197,8 @@ const styles = StyleSheet.create({
     color: Colors.lightText,
   },
   pressedButton: {
-    opacity: 0.8,
+    opacity: 0.9,
+    transform: [{ scale: 0.98 }],
   },
   iconLeft: {
     marginRight: 8,

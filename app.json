@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "expo-app",
-    "slug": "expo-app",
+    "name": "Egypt Museum Experience",
+    "slug": "egypt-museum-experience",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "egyptmuseum",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1C1917"
     },
     "ios": {
       "supportsTablet": true
@@ -24,6 +24,12 @@
     },
 
     "plugins": ["expo-router"],
+    "web": {
+      "favicon": "./assets/images/favicon.png",
+      "bundler": "metro",
+      "name": "Egypt Museum Experience",
+      "shortName": "Egypt Museum"
+    },
     "experiments": {
       "typedRoutes": true
     }
