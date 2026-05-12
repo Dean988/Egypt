@@ -17,7 +17,6 @@ import {
   Coffee,
   Landmark,
   Layers,
-  MapPin,
   Navigation,
   Search,
   ShoppingBag,
@@ -66,10 +65,10 @@ const floors: Floor[] = [
         crowd: 'Alto',
         category: 'Accesso',
         note: 'Punto di partenza, guardaroba e orientamento iniziale.',
-        route: 'Entra, supera i controlli e sali verso la Sala dei Re.',
+        route: "Dall'ingresso segui il corridoio centrale verso biglietteria e scale.",
         x: 7,
-        y: 18,
-        w: 27,
+        y: 14,
+        w: 28,
         h: 34,
       },
       {
@@ -79,10 +78,10 @@ const floors: Floor[] = [
         crowd: 'Medio',
         category: 'Servizi',
         note: 'Acquisto, ritiro e gestione prenotazioni.',
-        route: 'Dall’ingresso resta sulla corsia destra: 1 minuto a piedi.',
+        route: "Dall'ingresso resta sulla corsia destra: 1 minuto a piedi.",
         x: 39,
-        y: 18,
-        w: 26,
+        y: 14,
+        w: 27,
         h: 34,
       },
       {
@@ -92,24 +91,24 @@ const floors: Floor[] = [
         crowd: 'Basso',
         category: 'Store',
         note: 'Cataloghi, regali, riproduzioni e collezioni curate.',
-        route: 'Dal foyer attraversa il corridoio finale verso l’uscita.',
-        x: 69,
-        y: 18,
-        w: 24,
+        route: "Dal foyer attraversa il corridoio finale verso l'uscita.",
+        x: 70,
+        y: 14,
+        w: 23,
         h: 34,
       },
       {
         id: 'cafe',
-        name: 'Caffè',
+        name: 'Caffe',
         room: 'C',
         crowd: 'Basso',
         category: 'Pausa',
         note: 'Area ristoro rapida, ideale tra due percorsi lunghi.',
         route: 'Scendi al piano terra e segui le indicazioni verso il foyer.',
-        x: 24,
+        x: 25,
         y: 61,
-        w: 52,
-        h: 23,
+        w: 51,
+        h: 24,
       },
     ],
   },
@@ -118,7 +117,7 @@ const floors: Floor[] = [
     label: 'Primo piano',
     shortLabel: 'P1',
     altitude: 'Percorso principale',
-    description: 'Il cuore della visita, con sale iconiche e alta densità narrativa.',
+    description: 'Il cuore della visita, con sale iconiche e alta densita narrativa.',
     zones: [
       {
         id: 'kings',
@@ -126,12 +125,12 @@ const floors: Floor[] = [
         room: '1',
         crowd: 'Alto',
         category: 'Capolavori',
-        note: 'Statue monumentali e scenografia più immersiva del percorso.',
+        note: 'Statue monumentali e scenografia immersiva del percorso.',
         route: 'Dal vano scale entra a sinistra e segui il corridoio principale.',
         x: 7,
-        y: 13,
+        y: 12,
         w: 39,
-        h: 34,
+        h: 35,
       },
       {
         id: 'papyri',
@@ -142,9 +141,9 @@ const floors: Floor[] = [
         note: 'Manoscritti, documenti e dettagli da osservare con calma.',
         route: 'Dalla Sala dei Re procedi diritto: collegamento diretto.',
         x: 54,
-        y: 13,
+        y: 12,
         w: 39,
-        h: 34,
+        h: 35,
       },
       {
         id: 'daily',
@@ -155,7 +154,7 @@ const floors: Floor[] = [
         note: 'Oggetti domestici, mestieri e rituali della vita comune.',
         route: 'Dal lato ovest del piano torna verso il nucleo centrale.',
         x: 7,
-        y: 57,
+        y: 58,
         w: 39,
         h: 30,
       },
@@ -165,10 +164,10 @@ const floors: Floor[] = [
         room: '5',
         crowd: 'Medio',
         category: 'Riti',
-        note: 'Sarcofagi, offerte e oggetti per il viaggio nell’aldilà.',
+        note: "Sarcofagi, offerte e oggetti per il viaggio nell'aldila.",
         route: 'Dalla Galleria dei Papiri scendi verso la sala 5.',
         x: 54,
-        y: 57,
+        y: 58,
         w: 39,
         h: 30,
       },
@@ -179,7 +178,7 @@ const floors: Floor[] = [
     label: 'Secondo piano',
     shortLabel: 'P2',
     altitude: 'Approfondimenti',
-    description: 'Sale più raccolte per visitatori che vogliono completare l’esperienza.',
+    description: "Sale raccolte per visitatori che vogliono completare l'esperienza.",
     zones: [
       {
         id: 'kha',
@@ -187,12 +186,12 @@ const floors: Floor[] = [
         room: '8',
         crowd: 'Medio',
         category: 'Tomba intatta',
-        note: 'Uno dei nuclei più importanti del museo per completezza e conservazione.',
+        note: 'Uno dei nuclei piu importanti del museo per completezza e conservazione.',
         route: 'Sali al secondo piano e mantieni la sinistra fino alla sala 8.',
         x: 7,
-        y: 15,
+        y: 14,
         w: 38,
-        h: 70,
+        h: 72,
       },
       {
         id: 'amulets',
@@ -203,7 +202,7 @@ const floors: Floor[] = [
         note: 'Micro-oggetti, simboli protettivi e materiali da vedere da vicino.',
         route: 'Dalla sala 8 attraversa il corridoio centrale verso est.',
         x: 53,
-        y: 15,
+        y: 14,
         w: 40,
         h: 30,
       },
@@ -218,7 +217,7 @@ const floors: Floor[] = [
         x: 53,
         y: 52,
         w: 40,
-        h: 33,
+        h: 34,
       },
       {
         id: 'lab',
@@ -226,12 +225,12 @@ const floors: Floor[] = [
         room: 'L',
         crowd: 'Basso',
         category: 'Esperienza',
-        note: 'Area per attività guidate, famiglie e approfondimenti pratici.',
+        note: 'Area per attivita guidate, famiglie e approfondimenti pratici.',
         route: 'Ritorna verso il nucleo scale e segui le indicazioni laboratorio.',
         x: 18,
         y: 52,
         w: 27,
-        h: 33,
+        h: 34,
       },
     ],
   },
@@ -241,11 +240,6 @@ const crowdColors: Record<Crowd, string> = {
   Alto: Colors.error,
   Medio: Colors.warning,
   Basso: Colors.success,
-};
-
-const floorTops = {
-  compact: [318, 194, 70],
-  wide: [360, 218, 76],
 };
 
 export default function MapScreen() {
@@ -263,8 +257,7 @@ export default function MapScreen() {
   );
 
   const currentFloor = floors.find((floor) => floor.id === floorId) || floors[1];
-  const selectedZone =
-    currentFloor.zones.find((zone) => zone.id === selectedZoneId) || currentFloor.zones[0];
+  const selectedZone = currentFloor.zones.find((zone) => zone.id === selectedZoneId) || currentFloor.zones[0];
 
   const searchResults = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -302,10 +295,10 @@ export default function MapScreen() {
           <View style={styles.heroCopy}>
             <Text style={styles.kicker}>Mappa 3D del museo</Text>
             <Text style={[styles.title, isCompact && styles.titleCompact]}>
-              Orientati tra i 3 piani con una vista chiara, rapida e selezionabile.
+              Una pianta 3D pulita: scegli il piano, poi tocca la sala.
             </Text>
             <Text style={[styles.subtitle, isCompact && styles.subtitleCompact]}>
-              Scegli il piano, tocca una sala e usa le azioni rapide per biglietti, shop e caffè.
+              Ogni livello mostra una sola pianta architettonica, senza sovrapposizioni.
             </Text>
           </View>
 
@@ -313,8 +306,8 @@ export default function MapScreen() {
             <View style={styles.heroIcon}>
               <Layers size={24} color={Colors.deepGold} />
             </View>
-            <Text style={styles.heroCardTitle}>Vista a livelli</Text>
-            <Text style={styles.heroCardText}>Tre piani sempre visibili, con quello attivo in primo piano.</Text>
+            <Text style={styles.heroCardTitle}>Oggetto 3D</Text>
+            <Text style={styles.heroCardText}>Piano estruso, muri, corridoio centrale e sale selezionabili.</Text>
           </View>
         </View>
 
@@ -343,7 +336,7 @@ export default function MapScreen() {
                     <View style={styles.resultCopy}>
                       <Text style={styles.resultTitle}>{zone.name}</Text>
                       <Text style={styles.resultMeta}>
-                        {zone.floor} · sala {zone.room} · {zone.category}
+                        {zone.floor} - sala {zone.room} - {zone.category}
                       </Text>
                     </View>
                     <ChevronRight size={18} color={Colors.lightText} />
@@ -358,11 +351,7 @@ export default function MapScreen() {
                 return (
                   <Pressable
                     key={floor.id}
-                    style={[
-                      styles.floorTab,
-                      isCompact && styles.floorTabCompact,
-                      active && styles.floorTabActive,
-                    ]}
+                    style={[styles.floorTab, isCompact && styles.floorTabCompact, active && styles.floorTabActive]}
                     onPress={() => selectFloor(floor)}
                     accessibilityRole="tab"
                     accessibilityState={{ selected: active }}
@@ -387,10 +376,12 @@ export default function MapScreen() {
                   <Text style={styles.stageEyebrow}>Piano attivo</Text>
                   <Text style={styles.stageTitle}>{currentFloor.label}</Text>
                 </View>
-                <View style={styles.stageBadge}>
-                  <Building2 size={16} color={Colors.deepGold} />
-                  <Text style={styles.stageBadgeText}>3 livelli</Text>
-                </View>
+                {!isCompact && (
+                  <View style={styles.stageBadge}>
+                    <Building2 size={16} color={Colors.deepGold} />
+                    <Text style={styles.stageBadgeText}>Pianta 3D</Text>
+                  </View>
+                )}
               </View>
 
               <View style={styles.liftRail}>
@@ -411,20 +402,12 @@ export default function MapScreen() {
                   ))}
               </View>
 
-              <View style={styles.floorStack}>
-                {floors.map((floor) => (
-                  <FloorDeck
-                    key={floor.id}
-                    floor={floor}
-                    top={(isCompact ? floorTops.compact : floorTops.wide)[floor.id]}
-                    active={floor.id === floorId}
-                    selectedZoneId={selectedZone?.id}
-                    isCompact={isCompact}
-                    onSelectFloor={() => selectFloor(floor)}
-                    onSelectZone={(zone) => selectZone(zone, floor.id)}
-                  />
-                ))}
-              </View>
+              <MuseumPlan3D
+                floor={currentFloor}
+                selectedZoneId={selectedZone.id}
+                isCompact={isCompact}
+                onSelectZone={(zone) => selectZone(zone, currentFloor.id)}
+              />
 
               <View style={styles.legend}>
                 {(Object.keys(crowdColors) as Crowd[]).map((crowd) => (
@@ -487,7 +470,7 @@ export default function MapScreen() {
                 </Pressable>
                 <Pressable style={styles.quickButtonSecondary} onPress={() => router.push('/cafe')}>
                   <Coffee size={18} color={Colors.deepGold} />
-                  <Text style={styles.quickButtonSecondaryText}>Caffè</Text>
+                  <Text style={styles.quickButtonSecondaryText}>Caffe</Text>
                 </Pressable>
               </View>
             </View>
@@ -498,89 +481,62 @@ export default function MapScreen() {
   );
 }
 
-function FloorDeck({
+function MuseumPlan3D({
   floor,
-  top,
-  active,
   selectedZoneId,
   isCompact,
-  onSelectFloor,
   onSelectZone,
 }: {
   floor: Floor;
-  top: number;
-  active: boolean;
-  selectedZoneId?: string;
+  selectedZoneId: string;
   isCompact: boolean;
-  onSelectFloor: () => void;
   onSelectZone: (zone: Zone) => void;
 }) {
   return (
-    <Pressable
-      style={[
-        styles.floorDeck,
-        {
-          top,
-          height: isCompact ? 138 : 166,
-          opacity: active ? 1 : 0.52,
-          zIndex: active ? 30 : 10 + floor.id,
-          transform: [
-            { translateY: active ? -8 : 0 },
-            { scale: active ? 1 : 0.96 },
-            { rotate: '-4deg' },
-          ],
-        },
-      ]}
-      onPress={onSelectFloor}
-      accessibilityLabel={`Seleziona ${floor.label}`}
-    >
-      <View style={[styles.deckShadow, active && styles.deckShadowActive]} />
-      <View style={[styles.deckSideRight, active && styles.deckSideRightActive]} />
-      <View style={[styles.deckSideFront, active && styles.deckSideFrontActive]} />
-      <View style={[styles.deckSurface, active && styles.deckSurfaceActive]}>
-        <View style={styles.deckLabel}>
-          <Text style={[styles.deckCode, active && styles.deckCodeActive]}>{floor.shortLabel}</Text>
-          <View>
-            <Text style={[styles.deckName, active && styles.deckNameActive]}>{floor.label}</Text>
-            <Text style={styles.deckDescription} numberOfLines={1}>
-              {floor.description}
-            </Text>
-          </View>
+    <View style={[styles.planObject, isCompact && styles.planObjectCompact]}>
+      <View style={styles.planShadow} />
+      <View style={styles.planSideRight} />
+      <View style={styles.planSideFront} />
+      <View style={styles.planTop}>
+        <View style={styles.outerWall} />
+        <View style={styles.hallHorizontal} />
+        <View style={styles.hallVertical} />
+        <View style={styles.stairsCore}>
+          <Text style={styles.stairsText}>Scale</Text>
         </View>
 
         {floor.zones.map((zone) => {
-          const selected = active && selectedZoneId === zone.id;
+          const selected = selectedZoneId === zone.id;
           return (
             <Pressable
               key={zone.id}
               style={[
-                styles.zone,
+                styles.roomObject,
                 {
                   left: `${zone.x}%`,
                   top: `${zone.y}%`,
                   width: `${zone.w}%`,
                   height: `${zone.h}%`,
-                  borderColor: selected ? Colors.deepGold : 'rgba(28, 25, 23, 0.16)',
                 },
-                selected && styles.zoneSelected,
               ]}
-              onPress={(event) => {
-                event.stopPropagation();
-                onSelectZone(zone);
-              }}
+              onPress={() => onSelectZone(zone)}
               accessibilityRole="button"
               accessibilityLabel={`${zone.name}, sala ${zone.room}`}
             >
-              <View style={[styles.crowdStrip, { backgroundColor: crowdColors[zone.crowd] }]} />
-              <Text style={[styles.zoneRoom, selected && styles.zoneRoomSelected]}>{zone.room}</Text>
-              <Text style={[styles.zoneName, selected && styles.zoneNameSelected]} numberOfLines={2}>
-                {zone.name}
-              </Text>
+              <View style={[styles.roomDepthRight, selected && styles.roomDepthSelected]} />
+              <View style={[styles.roomDepthFront, selected && styles.roomDepthSelected]} />
+              <View style={[styles.roomTop, selected && styles.roomTopSelected]}>
+                <View style={[styles.crowdStrip, { backgroundColor: crowdColors[zone.crowd] }]} />
+                <Text style={[styles.roomNumber, selected && styles.roomNumberSelected]}>{zone.room}</Text>
+                <Text style={[styles.roomName, selected && styles.roomNameSelected]} numberOfLines={2}>
+                  {zone.name}
+                </Text>
+              </View>
             </Pressable>
           );
         })}
       </View>
-    </Pressable>
+    </View>
   );
 }
 
@@ -846,10 +802,10 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   mapStageWide: {
-    height: 620,
+    height: 520,
   },
   mapStageCompact: {
-    height: 560,
+    height: 500,
   },
   stageHeader: {
     minHeight: 72,
@@ -895,7 +851,7 @@ const styles = StyleSheet.create({
     bottom: 68,
     width: 48,
     borderRadius: 8,
-    backgroundColor: 'rgba(255, 252, 244, 0.78)',
+    backgroundColor: 'rgba(255, 252, 244, 0.84)',
     borderWidth: 1,
     borderColor: 'rgba(28, 25, 23, 0.12)',
     alignItems: 'center',
@@ -924,144 +880,174 @@ const styles = StyleSheet.create({
   railStopTextActive: {
     color: Colors.inverseText,
   },
-  floorStack: {
+  planObject: {
     position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-  },
-  floorDeck: {
-    position: 'absolute',
-    left: '15%',
+    left: '13%',
     right: '5%',
+    top: 108,
+    height: 312,
+    zIndex: 20,
+    transform: [{ rotate: '-4deg' }],
   },
-  deckShadow: {
+  planObjectCompact: {
+    left: 68,
+    right: 16,
+    top: 116,
+    height: 260,
+  },
+  planShadow: {
     position: 'absolute',
-    left: 18,
-    right: 2,
+    left: 28,
+    right: 8,
+    bottom: -30,
+    height: 58,
+    borderRadius: 10,
+    backgroundColor: 'rgba(28, 25, 23, 0.18)',
+  },
+  planSideRight: {
+    position: 'absolute',
+    right: -20,
+    top: 24,
+    bottom: -20,
+    width: 22,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: '#B77A12',
+  },
+  planSideFront: {
+    position: 'absolute',
+    left: 22,
+    right: -20,
     bottom: -22,
-    height: 34,
-    borderRadius: 8,
-    backgroundColor: 'rgba(28, 25, 23, 0.16)',
+    height: 24,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: '#9D670D',
   },
-  deckShadowActive: {
-    backgroundColor: 'rgba(28, 25, 23, 0.22)',
+  planTop: {
+    flex: 1,
+    position: 'relative',
+    overflow: 'hidden',
+    borderRadius: 10,
+    backgroundColor: '#FFF9EA',
+    borderWidth: 3,
+    borderColor: Colors.deepGold,
   },
-  deckSideRight: {
-    position: 'absolute',
-    right: -16,
-    top: 18,
-    bottom: -16,
-    width: 18,
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-    backgroundColor: '#C6AD82',
-  },
-  deckSideRightActive: {
-    backgroundColor: '#B98A33',
-  },
-  deckSideFront: {
+  outerWall: {
     position: 'absolute',
     left: 18,
-    right: -16,
-    bottom: -18,
-    height: 20,
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
-    backgroundColor: '#B99B68',
-  },
-  deckSideFrontActive: {
-    backgroundColor: Colors.deepGold,
-  },
-  deckSurface: {
-    flex: 1,
-    overflow: 'hidden',
-    borderRadius: 8,
-    backgroundColor: '#FCF5E7',
-    borderWidth: 1,
-    borderColor: 'rgba(28, 25, 23, 0.18)',
-  },
-  deckSurfaceActive: {
-    backgroundColor: Colors.card,
-    borderColor: Colors.gold,
+    right: 18,
+    top: 18,
+    bottom: 18,
     borderWidth: 2,
-  },
-  deckLabel: {
-    position: 'absolute',
-    left: 10,
-    right: 10,
-    top: 9,
-    zIndex: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  deckCode: {
-    width: 34,
-    height: 34,
+    borderColor: '#D9C090',
     borderRadius: 8,
-    textAlign: 'center',
-    lineHeight: 34,
+  },
+  hallHorizontal: {
+    position: 'absolute',
+    left: '8%',
+    right: '8%',
+    top: '48%',
+    height: '13%',
+    borderRadius: 8,
+    backgroundColor: '#E9DDC6',
+    borderWidth: 1,
+    borderColor: '#D5BE8A',
+  },
+  hallVertical: {
+    position: 'absolute',
+    top: '12%',
+    bottom: '12%',
+    left: '47%',
+    width: '7%',
+    borderRadius: 8,
+    backgroundColor: '#E9DDC6',
+    borderWidth: 1,
+    borderColor: '#D5BE8A',
+  },
+  stairsCore: {
+    position: 'absolute',
+    left: '43%',
+    top: '42%',
+    width: '17%',
+    height: '24%',
+    borderRadius: 8,
+    backgroundColor: '#F2E3C3',
+    borderWidth: 2,
+    borderColor: '#C89735',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 6,
+  },
+  stairsText: {
     color: Colors.deepGold,
-    backgroundColor: '#F3E7D2',
     fontSize: 12,
     fontWeight: '900',
   },
-  deckCodeActive: {
-    color: '#FFFFFF',
+  roomObject: {
+    position: 'absolute',
+    zIndex: 10,
+  },
+  roomDepthRight: {
+    position: 'absolute',
+    right: -8,
+    top: 7,
+    bottom: -8,
+    width: 9,
+    borderTopRightRadius: 6,
+    borderBottomRightRadius: 6,
+    backgroundColor: '#C8A56B',
+  },
+  roomDepthFront: {
+    position: 'absolute',
+    left: 7,
+    right: -8,
+    bottom: -9,
+    height: 10,
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
+    backgroundColor: '#B98A33',
+  },
+  roomDepthSelected: {
     backgroundColor: Colors.deepGold,
   },
-  deckName: {
-    color: Colors.text,
-    fontSize: 14,
-    fontWeight: '900',
-  },
-  deckNameActive: {
-    color: Colors.deepGold,
-  },
-  deckDescription: {
-    color: Colors.lightText,
-    fontSize: 11,
-    marginTop: 1,
-    maxWidth: 420,
-  },
-  zone: {
-    position: 'absolute',
+  roomTop: {
+    flex: 1,
     overflow: 'hidden',
-    backgroundColor: '#F8EFD9',
-    borderWidth: 1,
     borderRadius: 7,
-    padding: 7,
+    backgroundColor: '#F7EBD0',
+    borderWidth: 2,
+    borderColor: '#D2B47A',
+    padding: 8,
     justifyContent: 'flex-end',
   },
-  zoneSelected: {
-    backgroundColor: '#FFF4D8',
-    borderWidth: 2,
+  roomTopSelected: {
+    backgroundColor: '#FFF1C7',
+    borderColor: Colors.error,
   },
   crowdStrip: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    height: 4,
+    height: 5,
   },
-  zoneRoom: {
+  roomNumber: {
     color: Colors.deepGold,
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: '900',
   },
-  zoneRoomSelected: {
-    color: Colors.text,
+  roomNumberSelected: {
+    color: Colors.error,
   },
-  zoneName: {
+  roomName: {
     color: Colors.text,
     fontSize: 12,
     lineHeight: 15,
-    fontWeight: '800',
+    fontWeight: '900',
     marginTop: 2,
   },
-  zoneNameSelected: {
+  roomNameSelected: {
     color: Colors.text,
   },
   legend: {
