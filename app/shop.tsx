@@ -1,207 +1,197 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, ScrollView, Image, Pressable, Alert } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Stack, useRouter } from 'expo-router';
-import { ShoppingBag, Search, Filter, ArrowLeft } from 'lucide-react-native';
+import { Stack } from 'expo-router';
+import { Check, Search, ShoppingBag, SlidersHorizontal } from 'lucide-react-native';
 import Colors from '@/constants/colors';
-import EgyptianPattern from '@/components/EgyptianPattern';
+
+const products = [
+  {
+    id: 'p1',
+    name: 'Replica statuetta di Bastet',
+    price: '24,90 EUR',
+    category: 'Repliche',
+    image: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&w=1200&auto=format&fit=crop',
+    description: 'Resina rifinita a mano, formato da scrivania.',
+  },
+  {
+    id: 'p2',
+    name: 'Quaderno papiro',
+    price: '12,50 EUR',
+    category: 'Cartoleria',
+    image: 'https://images.unsplash.com/photo-1517842645767-c639042777db?q=80&w=1200&auto=format&fit=crop',
+    description: 'Copertina materica con pattern ispirato ai papiri.',
+  },
+  {
+    id: 'p3',
+    name: 'Collana Ankh satinata',
+    price: '18,00 EUR',
+    category: 'Gioielli',
+    image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=1200&auto=format&fit=crop',
+    description: 'Pendente leggero con finitura bronzo caldo.',
+  },
+  {
+    id: 'p4',
+    name: 'Guida illustrata del museo',
+    price: '29,00 EUR',
+    category: 'Libri',
+    image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1200&auto=format&fit=crop',
+    description: 'Percorso visuale tra sale, opere e contesto storico.',
+  },
+  {
+    id: 'p5',
+    name: 'Segnalibro geroglifico',
+    price: '7,90 EUR',
+    category: 'Cartoleria',
+    image: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?q=80&w=1200&auto=format&fit=crop',
+    description: 'Metallo sottile, ideale insieme alla guida cartacea.',
+  },
+  {
+    id: 'p6',
+    name: 'Modello piramide',
+    price: '22,00 EUR',
+    category: 'Repliche',
+    image: 'https://images.unsplash.com/photo-1568322445389-f64ac2515020?q=80&w=1200&auto=format&fit=crop',
+    description: 'Oggetto compatto per ricordare la visita.',
+  },
+];
+
+const categories = ['Tutto', 'Repliche', 'Gioielli', 'Libri', 'Cartoleria'];
 
 export default function ShopScreen() {
-  const router = useRouter();
-  const [searchText, setSearchText] = useState("");
-  
-  const categories = [
-    { id: 1, name: "Statues" },
-    { id: 2, name: "Jewelry" },
-    { id: 3, name: "Books" },
-    { id: 4, name: "Papyrus" },
-    { id: 5, name: "Souvenirs" },
-  ];
+  const { width } = useWindowDimensions();
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('Tutto');
+  const [selected, setSelected] = useState<string[]>([]);
+  const isWide = width >= 920;
 
-  const shopItems = [
-    { 
-      id: 1, 
-      name: "Pharaoh Statue", 
-      price: "$24.99", 
-      image: "https://images.unsplash.com/photo-1562619371-b67725b6fde2?q=80&w=3270&auto=format&fit=crop",
-      category: "Statues",
-      description: "Hand-crafted replica of King Tutankhamun"
-    },
-    { 
-      id: 2, 
-      name: "Egyptian Papyrus", 
-      price: "$19.99", 
-      image: "https://images.unsplash.com/photo-1591040092219-081fb773589d?q=80&w=3270&auto=format&fit=crop",
-      category: "Papyrus",
-      description: "Authentic papyrus with hieroglyphic art"
-    },
-    { 
-      id: 3, 
-      name: "Scarab Amulet", 
-      price: "$12.99", 
-      image: "https://images.unsplash.com/photo-1594733094166-d6565c6f7640?q=80&w=3270&auto=format&fit=crop",
-      category: "Jewelry",
-      description: "Replica of ancient Egyptian scarab amulet"
-    },
-    { 
-      id: 4, 
-      name: "Hieroglyphic Bookmark", 
-      price: "$7.99", 
-      image: "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?q=80&w=3270&auto=format&fit=crop",
-      category: "Souvenirs",
-      description: "Metal bookmark with hieroglyphic designs"
-    },
-    { 
-      id: 5, 
-      name: "Ancient Egypt Book", 
-      price: "$29.99", 
-      image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=3270&auto=format&fit=crop",
-      category: "Books",
-      description: "Illustrated guide to ancient Egyptian civilization"
-    },
-    { 
-      id: 6, 
-      name: "Nefertiti Bust", 
-      price: "$34.99", 
-      image: "https://images.unsplash.com/photo-1594733676170-8d499ab7c8a2?q=80&w=3270&auto=format&fit=crop",
-      category: "Statues",
-      description: "Replica of the famous Nefertiti bust"
-    },
-    { 
-      id: 7, 
-      name: "Ankh Necklace", 
-      price: "$16.99", 
-      image: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=3270&auto=format&fit=crop",
-      category: "Jewelry",
-      description: "Silver-plated ankh symbol necklace"
-    },
-    { 
-      id: 8, 
-      name: "Pyramid Model", 
-      price: "$22.99", 
-      image: "https://images.unsplash.com/photo-1568322445389-f64ac2515020?q=80&w=3270&auto=format&fit=crop",
-      category: "Souvenirs",
-      description: "Detailed model of the Great Pyramid of Giza"
-    },
-  ];
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesCategory = category === 'Tutto' || product.category === category;
+      const matchesQuery = `${product.name} ${product.category}`.toLowerCase().includes(query.toLowerCase());
+      return matchesCategory && matchesQuery;
+    });
+  }, [category, query]);
 
-  const handleSearch = () => {
-    Alert.alert(
-      "Coming Soon...",
-      "Search functionality will be available in a future update.",
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+  const toggleProduct = (id: string) => {
+    setSelected((current) =>
+      current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
     );
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['right', 'left']}>
-      <Stack.Screen options={{ 
-        title: "Museum Shop",
-        headerShown: true,
-        headerStyle: {
-          backgroundColor: '#231f20',
-          borderBottomWidth: 2,
-          borderBottomColor: Colors.gold,
-        },
-        headerTintColor: Colors.gold,
-        headerTitleStyle: {
-          fontWeight: 'bold',
-          letterSpacing: 1,
-        },
-        headerLeft: () => (
-          <Pressable onPress={() => router.back()} style={styles.headerButton}>
-            <ArrowLeft size={24} color={Colors.gold} />
-          </Pressable>
-        ),
-        headerRight: () => (
-          <View style={styles.headerRight}>
-            <ShoppingBag size={24} color={Colors.gold} />
+    <SafeAreaView style={styles.container} edges={['left', 'right']}>
+      <Stack.Screen
+        options={{
+          title: 'Shop',
+          headerShown: true,
+          headerStyle: { backgroundColor: Colors.surface },
+          headerTintColor: Colors.gold,
+          headerTitleStyle: { fontWeight: '800' },
+        }}
+      />
+
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={[styles.hero, isWide && styles.heroWide]}>
+          <View style={styles.heroText}>
+            <Text style={styles.kicker}>Shop del museo</Text>
+            <Text style={[styles.title, !isWide && styles.titleCompact]}>
+              Souvenir scelti per continuare la visita anche fuori dalle sale.
+            </Text>
+            <Text style={[styles.subtitle, !isWide && styles.subtitleCompact]}>
+              Una selezione compatta di libri, repliche e piccoli oggetti ispirati alla collezione.
+            </Text>
           </View>
-        )
-      }} />
-      
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
-        <View style={styles.backgroundPattern}>
-          {/* Shop Hero */}
-          <View style={styles.heroContainer}>
-            <Image 
-              source={{ uri: "https://shop.museoegizio.it/media/wysiwyg/banner02.jpg" }} 
-              style={styles.heroImage}
-              resizeMode="cover"
+          <Image
+            source={{ uri: 'https://shop.museoegizio.it/media/wysiwyg/banner02.jpg' }}
+            style={[styles.heroImage, isWide && styles.heroImageWide]}
+          />
+        </View>
+
+        <View style={styles.toolbar}>
+          <View style={styles.searchBox}>
+            <Search size={18} color={Colors.lightText} />
+            <TextInput
+              value={query}
+              onChangeText={setQuery}
+              style={styles.searchInput}
+              placeholder="Cerca prodotti"
+              placeholderTextColor={Colors.lightText}
             />
-            <View style={styles.heroOverlay}>
-              <View style={styles.heroTitleContainer}>
-                <Text style={styles.heroTitle}>MUSEUM SHOP</Text>
-                <View style={styles.titleUnderline} />
-              </View>
-              <Text style={styles.heroSubtitle}>Porta a casa un pezzo dell'antico Egitto</Text>
-            </View>
           </View>
-          
-          {/* Search and Filter */}
-          <View style={styles.searchContainer}>
-            <Pressable style={styles.searchInputContainer} onPress={handleSearch}>
-              <Search size={20} color={Colors.gold} />
-              <Text style={styles.searchPlaceholder}>Coming soon...</Text>
-            </Pressable>
-            <Pressable style={styles.filterButton} onPress={handleSearch}>
-              <Filter size={20} color={Colors.gold} />
-            </Pressable>
+          <View style={styles.filterIcon}>
+            <SlidersHorizontal size={20} color={Colors.deepGold} />
           </View>
-          
-          {/* Categories */}
-          <ScrollView 
-            horizontal 
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.categoriesContainer}
-          >
-            <Pressable style={[styles.categoryButton, styles.categoryButtonActive]}>
-              <Text style={[styles.categoryText, styles.categoryTextActive]}>All</Text>
+        </View>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categories}>
+          {categories.map((item) => (
+            <Pressable
+              key={item}
+              style={[styles.category, category === item && styles.categoryActive]}
+              onPress={() => setCategory(item)}
+              accessibilityRole="button"
+              accessibilityState={{ selected: category === item }}
+            >
+              <Text style={[styles.categoryText, category === item && styles.categoryTextActive]}>{item}</Text>
             </Pressable>
-            
-            {categories.map(category => (
-              <Pressable key={category.id} style={styles.categoryButton}>
-                <Text style={styles.categoryText}>{category.name}</Text>
-              </Pressable>
-            ))}
-          </ScrollView>
-          
-          <EgyptianPattern style={styles.divider} color={Colors.gold} />
-          
-          {/* Featured Section */}
-          <View style={styles.featuredSection}>
-            <Image 
-              source={{ uri: "https://archeologiavocidalpassato.com/wp-content/uploads/2016/01/museo-egizio_gallerie5.jpg" }}
-              style={styles.featuredImage}
-              resizeMode="cover"
-            />
-            <View style={styles.featuredOverlay}>
-              <View style={styles.featuredContent}>
-                <Text style={styles.featuredTitle}>Collezione Esclusiva</Text>
-                <Text style={styles.featuredDescription}>
-                  Scopri la nostra collezione esclusiva di repliche di qualità museale, realizzate con attenzione ai dettagli storici.
-                </Text>
-                <Pressable style={styles.featuredButton}>
-                  <Text style={styles.featuredButtonText}>Esplora Collezione</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-          
-          {/* Products Grid */}
-          <View style={styles.productsGrid}>
-            {shopItems.map(item => (
-              <Pressable key={item.id} style={styles.productCard}>
-                <Image source={{ uri: item.image }} style={styles.productImage} />
-                <View style={styles.productContent}>
-                  <Text style={styles.productCategory}>{item.category}</Text>
-                  <Text style={styles.productName}>{item.name}</Text>
-                  <Text style={styles.productDescription} numberOfLines={2}>{item.description}</Text>
-                  <Text style={styles.productPrice}>{item.price}</Text>
+          ))}
+        </ScrollView>
+
+        <View style={[styles.grid, isWide && styles.gridWide]}>
+          {filteredProducts.map((product) => {
+            const isSelected = selected.includes(product.id);
+            return (
+              <Pressable
+                key={product.id}
+                style={({ pressed }) => [
+                  styles.card,
+                  isWide && styles.cardWide,
+                  isSelected && styles.cardSelected,
+                  pressed && styles.pressed,
+                ]}
+                onPress={() => toggleProduct(product.id)}
+                accessibilityRole="button"
+                accessibilityLabel={`${product.name}, ${product.price}`}
+              >
+                <Image source={{ uri: product.image }} style={styles.productImage} />
+                <View style={styles.cardBody}>
+                  <View style={styles.cardHeader}>
+                    <Text style={styles.productCategory}>{product.category}</Text>
+                    {isSelected && (
+                      <View style={styles.selectedDot}>
+                        <Check size={14} color="#FFFFFF" />
+                      </View>
+                    )}
+                  </View>
+                  <Text style={styles.productName}>{product.name}</Text>
+                  <Text style={styles.productDescription}>{product.description}</Text>
+                  <View style={styles.buyRow}>
+                    <Text style={styles.productPrice}>{product.price}</Text>
+                    <Text style={styles.addText}>{isSelected ? 'Nel carrello' : 'Aggiungi'}</Text>
+                  </View>
                 </View>
               </Pressable>
-            ))}
-          </View>
+            );
+          })}
+        </View>
+
+        <View style={styles.cartSummary}>
+          <ShoppingBag size={20} color={Colors.deepGold} />
+          <Text style={styles.cartText}>
+            {selected.length === 0
+              ? 'Seleziona uno o piu prodotti per preparare il ritiro allo shop.'
+              : `${selected.length} prodotti selezionati. Il checkout online e in preparazione.`}
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -211,273 +201,229 @@ export default function ShopScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#231f20',
+    backgroundColor: Colors.background,
   },
-  scrollView: {
-    flex: 1,
-    backgroundColor: '#231f20',
+  content: {
+    paddingBottom: 128,
   },
-  backgroundPattern: {
-    flex: 1,
-    backgroundColor: '#231f20',
-    backgroundImage: "url('https://www.transparenttextures.com/patterns/papyrus.png')",
+  hero: {
+    backgroundColor: Colors.surface,
+    padding: 22,
+    gap: 18,
   },
-  headerButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
+  heroWide: {
+    minHeight: 360,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.3)',
+    justifyContent: 'space-between',
+    paddingHorizontal: 72,
   },
-  headerRight: {
-    marginRight: 16,
+  heroText: {
+    flex: 1,
+    maxWidth: 620,
   },
-  heroContainer: {
-    width: '100%',
-    height: 220,
-    position: 'relative',
-    marginBottom: 24,
-    borderBottomWidth: 3,
-    borderBottomColor: Colors.gold,
+  kicker: {
+    color: Colors.lightGold,
+    fontSize: 13,
+    fontWeight: '800',
+    marginBottom: 10,
+  },
+  title: {
+    color: Colors.inverseText,
+    fontSize: 36,
+    lineHeight: 42,
+    fontWeight: '800',
+  },
+  titleCompact: {
+    fontSize: 31,
+    lineHeight: 37,
+    maxWidth: 340,
+  },
+  subtitle: {
+    color: '#E7DCCB',
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 12,
+  },
+  subtitleCompact: {
+    fontSize: 15,
+    lineHeight: 23,
+    maxWidth: 340,
   },
   heroImage: {
     width: '100%',
-    height: '100%',
+    height: 210,
+    borderRadius: 8,
   },
-  heroOverlay: {
-    position: 'absolute',
+  heroImageWide: {
+    width: 420,
+    height: 260,
+  },
+  toolbar: {
+    maxWidth: 1180,
     width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  heroTitleContainer: {
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: 'rgba(212, 175, 55, 0.7)',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    paddingHorizontal: 30,
-    paddingVertical: 16,
-    marginBottom: 12,
-  },
-  heroTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: Colors.gold,
-    letterSpacing: 3,
-    marginBottom: 10,
-    textShadowColor: 'rgba(0, 0, 0, 0.9)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
-  },
-  titleUnderline: {
-    height: 3,
-    width: 100,
-    backgroundColor: Colors.gold,
-    shadowColor: Colors.gold,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 6,
-    borderRadius: 1.5,
-  },
-  heroSubtitle: {
-    fontSize: 16,
-    color: '#ffffff',
-    textAlign: 'center',
-    letterSpacing: 1,
-    textShadowColor: 'rgba(0, 0, 0, 0.8)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-  },
-  searchContainer: {
+    alignSelf: 'center',
     flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    gap: 12,
+    gap: 10,
+    paddingHorizontal: 18,
+    marginTop: 20,
   },
-  searchInputContainer: {
+  searchBox: {
     flex: 1,
+    minHeight: 48,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    gap: 10,
+    backgroundColor: Colors.card,
     borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
     borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.4)',
+    borderColor: Colors.border,
+    paddingHorizontal: 14,
   },
-  searchPlaceholder: {
-    marginLeft: 8,
-    color: 'rgba(212, 175, 55, 0.6)',
-    fontStyle: 'italic',
+  searchInput: {
+    flex: 1,
+    color: Colors.text,
+    fontSize: 16,
+    outlineStyle: 'none' as any,
   },
-  filterButton: {
-    width: 44,
-    height: 44,
+  filterIcon: {
+    width: 48,
+    height: 48,
     borderRadius: 8,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    justifyContent: 'center',
+    backgroundColor: Colors.card,
     borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.4)',
+    borderColor: Colors.border,
   },
-  categoriesContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-    gap: 8,
+  categories: {
+    maxWidth: 1180,
+    width: '100%',
+    alignSelf: 'center',
+    gap: 10,
+    paddingHorizontal: 18,
+    paddingTop: 14,
+    paddingBottom: 4,
   },
-  categoryButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  category: {
+    minHeight: 40,
+    justifyContent: 'center',
+    borderRadius: 7,
+    paddingHorizontal: 14,
+    backgroundColor: Colors.card,
     borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.4)',
+    borderColor: Colors.border,
   },
-  categoryButtonActive: {
-    backgroundColor: Colors.gold,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+  categoryActive: {
+    backgroundColor: Colors.deepGold,
+    borderColor: Colors.deepGold,
   },
   categoryText: {
+    color: Colors.text,
     fontSize: 14,
-    fontWeight: '500',
-    color: '#ffffff',
+    fontWeight: '700',
   },
   categoryTextActive: {
-    color: '#231f20',
-    fontWeight: 'bold',
+    color: '#FFFFFF',
   },
-  divider: {
-    marginVertical: 16,
-    height: 20,
-  },
-  featuredSection: {
-    marginHorizontal: 16,
-    height: 200,
-    borderRadius: 12,
-    overflow: 'hidden',
-    marginBottom: 24,
-    position: 'relative',
-    borderWidth: 2,
-    borderColor: Colors.gold,
-    shadowColor: Colors.gold,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-  },
-  featuredImage: {
+  grid: {
+    maxWidth: 1180,
     width: '100%',
-    height: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 18,
+    paddingTop: 16,
+    gap: 14,
   },
-  featuredOverlay: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.65)',
-    justifyContent: 'center',
-  },
-  featuredContent: {
-    padding: 20,
-    alignItems: 'center',
-  },
-  featuredTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: Colors.gold,
-    marginBottom: 10,
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-    letterSpacing: 1,
-  },
-  featuredDescription: {
-    fontSize: 14,
-    color: '#ffffff',
-    textAlign: 'center',
-    marginBottom: 16,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 0.5, height: 0.5 },
-    textShadowRadius: 1,
-    lineHeight: 20,
-  },
-  featuredButton: {
-    backgroundColor: Colors.gold,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
-    shadowColor: Colors.gold,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-  },
-  featuredButtonText: {
-    color: '#231f20',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  productsGrid: {
+  gridWide: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: 12,
-    justifyContent: 'space-between',
-    marginBottom: 30,
   },
-  productCard: {
-    width: '48%',
-    marginBottom: 16,
-    borderRadius: 12,
+  card: {
+    backgroundColor: Colors.card,
+    borderRadius: 8,
     overflow: 'hidden',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.4)',
-    shadowColor: Colors.gold,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    borderColor: Colors.border,
+  },
+  cardWide: {
+    width: '31.8%',
+  },
+  cardSelected: {
+    borderColor: Colors.deepGold,
   },
   productImage: {
     width: '100%',
-    height: 160,
+    height: 190,
   },
-  productContent: {
-    padding: 12,
+  cardBody: {
+    padding: 16,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   productCategory: {
+    color: Colors.deepGold,
     fontSize: 12,
-    color: 'rgba(212, 175, 55, 0.7)',
-    marginBottom: 4,
+    fontWeight: '800',
+  },
+  selectedDot: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: Colors.deepGold,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   productName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: Colors.gold,
-    marginBottom: 4,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 0.5, height: 0.5 },
-    textShadowRadius: 1,
+    color: Colors.text,
+    fontSize: 19,
+    lineHeight: 24,
+    fontWeight: '800',
   },
   productDescription: {
-    fontSize: 12,
-    color: '#ffffff',
-    marginBottom: 8,
-    lineHeight: 16,
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 0.5, height: 0.5 },
-    textShadowRadius: 1,
+    color: Colors.lightText,
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: 8,
+  },
+  buyRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+    marginTop: 16,
   },
   productPrice: {
+    color: Colors.text,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: Colors.gold,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 0.5, height: 0.5 },
-    textShadowRadius: 1,
+    fontWeight: '800',
+  },
+  addText: {
+    color: Colors.deepGold,
+    fontSize: 14,
+    fontWeight: '800',
+  },
+  cartSummary: {
+    maxWidth: 1180,
+    width: '100%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginTop: 18,
+    paddingHorizontal: 18,
+  },
+  cartText: {
+    flex: 1,
+    color: Colors.lightText,
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  pressed: {
+    opacity: 0.94,
+    transform: [{ scale: 0.995 }],
   },
 });

@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Colors from '@/constants/colors';
+import GlobalActionDock from '@/components/GlobalActionDock';
 
 export default function RootLayout() {
   return (
@@ -26,6 +27,8 @@ export default function RootLayout() {
         >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
+
+        <GlobalActionDock />
       </View>
     </SafeAreaProvider>
   );

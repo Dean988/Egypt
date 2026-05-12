@@ -11,7 +11,7 @@ const routes = [
       { id: 'stop3', name: "Corredi Funerari", exhibitIds: ['ex7'] },
       { id: 'stop4', name: "Amuleti Protettivi", exhibitIds: ['ex12'] }
     ],
-    imageUrl: "https://www.crisalideviaggi.com/uploads/image/museo-egizio(1).jpg",
+    imageUrl: "https://www.giovanigenitori.it/wp-content/uploads/2023/06/Sala-14b-Galleria-dei-Re-1-scaled.jpg",
     difficulty: "medium",
     recommended: true,
     exhibits: ['ex5', 'ex3', 'ex7', 'ex12'] // Added exhibits array for compatibility

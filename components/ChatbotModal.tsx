@@ -233,9 +233,9 @@ export default function ChatbotModal({ isVisible, onClose }: ChatbotModalProps) 
               icon: <Ticket size={16} color={Colors.card} />
             },
             {
-              label: "Informazioni pratiche",
-              route: "/info",
-              icon: <Info size={16} color={Colors.card} />
+              label: "Apri lo shop",
+              route: "/shop",
+              icon: <ShoppingBag size={16} color={Colors.card} />
             }
           ]
         }
