@@ -23,10 +23,8 @@ export default function TabLayout() {
           fontWeight: '600',
         },
         tabBarItemStyle: {
+          flex: 1,
           minWidth: 0,
-          width: '20%',
-          maxWidth: '20%',
-          flexBasis: 0,
           paddingHorizontal: 0,
         },
         headerStyle: {
@@ -77,7 +75,6 @@ export default function TabLayout() {
         name="tickets"
         options={{
           title: "Biglietti",
-          href: null,
           tabBarIcon: ({ color }) => <Ticket size={23} color={color} />,
         }}
       />
